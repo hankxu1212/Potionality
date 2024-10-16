@@ -35,7 +35,7 @@ if (maek.OS === "windows") {
 		`/wd4297`, //unforunately SDLmain is nothrow
 		`/wd4100`, //unreferenced formal parameter
 		`/wd4201`, //nameless struct/union
-		`/wd4611`  //interaction between setjmp and C++ object destruction
+		`/wd4611`  //interaction between setjmp and C++ object destruction,
 	);
 	maek.options.LINKLibs.push(
 		`/LIBPATH:${NEST_LIBS}/SDL2/lib`, `SDL2main.lib`, `SDL2.lib`, `OpenGL32.lib`, `Shell32.lib`,
@@ -49,7 +49,7 @@ if (maek.OS === "windows") {
 		//include paths for nest libraries:
 		`-I${NEST_LIBS}/SDL2/include/SDL2`, `-D_THREAD_SAFE`, //the output of sdl-config --cflags
 		`-I${NEST_LIBS}/glm/include`,
-		`-I${NEST_LIBS}/libpng/include`
+		`-I${NEST_LIBS}/libpng/include`,
 	);
 	maek.options.LINKLibs.push(
 		//linker flags for nest libraries:
@@ -63,7 +63,7 @@ if (maek.OS === "windows") {
 		//include paths for nest libraries:
 		`-I${NEST_LIBS}/SDL2/include/SDL2`, `-D_THREAD_SAFE`, //the output of sdl-config --cflags
 		`-I${NEST_LIBS}/glm/include`,
-		`-I${NEST_LIBS}/libpng/include`
+		`-I${NEST_LIBS}/libpng/include`,
 	);
 	maek.options.LINKLibs.push(
 		//linker flags for nest libraries:
@@ -101,14 +101,35 @@ const game_objs = [
 	maek.CPP('data_path.cpp'),
 	maek.CPP('Mode.cpp'),
 	maek.CPP('gl_compile_program.cpp'),
-	maek.CPP('GL.cpp')
+	maek.CPP('GL.cpp'),
 ];
+
+const core_objs = [
+	maek.CPP('core/utils/Bitmap.cpp', undefined, {CPPFlags: [...maek.options.CPPFlags, '-Wno-deprecated-declarations']}),
+	maek.CPP('core/Files.cpp'),
+	maek.CPP('math/Math.cpp'),
+	maek.CPP('math/vector/Vec2.cpp'),
+	maek.CPP('math/vector/Vec3.cpp'),
+	maek.CPP('math/vector/Vec4.cpp'),
+	maek.CPP('math/color/Color.cpp'),
+	maek.CPP('math/color/Color3.cpp'),
+	maek.CPP('math/color/Color4.cpp'),
+	maek.CPP('math/matrix/Mat2.cpp'),
+	maek.CPP('math/matrix/Mat3.cpp'),
+	maek.CPP('math/matrix/Mat4.cpp'),
+]
 
 //the '[exeFile =] LINK(objFiles, exeFileBase, [, options])' links an array of objects into an executable:
 // objFiles: array of objects to link
 // exeFileBase: name of executable file to produce
 //returns exeFile: exeFileBase + a platform-dependant suffix (e.g., '.exe' on windows)
-const game_exe = maek.LINK(game_objs, 'dist/game');
+const game_exe = maek.LINK(
+	[
+		...game_objs,
+		...core_objs,
+	], 
+	'dist/game'
+);
 
 //set the default target to the game (and copy the readme files):
 maek.TARGETS = [game_exe, ...copies];
