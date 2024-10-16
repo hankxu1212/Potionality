@@ -34,44 +34,26 @@ void PlayMode::Init()
 			PPU::Tile tile;
 			uint8_t t = uint8_t((255 * index) / 16);
 			for (uint32_t y = 0; y < 8; ++y) {
-				uint8_t bit0 = 0;
-				uint8_t bit1 = 0;
 				for (uint32_t x = 0; x < 8; ++x) {
-					uint8_t d = distance[x+8*y];
-					if (d > t) {
-						bit0 |= (1 << x);
-					} else {
-						bit1 |= (1 << x);
-					}
+					uint8_t d = distance[x+8*y] * t;
+					tile.pixels[y * 8 + x] = d;
 				}
-				tile.bit0[y] = bit0;
-				tile.bit1[y] = bit1;
 			}
 			PPU::Get()->tile_table[index] = tile;
 		}
 	}
 
 	//use sprite 32 as a "player":
-	PPU::Get()->tile_table[32].bit0 = {
-		0b01111110,
-		0b11111111,
-		0b11111111,
-		0b11111111,
-		0b11111111,
-		0b11111111,
-		0b11111111,
-		0b01111110,
-	};
-	PPU::Get()->tile_table[32].bit1 = {
-		0b00000000,
-		0b00000000,
-		0b00011000,
-		0b00100100,
-		0b00000000,
-		0b00100100,
-		0b00000000,
-		0b00000000,
-	};
+	PPU::Get()->tile_table[32] = {{
+		0b01, 0b01, 0b01, 0b01, 0b01, 0b01, 0b01, 0b00,  // Row 1
+		0b11, 0b11, 0b11, 0b11, 0b11, 0b11, 0b11, 0b00,  // Row 2
+		0b11, 0b11, 0b11, 0b00, 0b00, 0b11, 0b11, 0b00,  // Row 3
+		0b11, 0b11, 0b00, 0b01, 0b01, 0b00, 0b11, 0b00,  // Row 4
+		0b11, 0b11, 0b11, 0b00, 0b00, 0b11, 0b11, 0b00,  // Row 5
+		0b11, 0b11, 0b00, 0b01, 0b01, 0b00, 0b11, 0b00,  // Row 6
+		0b11, 0b11, 0b11, 0b00, 0b00, 0b11, 0b11, 0b00,  // Row 7
+		0b01, 0b01, 0b01, 0b01, 0b01, 0b01, 0b01, 0b00   // Row 8
+	}};
 
 	PPU::Get()->palette_table.resize(64);
 	PPU::Get()->sprites.resize(128);

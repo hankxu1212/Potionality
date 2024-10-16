@@ -3,8 +3,7 @@
 #include <filesystem>
 #include "glm/glm.hpp"
 
-class Bitmap {
-public:
+struct Bitmap {
 	Bitmap() = default;
 	Bitmap(const std::filesystem::path& filename, bool HDR=false);
 	Bitmap(const glm::vec2 size, uint32_t bytesPerPixel = 4);

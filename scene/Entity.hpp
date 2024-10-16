@@ -21,10 +21,18 @@ public:
     // loads an image, and split it into a bunch of 8x8 sprites
     void Load(const std::string& relativePath);
 
+    struct SpriteInfo
+    {
+        PPU::Tile tile;
+        uint8_t palette; // index into local palette table
+    };
+
 private:
+    [[maybe_unused]] bool draw; // is this entity draw or no
     [[maybe_unused]] glm::uvec2 position;
-    [[maybe_unused]] std::vector<uint8_t> tileTableIndices; // index into global PPU table
-    [[maybe_unused]] std::vector<uint8_t> paletteIndices; // index into local palette
-    [[maybe_unused]] std::vector<uint8_t> priorityBits; // whether each of the tiles should be drawn
+    
+    // info for all the sprites, ordered row major
+    [[maybe_unused]] std::vector<SpriteInfo> info;
+    
     [[maybe_unused]] std::vector<PPU::Palette> palettes;
 };

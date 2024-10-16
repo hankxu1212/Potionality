@@ -39,22 +39,12 @@ struct PPU : public Module::Registrar<PPU>
 	// now an unconstrained size of palette tables, yay!
 	std::vector<Palette> palette_table;
 
-	//Tile:
-	// The PPU uses 8x8 2-bit indexed-color tiles:
-	// each tile is stored as two 8x8 "bit plane" images
-	//   each bit-plane image is stored in rows from bottom-to-top
-	//   each bit in a row corresponds to a pixel in increasing order:
-	//      [ b0 b1 b2 b3 b4 b5 b6 b7 ]
-	//
-	// For example, to read the color index at pixel (2,7):
-	//  bit0_at_2_7 = (tile.bit0[7] >> 2) & 1;
-	//  bit1_at_2_7 = (tile.bit1[7] >> 2) & 1;
-	//  color_index_at_2_7 = (bit1_at_2_7 << 1) | bit0_at_2_7;
+	// a tile is an 8x8, 8 bit index map into the palette color table
+	// this implies each tile can use up to 256 colors.
 	struct Tile {
-		std::array< uint8_t, 8 > bit0; //<-- controls bit 0 of the color index
-		std::array< uint8_t, 8 > bit1; //<-- controls bit 1 of the color index
+		std::array<uint8_t, 64> pixels;
 	};
-	static_assert(sizeof(Tile) == 16, "Tile is packed");
+	static_assert(sizeof(Tile) == 64 * 1, "Tile is packed");
 
 	//Tile Table:
 	// The PPU has a 256-tile 'pattern memory' in which tiles are stored:

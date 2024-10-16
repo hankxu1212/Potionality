@@ -66,18 +66,6 @@ Load< PPUDataStream > data_stream(LoadTagDefault);
 //-------------------------------------------------------------------
 
 PPU::PPU() {
-	for (auto &palette : palette_table) {
-		palette[0] = glm::u8vec4(0x00, 0x00, 0x00, 0x00);
-		palette[1] = glm::u8vec4(0x44, 0x44, 0x44, 0xff);
-		palette[2] = glm::u8vec4(0x99, 0x99, 0x99, 0xff);
-		palette[3] = glm::u8vec4(0xff, 0xff, 0xff, 0xff);
-	}
-
-	for (auto &tile : tile_table) {
-		tile.bit0 = { 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0 };
-		tile.bit1 = { 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff };
-	}
-
 	for (uint32_t i = 0; i < background.size(); ++i) {
 		background[i] = int16_t(
 			  (i % 8) << 8 //cycle through all palettes
@@ -208,7 +196,8 @@ void PPU::draw(glm::uvec2 const &drawable_size) const {
 
 	{ //build + upload tile table texture:
 		//interpret tiles and build a 128 x 128 index texture:
-		static std::array< uint8_t, 128 * 128 > data;
+		constexpr uint32_t size = (16 * 16) * (8 * 8); // num tiles * tile size
+		static std::array< uint8_t, size> data;
 		for (uint32_t i = 0; i < tile_table.size(); ++i) {
 			Tile const &tile = tile_table[i];
 
@@ -219,9 +208,7 @@ void PPU::draw(glm::uvec2 const &drawable_size) const {
 			//copy tile indices into texture:
 			for (uint32_t y = 0; y < 8; ++y) {
 				for (uint32_t x = 0; x < 8; ++x) {
-					data[ox+x + 128 * (oy+y)] =
-						  ((tile.bit0[y] >> x) & 1)
-						| ((tile.bit1[y] >> x) & 1) << 1;
+					data[ox+x + 128 * (oy+y)] = tile.pixels[y * 8 + x];
 				}
 			}
 		}
