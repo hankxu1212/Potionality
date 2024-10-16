@@ -11,39 +11,25 @@
 struct PPU466 {
 	PPU466();
 
-	//--------------------------------------------------------------
-	//Call these functions to draw with the PPU:
-
-	//when you wish the PPU to draw, tell it so:
-	// pass the size of the current framebuffer in pixels so it knows how to scale itself
+	// drawable_size: the size of the current framebuffer in pixels so it knows how to scale itself
 	void draw(glm::uvec2 const &drawable_size) const;
 
-	//--------------------------------------------------------------
-	//Set the values below to control the PPU's drawing:
-
-	//The PPU's screen is 256x240:
+	// the screen size
 	// the origin -- pixel (0,0) -- is in the lower left
 	enum : uint32_t {
 		ScreenWidth = 256,
 		ScreenHeight = 240
 	};
 
-	//Background Color:
 	// The PPU clears the screen to the background color before other drawing takes place.
 	glm::u8vec3 background_color = glm::u8vec3(0x00, 0x00, 0x00);
 
-	//Palette:
-	// The PPU uses 2-bit indexed color;
-	// thus, a color palette has four entries.
+	// colors are 2-bit indexed RGBA: thus, a color palette has four entries.
 	typedef std::array< glm::u8vec4, 4 > Palette;
-	// Each color in a Palette can be any RGBA color.
-	// For a "true NES" experience, you should set:
-	//   color 0 to fully transparent (a = 0)
-	//   and color 1-3 to fully opaque (a = 0xff)
-
-	//Palette Table:
-	// The PPU stores 8 palettes for use when drawing tiles:
-	std::array< Palette, 8 > palette_table;
+	static_assert(sizeof(Palette) == 16);
+	
+	// now an unconstrained size of palette tables, yay!
+	std::vector<Palette> palette_table;
 
 	//Tile:
 	// The PPU uses 8x8 2-bit indexed-color tiles:
@@ -131,9 +117,7 @@ struct PPU466 {
 	//  or bottom edges of the screen. Yep! This is [similar to] a limitation of the NES PPU!
 
 
-	//Sprites:
-	// The PPU always draws exactly 64 sprites:
-	//  any sprites you don't want to use should be moved off the screen (y >= 240)
-	std::array< Sprite, 64 > sprites;
-
+	// any sprites you don't want to use should be moved off the screen (y >= 240)
+	// now supports unlimited number of sprites! yay!
+	std::vector<Sprite> sprites;
 };

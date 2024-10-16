@@ -5,8 +5,10 @@
 
 //for glm::value_ptr() :
 #include <glm/gtc/type_ptr.hpp>
-
 #include <random>
+
+#include "math/Math.hpp"
+
 
 PlayMode::PlayMode() {
 	//TODO:
@@ -69,6 +71,9 @@ PlayMode::PlayMode() {
 		0b00000000,
 		0b00000000,
 	};
+
+	ppu.palette_table.resize(64);
+	ppu.sprites.resize(128);
 
 	//makes the outside of tiles 0-16 solid:
 	ppu.palette_table[0] = {

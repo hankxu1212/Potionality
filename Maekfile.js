@@ -119,6 +119,11 @@ const core_objs = [
 	maek.CPP('math/matrix/Mat4.cpp'),
 ]
 
+const scene_objs = [
+	maek.CPP('scene/Entity.cpp'),
+	maek.CPP('scene/Scene.cpp'),
+]
+
 //the '[exeFile =] LINK(objFiles, exeFileBase, [, options])' links an array of objects into an executable:
 // objFiles: array of objects to link
 // exeFileBase: name of executable file to produce
@@ -127,6 +132,7 @@ const game_exe = maek.LINK(
 	[
 		...game_objs,
 		...core_objs,
+		...scene_objs
 	], 
 	'dist/game'
 );
