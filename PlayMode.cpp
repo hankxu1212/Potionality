@@ -8,7 +8,7 @@
 #include <random>
 
 #include "math/Math.hpp"
-
+#include "scene/SceneManager.hpp"
 
 void PlayMode::Init()
 {
@@ -16,6 +16,10 @@ void PlayMode::Init()
 	auto& registry = Module::GetRegistry();
 	for (auto it = registry.begin(); it != registry.end(); ++it)
 		CreateModule(it);
+
+	// load some testing pngs
+	Entity e;
+	e.Load("resources/test.png");
 
 	{ //use tiles 0-16 as some weird dot pattern thing:
 		std::array< uint8_t, 8*8 > distance;
@@ -27,7 +31,7 @@ void PlayMode::Init()
 			}
 		}
 		for (uint32_t index = 0; index < 16; ++index) {
-			PPU466::Tile tile;
+			PPU::Tile tile;
 			uint8_t t = uint8_t((255 * index) / 16);
 			for (uint32_t y = 0; y < 8; ++y) {
 				uint8_t bit0 = 0;
@@ -43,12 +47,12 @@ void PlayMode::Init()
 				tile.bit0[y] = bit0;
 				tile.bit1[y] = bit1;
 			}
-			PPU466::Get()->tile_table[index] = tile;
+			PPU::Get()->tile_table[index] = tile;
 		}
 	}
 
 	//use sprite 32 as a "player":
-	PPU466::Get()->tile_table[32].bit0 = {
+	PPU::Get()->tile_table[32].bit0 = {
 		0b01111110,
 		0b11111111,
 		0b11111111,
@@ -58,7 +62,7 @@ void PlayMode::Init()
 		0b11111111,
 		0b01111110,
 	};
-	PPU466::Get()->tile_table[32].bit1 = {
+	PPU::Get()->tile_table[32].bit1 = {
 		0b00000000,
 		0b00000000,
 		0b00011000,
@@ -69,11 +73,11 @@ void PlayMode::Init()
 		0b00000000,
 	};
 
-	PPU466::Get()->palette_table.resize(64);
-	PPU466::Get()->sprites.resize(128);
+	PPU::Get()->palette_table.resize(64);
+	PPU::Get()->sprites.resize(128);
 
 	//makes the outside of tiles 0-16 solid:
-	PPU466::Get()->palette_table[0] = {
+	PPU::Get()->palette_table[0] = {
 		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
 		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
 		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
@@ -81,7 +85,7 @@ void PlayMode::Init()
 	};
 
 	//makes the center of tiles 0-16 solid:
-	PPU466::Get()->palette_table[1] = {
+	PPU::Get()->palette_table[1] = {
 		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
 		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
 		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
@@ -89,7 +93,7 @@ void PlayMode::Init()
 	};
 
 	//used for the player:
-	PPU466::Get()->palette_table[7] = {
+	PPU::Get()->palette_table[7] = {
 		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
 		glm::u8vec4(0xff, 0xff, 0x00, 0xff),
 		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
@@ -97,7 +101,7 @@ void PlayMode::Init()
 	};
 
 	//used for the misc other sprites:
-	PPU466::Get()->palette_table[6] = {
+	PPU::Get()->palette_table[6] = {
 		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
 		glm::u8vec4(0x88, 0x88, 0xff, 0xff),
 		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
@@ -109,8 +113,8 @@ PlayMode::~PlayMode() {
 	DestroyModules();
 }
 
-bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
-
+bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) 
+{
 	if (evt.type == SDL_KEYDOWN) {
 		if (evt.key.keysym.sym == SDLK_LEFT) {
 			left.downs += 1;
@@ -149,7 +153,7 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
-	UpdateModules(); // update all engine modules
+	UpdateModules(); // update all engine modules except Render stage
 
 	//slowly rotates through [0,1):
 	// (will be used to set background color)
@@ -173,7 +177,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	//--- set ppu state based on game state ---
 
 	//background color will be some hsv-like fade:
-	PPU466::Get()->background_color = glm::u8vec4(
+	PPU::Get()->background_color = glm::u8vec4(
 		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 0.0f / 3.0f) ) ) ))),
 		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 1.0f / 3.0f) ) ) ))),
 		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 2.0f / 3.0f) ) ) ))),
@@ -182,35 +186,37 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 
 	//tilemap gets recomputed every frame as some weird plasma thing:
 	//NOTE: don't do this in your game! actually make a map or something :-)
-	for (uint32_t y = 0; y < PPU466::BackgroundHeight; ++y) {
-		for (uint32_t x = 0; x < PPU466::BackgroundWidth; ++x) {
+	for (uint32_t y = 0; y < PPU::BackgroundHeight; ++y) {
+		for (uint32_t x = 0; x < PPU::BackgroundWidth; ++x) {
 			//TODO: make weird plasma thing
-			PPU466::Get()->background[x+PPU466::BackgroundWidth*y] = ((x+y)%16);
+			PPU::Get()->background[x+PPU::BackgroundWidth*y] = ((x+y)%16);
 		}
 	}
 
 	//background scroll:
-	PPU466::Get()->background_position.x = int32_t(-0.5f * player_at.x);
-	PPU466::Get()->background_position.y = int32_t(-0.5f * player_at.y);
+	PPU::Get()->background_position.x = int32_t(-0.5f * player_at.x);
+	PPU::Get()->background_position.y = int32_t(-0.5f * player_at.y);
 
 	//player sprite:
-	PPU466::Get()->sprites[0].x = int8_t(player_at.x);
-	PPU466::Get()->sprites[0].y = int8_t(player_at.y);
-	PPU466::Get()->sprites[0].index = 32;
-	PPU466::Get()->sprites[0].attributes = 7;
+	PPU::Get()->sprites[0].x = int8_t(player_at.x);
+	PPU::Get()->sprites[0].y = int8_t(player_at.y);
+	PPU::Get()->sprites[0].index = 32;
+	PPU::Get()->sprites[0].attributes = 7;
 
 	//some other misc sprites:
 	for (uint32_t i = 1; i < 63; ++i) {
 		float amt = (i + 2.0f * background_fade) / 62.0f;
-		PPU466::Get()->sprites[i].x = int8_t(0.5f * PPU466::ScreenWidth + std::cos( 2.0f * M_PI * amt * 5.0f + 0.01f * player_at.x) * 0.4f * PPU466::ScreenWidth);
-		PPU466::Get()->sprites[i].y = int8_t(0.5f * PPU466::ScreenHeight + std::sin( 2.0f * M_PI * amt * 3.0f + 0.01f * player_at.y) * 0.4f * PPU466::ScreenWidth);
-		PPU466::Get()->sprites[i].index = 32;
-		PPU466::Get()->sprites[i].attributes = 6;
-		if (i % 2) PPU466::Get()->sprites[i].attributes |= 0x80; //'behind' bit
+		PPU::Get()->sprites[i].x = int8_t(0.5f * PPU::ScreenWidth + std::cos( 2.0f * M_PI * amt * 5.0f + 0.01f * player_at.x) * 0.4f * PPU::ScreenWidth);
+		PPU::Get()->sprites[i].y = int8_t(0.5f * PPU::ScreenHeight + std::sin( 2.0f * M_PI * amt * 3.0f + 0.01f * player_at.y) * 0.4f * PPU::ScreenWidth);
+		PPU::Get()->sprites[i].index = 32;
+		PPU::Get()->sprites[i].attributes = 6;
+		if (i % 2) PPU::Get()->sprites[i].attributes |= 0x80; //'behind' bit
 	}
 
 	//--- actually draw ---
-	PPU466::Get()->draw(drawable_size);
+	PPU::Get()->draw(drawable_size);
+
+	UpdateStage(Module::UpdateStage::Render);
 }
 
 void PlayMode::UpdateModules()
@@ -218,7 +224,6 @@ void PlayMode::UpdateModules()
 	UpdateStage(Module::UpdateStage::Pre);
 	UpdateStage(Module::UpdateStage::Normal);
 	UpdateStage(Module::UpdateStage::Post);
-	UpdateStage(Module::UpdateStage::Render);
 }
 
 void PlayMode::DestroyModules()

@@ -30,14 +30,16 @@ struct PlayMode : Mode {
 	//player position:
 	glm::vec2 player_at = glm::vec2(0.0f);
 
-	//----- program modules -----
-	void UpdateModules();
-	void DestroyModules();
+	//----- scene management -----
+	// Scene scene;
 
+	//----- program modules -----
 	std::map<TypeId, std::unique_ptr<Module>>				m_Modules; // a list of program modules
 	std::map<Module::UpdateStage, std::vector<TypeId>>		m_ModuleStages; // when to update them
 	std::map<Module::DestroyStage, std::vector<TypeId>>		m_ModuleDestroyStages; // when to destroy them
 
+	void UpdateModules();
+	void DestroyModules();
 	void CreateModule(Module::RegistryMap::const_iterator it);
 	void DestroyModule(TypeId id, Module::DestroyStage stage);
 	void UpdateStage(Module::UpdateStage stage);

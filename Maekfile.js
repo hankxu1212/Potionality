@@ -121,6 +121,7 @@ const core_objs = [
 const scene_objs = [
 	maek.CPP('scene/Entity.cpp'),
 	maek.CPP('scene/Scene.cpp'),
+	maek.CPP('scene/SceneManager.cpp'),
 ]
 
 //the '[exeFile =] LINK(objFiles, exeFileBase, [, options])' links an array of objects into an executable:

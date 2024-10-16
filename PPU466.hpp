@@ -10,14 +10,14 @@
 
 #include "core/Module.hpp"
 
-struct PPU466 : public Module::Registrar<PPU466>
+struct PPU : public Module::Registrar<PPU>
 {
 	// a dummy bool to initialize a global module
 	inline static const bool Registered = Register(UpdateStage::Never, DestroyStage::Post);
 
 	void Update() override {}
 
-	PPU466();
+	PPU();
 
 	// drawable_size: the size of the current framebuffer in pixels so it knows how to scale itself
 	void draw(glm::uvec2 const &drawable_size) const;

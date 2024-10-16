@@ -9,7 +9,7 @@
 
 #include <vector>
 
-//In order to implement the PPU466 on modern graphics hardware, a fancy, special purpose tile-drawing shader is used:
+//In order to implement the PPU on modern graphics hardware, a fancy, special purpose tile-drawing shader is used:
 struct PPUTileProgram {
 	PPUTileProgram();
 	~PPUTileProgram();
@@ -65,7 +65,7 @@ Load< PPUDataStream > data_stream(LoadTagDefault);
 
 //-------------------------------------------------------------------
 
-PPU466::PPU466() {
+PPU::PPU() {
 	for (auto &palette : palette_table) {
 		palette[0] = glm::u8vec4(0x00, 0x00, 0x00, 0x00);
 		palette[1] = glm::u8vec4(0x44, 0x44, 0x44, 0xff);
@@ -86,7 +86,7 @@ PPU466::PPU466() {
 	}
 }
 
-void PPU466::draw(glm::uvec2 const &drawable_size) const {
+void PPU::draw(glm::uvec2 const &drawable_size) const {
 	//this code does screen scaling by manipulating the viewport, so save old values:
 	GLint old_viewport[4];
 	glGetIntegerv(GL_VIEWPORT, old_viewport);
