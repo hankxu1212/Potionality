@@ -108,6 +108,8 @@ int main(int argc, char **argv) {
 	//------------ create game mode + make current --------------
 	Mode::set_current(std::make_shared< PlayMode >());
 
+	Mode::current->Init();
+
 	//------------ main loop ------------
 
 	//this inline function will be called whenever the window is resized,

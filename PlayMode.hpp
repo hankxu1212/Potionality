@@ -5,12 +5,13 @@
 
 #include <vector>
 #include <deque>
+#include <map>
 
 struct PlayMode : Mode {
-	PlayMode();
 	virtual ~PlayMode();
 
 	//functions called by main loop:
+	virtual void Init() override;
 	virtual bool handle_event(SDL_Event const &, glm::uvec2 const &window_size) override;
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const &drawable_size) override;
@@ -29,7 +30,16 @@ struct PlayMode : Mode {
 	//player position:
 	glm::vec2 player_at = glm::vec2(0.0f);
 
-	//----- drawing handled by PPU466 -----
+	//----- program modules -----
+	void UpdateModules();
+	void DestroyModules();
 
-	PPU466 ppu;
+	std::map<TypeId, std::unique_ptr<Module>>				m_Modules; // a list of program modules
+	std::map<Module::UpdateStage, std::vector<TypeId>>		m_ModuleStages; // when to update them
+	std::map<Module::DestroyStage, std::vector<TypeId>>		m_ModuleDestroyStages; // when to destroy them
+
+	void CreateModule(Module::RegistryMap::const_iterator it);
+	void DestroyModule(TypeId id, Module::DestroyStage stage);
+	void UpdateStage(Module::UpdateStage stage);
+	void DestroyStage(Module::DestroyStage stage);
 };

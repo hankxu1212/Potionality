@@ -8,6 +8,8 @@
 struct Mode : std::enable_shared_from_this< Mode > {
 	virtual ~Mode() { }
 
+	virtual void Init() {}
+
 	//handle_event is called when new mouse or keyboard events are received:
 	// (note that this might be many times per frame or never)
 	//The function should return 'true' if it handled the event.

@@ -8,7 +8,15 @@
 #include <glm/glm.hpp>
 #include <array>
 
-struct PPU466 {
+#include "core/Module.hpp"
+
+struct PPU466 : public Module::Registrar<PPU466>
+{
+	// a dummy bool to initialize a global module
+	inline static const bool Registered = Register(UpdateStage::Never, DestroyStage::Post);
+
+	void Update() override {}
+
 	PPU466();
 
 	// drawable_size: the size of the current framebuffer in pixels so it knows how to scale itself
