@@ -32,15 +32,15 @@ struct PPU : public Module::Registrar<PPU>
 	// The PPU clears the screen to the background color before other drawing takes place.
 	glm::u8vec3 background_color = glm::u8vec3(0x00, 0x00, 0x00);
 
-	// colors are 2-bit indexed RGBA: thus, a color palette has four entries.
-	typedef std::array< glm::u8vec4, 4 > Palette;
-	static_assert(sizeof(Palette) == 16);
+	// a palette holds 16 colors
+	typedef std::array< glm::u8vec4, 16 > Palette;
+	static_assert(sizeof(Palette) == 16 * 4);
 	
-	// now an unconstrained size of palette tables, yay!
+	// an unconstrained size of palette tables, yay!
 	std::vector<Palette> palette_table;
 
-	// a tile is an 8x8, 8 bit index map into the palette color table
-	// this implies each tile can use up to 256 colors.
+	// a tile is an 8x8, 4 bit index map into the palette color table
+	// this implies each tile can use up to 16 colors.
 	struct Tile {
 		std::array<uint8_t, 64> pixels;
 	};
@@ -93,10 +93,10 @@ struct PPU : public Module::Registrar<PPU>
 	//
 	//  the sprite 'attributes' byte gives:
 	//   bits:  7 6 5 4 3 2 1 0
-	//         |-|-------|-----|
-	//          ^    ^      ^
-	//          |    |      '---- palette index (bits 0-2)
-	//          |    '----------- unused (set to zero)
+	//         |-|---|---------|
+	//          ^  ^     ^
+	//          |  |-----|------ palette index (bits 0-4) (update: now palette holds 16 colors)
+	//          |  ------------ unused (set to zero)
 	//          '---------------- priority bit (bit 7)
 	//
 	//  the 'priority bit' chooses whether to render the sprite

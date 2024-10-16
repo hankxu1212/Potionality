@@ -134,7 +134,7 @@ void PPU::draw(glm::uvec2 const &drawable_size) const {
 			draw_tile(
 				glm::ivec2(sprite.x, sprite.y),
 				sprite.index,
-				sprite.attributes & 0x07 //just the palette index part
+				sprite.attributes & 0b11111 //just the palette index part
 			);
 		}
 	};
@@ -190,7 +190,7 @@ void PPU::draw(glm::uvec2 const &drawable_size) const {
 
 	{ //upload palette texture:
 		glBindTexture(GL_TEXTURE_2D, data_stream->palette_tex);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 4, GLsizei(palette_table.size()), 0, GL_RGBA, GL_UNSIGNED_BYTE, palette_table.data());
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 16, GLsizei(palette_table.size()), 0, GL_RGBA, GL_UNSIGNED_BYTE, palette_table.data());
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 

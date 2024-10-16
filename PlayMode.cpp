@@ -20,74 +20,27 @@ void PlayMode::Init()
 	// load some testing pngs
 	Entity e;
 	e.Load("resources/test.png");
-
-	{ //use tiles 0-16 as some weird dot pattern thing:
-		std::array< uint8_t, 8*8 > distance;
-		for (uint32_t y = 0; y < 8; ++y) {
-			for (uint32_t x = 0; x < 8; ++x) {
-				float d = glm::length(glm::vec2((x + 0.5f) - 4.0f, (y + 0.5f) - 4.0f));
-				d /= glm::length(glm::vec2(4.0f, 4.0f));
-				distance[x+8*y] = uint8_t(std::max(0,std::min(255,int32_t( 255.0f * d ))));
-			}
-		}
-		for (uint32_t index = 0; index < 16; ++index) {
-			PPU::Tile tile;
-			uint8_t t = uint8_t((255 * index) / 16);
-			for (uint32_t y = 0; y < 8; ++y) {
-				for (uint32_t x = 0; x < 8; ++x) {
-					uint8_t d = distance[x+8*y] * t;
-					tile.pixels[y * 8 + x] = d;
-				}
-			}
-			PPU::Get()->tile_table[index] = tile;
-		}
-	}
-
-	//use sprite 32 as a "player":
+	
 	PPU::Get()->tile_table[32] = {{
-		0b01, 0b01, 0b01, 0b01, 0b01, 0b01, 0b01, 0b00,  // Row 1
-		0b11, 0b11, 0b11, 0b11, 0b11, 0b11, 0b11, 0b00,  // Row 2
-		0b11, 0b11, 0b11, 0b00, 0b00, 0b11, 0b11, 0b00,  // Row 3
-		0b11, 0b11, 0b00, 0b01, 0b01, 0b00, 0b11, 0b00,  // Row 4
-		0b11, 0b11, 0b11, 0b00, 0b00, 0b11, 0b11, 0b00,  // Row 5
-		0b11, 0b11, 0b00, 0b01, 0b01, 0b00, 0b11, 0b00,  // Row 6
-		0b11, 0b11, 0b11, 0b00, 0b00, 0b11, 0b11, 0b00,  // Row 7
-		0b01, 0b01, 0b01, 0b01, 0b01, 0b01, 0b01, 0b00   // Row 8
+		0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // Row 1
+		0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // Row 2
+		0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,  // Row 3
+		0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00,  // Row 4
+		0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,  // Row 5
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,  // Row 6
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00,  // Row 7
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01   // Row 8
 	}};
 
 	PPU::Get()->palette_table.resize(64);
 	PPU::Get()->sprites.resize(128);
 
-	//makes the outside of tiles 0-16 solid:
-	PPU::Get()->palette_table[0] = {
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-	};
-
-	//makes the center of tiles 0-16 solid:
-	PPU::Get()->palette_table[1] = {
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-	};
-
 	//used for the player:
 	PPU::Get()->palette_table[7] = {
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
 		glm::u8vec4(0xff, 0xff, 0x00, 0xff),
+		glm::u8vec4(0x00, 0xff, 0x00, 0xff),
 		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
 		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-	};
-
-	//used for the misc other sprites:
-	PPU::Get()->palette_table[6] = {
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x88, 0x88, 0xff, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
 	};
 }
 
@@ -166,15 +119,6 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 		0xff
 	);
 
-	//tilemap gets recomputed every frame as some weird plasma thing:
-	//NOTE: don't do this in your game! actually make a map or something :-)
-	for (uint32_t y = 0; y < PPU::BackgroundHeight; ++y) {
-		for (uint32_t x = 0; x < PPU::BackgroundWidth; ++x) {
-			//TODO: make weird plasma thing
-			PPU::Get()->background[x+PPU::BackgroundWidth*y] = ((x+y)%16);
-		}
-	}
-
 	//background scroll:
 	PPU::Get()->background_position.x = int32_t(-0.5f * player_at.x);
 	PPU::Get()->background_position.y = int32_t(-0.5f * player_at.y);
@@ -184,16 +128,6 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	PPU::Get()->sprites[0].y = int8_t(player_at.y);
 	PPU::Get()->sprites[0].index = 32;
 	PPU::Get()->sprites[0].attributes = 7;
-
-	//some other misc sprites:
-	for (uint32_t i = 1; i < 63; ++i) {
-		float amt = (i + 2.0f * background_fade) / 62.0f;
-		PPU::Get()->sprites[i].x = int8_t(0.5f * PPU::ScreenWidth + std::cos( 2.0f * M_PI * amt * 5.0f + 0.01f * player_at.x) * 0.4f * PPU::ScreenWidth);
-		PPU::Get()->sprites[i].y = int8_t(0.5f * PPU::ScreenHeight + std::sin( 2.0f * M_PI * amt * 3.0f + 0.01f * player_at.y) * 0.4f * PPU::ScreenWidth);
-		PPU::Get()->sprites[i].index = 32;
-		PPU::Get()->sprites[i].attributes = 6;
-		if (i % 2) PPU::Get()->sprites[i].attributes |= 0x80; //'behind' bit
-	}
 
 	//--- actually draw ---
 	PPU::Get()->draw(drawable_size);
