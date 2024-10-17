@@ -19,11 +19,26 @@ void PlayMode::Init()
 }
 
 PlayMode::~PlayMode() {
-	DestroyModules();
+	DestroyStage(Module::DestroyStage::Pre);
+
+	m_LayerStack.Detach();
+
+	DestroyStage(Module::DestroyStage::Normal);
+
+	m_LayerStack.Destroy();
+
+	DestroyStage(Module::DestroyStage::Post);
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) 
 {
+	// each layerstack handles events
+	for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
+	{
+		if ((*it)->OnEvent(evt))
+			break;
+	}
+
 	if (evt.type == SDL_KEYDOWN) {
 		if (evt.key.keysym.sym == SDLK_LEFT) {
 			left.downs += 1;
@@ -62,8 +77,18 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
-	UpdateStage(Module::UpdateStage::Pre);
-	UpdateStage(Module::UpdateStage::Normal);
+	// runs application updates. dont edit or add code before this. 
+	{
+		UpdateStage(Module::UpdateStage::Pre);
+		UpdateStage(Module::UpdateStage::Normal);
+
+		for (Layer* layer : m_LayerStack)
+		{
+			layer->OnUpdate();
+		}
+
+		UpdateStage(Module::UpdateStage::Post);
+	}
 
 	//slowly rotates through [0,1):
 	// (will be used to set background color)
@@ -88,14 +113,6 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	PPU::Get()->draw(drawable_size);
 
 	UpdateStage(Module::UpdateStage::Render);
-	UpdateStage(Module::UpdateStage::Post);
-}
-
-void PlayMode::DestroyModules()
-{
-	DestroyStage(Module::DestroyStage::Pre);
-	DestroyStage(Module::DestroyStage::Normal);
-	DestroyStage(Module::DestroyStage::Post);
 }
 
 void PlayMode::CreateModule(Module::RegistryMap::const_iterator it)

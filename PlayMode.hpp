@@ -8,6 +8,7 @@
 #include <map>
 
 #include "scene/SceneManager.hpp"
+#include "core/layers/LayerStack.hpp"
 
 struct PlayMode : Mode {
 	virtual ~PlayMode();
@@ -34,13 +35,16 @@ struct PlayMode : Mode {
 
 	//----- scene management -----
 	// Scene scene;
+	
+	//----- stacks and scripting -----
+	LayerStack												m_LayerStack;
 
 	//----- program modules -----
+
 	std::map<TypeId, std::unique_ptr<Module>>				m_Modules; // a list of program modules
 	std::map<Module::UpdateStage, std::vector<TypeId>>		m_ModuleStages; // when to update them
 	std::map<Module::DestroyStage, std::vector<TypeId>>		m_ModuleDestroyStages; // when to destroy them
 
-	void DestroyModules();
 	void CreateModule(Module::RegistryMap::const_iterator it);
 	void DestroyModule(TypeId id, Module::DestroyStage stage);
 	void UpdateStage(Module::UpdateStage stage);

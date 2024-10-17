@@ -34,8 +34,8 @@ private:
 
     void LoadOne(glm::u8vec4* pixels, uint32_t index);
 
-    [[maybe_unused]] bool draw; // is this entity draw or no
-    [[maybe_unused]] glm::uvec2 position;
+    bool draw; // is this entity draw or no
+    glm::uvec2 position;
     
     // info for all the sprites, ordered row major
     std::vector<SpriteInfo> info;
