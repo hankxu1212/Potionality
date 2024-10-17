@@ -6,13 +6,15 @@
 class Scene
 {
 public:
-	Scene() = default;
+	Scene();
 	~Scene();
 
-	void Load(const std::string& path);
 	void Unload();
 
 	void Update();
 
 	void Render();
+
+private:
+	std::vector<std::unique_ptr<Entity>> entities;
 };

@@ -115,7 +115,6 @@ struct PPU : public Module::Registrar<PPU>
 	// The observant among you will notice that you can't draw a sprite moving off the left
 	//  or bottom edges of the screen. Yep! This is [similar to] a limitation of the NES PPU!
 
-
 	// any sprites you don't want to use should be moved off the screen (y >= 240)
 	// now supports unlimited number of sprites! yay!
 	std::vector<Sprite> sprites;

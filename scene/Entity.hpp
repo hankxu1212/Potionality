@@ -28,12 +28,18 @@ public:
     };
 
 private:
+    friend class Scene;
+
+    void LoadSprites();
+
+    void LoadOne(glm::u8vec4* pixels, uint32_t index);
+
     [[maybe_unused]] bool draw; // is this entity draw or no
     [[maybe_unused]] glm::uvec2 position;
     
     // info for all the sprites, ordered row major
-    [[maybe_unused]] std::vector<SpriteInfo> info;
-    
-    [[maybe_unused]] std::vector<PPU::Palette> palettes;
-    int currentColor = -1; // index into palettes.back(), indicating the first available slot for inserting a new color
+    std::vector<SpriteInfo> info;
+
+    // all the palettes used. Can be reduced in size later
+    std::vector<PPU::Palette> palettes;
 };

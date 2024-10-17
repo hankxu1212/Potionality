@@ -7,6 +7,8 @@
 #include <deque>
 #include <map>
 
+#include "scene/SceneManager.hpp"
+
 struct PlayMode : Mode {
 	virtual ~PlayMode();
 
@@ -38,7 +40,6 @@ struct PlayMode : Mode {
 	std::map<Module::UpdateStage, std::vector<TypeId>>		m_ModuleStages; // when to update them
 	std::map<Module::DestroyStage, std::vector<TypeId>>		m_ModuleDestroyStages; // when to destroy them
 
-	void UpdateModules();
 	void DestroyModules();
 	void CreateModule(Module::RegistryMap::const_iterator it);
 	void DestroyModule(TypeId id, Module::DestroyStage stage);

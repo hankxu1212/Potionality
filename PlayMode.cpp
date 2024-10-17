@@ -16,32 +16,6 @@ void PlayMode::Init()
 	auto& registry = Module::GetRegistry();
 	for (auto it = registry.begin(); it != registry.end(); ++it)
 		CreateModule(it);
-
-	// load some testing pngs
-	Entity e;
-	e.Load("resources/test.png");
-	
-	PPU::Get()->tile_table[32] = {{
-		0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // Row 1
-		0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  // Row 2
-		0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,  // Row 3
-		0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00,  // Row 4
-		0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,  // Row 5
-		0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,  // Row 6
-		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00,  // Row 7
-		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01   // Row 8
-	}};
-
-	PPU::Get()->palette_table.resize(64);
-	PPU::Get()->sprites.resize(128);
-
-	//used for the player:
-	PPU::Get()->palette_table[7] = {
-		glm::u8vec4(0xff, 0xff, 0x00, 0xff),
-		glm::u8vec4(0x00, 0xff, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-	};
 }
 
 PlayMode::~PlayMode() {
@@ -88,7 +62,8 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
-	UpdateModules(); // update all engine modules except Render stage
+	UpdateStage(Module::UpdateStage::Pre);
+	UpdateStage(Module::UpdateStage::Normal);
 
 	//slowly rotates through [0,1):
 	// (will be used to set background color)
@@ -109,36 +84,10 @@ void PlayMode::update(float elapsed) {
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
-	//--- set ppu state based on game state ---
-
-	//background color will be some hsv-like fade:
-	PPU::Get()->background_color = glm::u8vec4(
-		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 0.0f / 3.0f) ) ) ))),
-		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 1.0f / 3.0f) ) ) ))),
-		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 2.0f / 3.0f) ) ) ))),
-		0xff
-	);
-
-	//background scroll:
-	PPU::Get()->background_position.x = int32_t(-0.5f * player_at.x);
-	PPU::Get()->background_position.y = int32_t(-0.5f * player_at.y);
-
-	//player sprite:
-	PPU::Get()->sprites[0].x = int8_t(player_at.x);
-	PPU::Get()->sprites[0].y = int8_t(player_at.y);
-	PPU::Get()->sprites[0].index = 32;
-	PPU::Get()->sprites[0].attributes = 7;
-
 	//--- actually draw ---
 	PPU::Get()->draw(drawable_size);
 
 	UpdateStage(Module::UpdateStage::Render);
-}
-
-void PlayMode::UpdateModules()
-{
-	UpdateStage(Module::UpdateStage::Pre);
-	UpdateStage(Module::UpdateStage::Normal);
 	UpdateStage(Module::UpdateStage::Post);
 }
 

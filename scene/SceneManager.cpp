@@ -4,6 +4,7 @@
 SceneManager::SceneManager()
 {
 	scene = std::make_unique<Scene>();
+	LoadDefault();
 }
 
 SceneManager::~SceneManager()
