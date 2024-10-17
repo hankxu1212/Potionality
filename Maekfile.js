@@ -26,6 +26,12 @@ const NEST_LIBS = `../nest-libs/${maek.OS}`;
 if (maek.OS === "windows") {
 	maek.options.CPPFlags.push(
 		`/O2`, //optimize
+		// // libraries for sound
+		// `/I${NEST_LIBS}/opusfile/include`,
+		// `/I${NEST_LIBS}/libopus/include`,
+		// `/I${NEST_LIBS}/libogg/include`,
+		//include paths for nest libraries for text:
+		`/I${NEST_LIBS}/freetype/include`,
 		//include paths for nest libraries:
 		`/I${NEST_LIBS}/SDL2/include`,
 		`/I${NEST_LIBS}/glm/include`,
@@ -41,6 +47,7 @@ if (maek.OS === "windows") {
 		`/LIBPATH:${NEST_LIBS}/SDL2/lib`, `SDL2main.lib`, `SDL2.lib`, `OpenGL32.lib`, `Shell32.lib`,
 		`/LIBPATH:${NEST_LIBS}/libpng/lib`, `libpng.lib`,
 		`/LIBPATH:${NEST_LIBS}/zlib/lib`, `zlib.lib`,
+		`/LIBPATH:${NEST_LIBS}/freetype/lib`, `freetype.lib`,
 		`/MANIFEST:EMBED`, `/MANIFESTINPUT:set-utf8-code-page.manifest`
 	);
 } else if (maek.OS === "linux") {
@@ -50,12 +57,14 @@ if (maek.OS === "windows") {
 		`-I${NEST_LIBS}/SDL2/include/SDL2`, `-D_THREAD_SAFE`, //the output of sdl-config --cflags
 		`-I${NEST_LIBS}/glm/include`,
 		`-I${NEST_LIBS}/libpng/include`,
+		`-I${NEST_LIBS}/freetype/include`
 	);
 	maek.options.LINKLibs.push(
 		//linker flags for nest libraries:
 		`-L${NEST_LIBS}/SDL2/lib`, `-lSDL2`, `-lm`, `-ldl`, `-lasound`, `-lpthread`, `-lX11`, `-lXext`, `-lpthread`, `-lrt`, `-lGL`, //the output of sdl-config --static-libs
 		`-L${NEST_LIBS}/libpng/lib`, `-lpng`,
-		`-L${NEST_LIBS}/zlib/lib`, `-lz`
+		`-L${NEST_LIBS}/zlib/lib`, `-lz`,
+		`-L${NEST_LIBS}/freetype/lib`, `-lfreetype`
 	);
 } else if (maek.OS === "macos") {
 	maek.options.CPPFlags.push(
@@ -64,12 +73,14 @@ if (maek.OS === "windows") {
 		`-I${NEST_LIBS}/SDL2/include/SDL2`, `-D_THREAD_SAFE`, //the output of sdl-config --cflags
 		`-I${NEST_LIBS}/glm/include`,
 		`-I${NEST_LIBS}/libpng/include`,
+		`-I${NEST_LIBS}/freetype/include`
 	);
 	maek.options.LINKLibs.push(
 		//linker flags for nest libraries:
 		`-L${NEST_LIBS}/SDL2/lib`, `-lSDL2`, `-lm`,`-liconv`, `-framework`, `CoreAudio`, `-framework`, `AudioToolbox`, `-weak_framework`, `CoreHaptics`, `-weak_framework`, `GameController`, `-framework`, `ForceFeedback`, `-lobjc`, `-framework`, `CoreVideo`, `-framework`, `Cocoa`, `-framework`, `Carbon`, `-framework`, `IOKit`, `-framework`, `OpenGL`, //the output of sdl-config --static-libs
 		`-L${NEST_LIBS}/libpng/lib`, `-lpng`,
-		`-L${NEST_LIBS}/zlib/lib`, `-lz`
+		`-L${NEST_LIBS}/zlib/lib`, `-lz`,
+		`-L${NEST_LIBS}/freetype/lib`, `-lfreetype`
 	);
 }
 //use COPY to copy a file
@@ -79,6 +90,7 @@ if (maek.OS === "windows") {
 let copies = [
 	maek.COPY(`${NEST_LIBS}/SDL2/dist/README-SDL.txt`, `dist/README-SDL.txt`),
 	maek.COPY(`${NEST_LIBS}/libpng/dist/README-libpng.txt`, `dist/README-libpng.txt`),
+	maek.COPY(`${NEST_LIBS}/freetype/dist/README-freetype.txt`, `dist/README-freetype.txt`)
 ];
 if (maek.OS === 'windows') {
 	copies.push( maek.COPY(`${NEST_LIBS}/SDL2/dist/SDL2.dll`, `dist/SDL2.dll`) );
@@ -101,6 +113,8 @@ const game_objs = [
 	maek.CPP('Mode.cpp'),
 	maek.CPP('gl_compile_program.cpp'),
 	maek.CPP('GL.cpp'),
+	maek.CPP('TextTextureProgram.cpp'),
+	maek.CPP('renderText.cpp'),
 ];
 
 const core_objs = [

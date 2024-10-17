@@ -16,6 +16,8 @@ void PlayMode::Init()
 	auto& registry = Module::GetRegistry();
 	for (auto it = registry.begin(); it != registry.end(); ++it)
 		CreateModule(it);
+	
+	loadText(characters,font_texs); //load in the font
 }
 
 PlayMode::~PlayMode() {
@@ -109,10 +111,23 @@ void PlayMode::update(float elapsed) {
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
+	
 	//--- actually draw ---
 	PPU::Get()->draw(drawable_size);
 
 	UpdateStage(Module::UpdateStage::Render);
+	
+	// {
+	// 	// ok why isn't the background clear...?
+	// 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	// 	glClearDepth(1.0f); //1.0 is actually the default value to clear the depth buffer to, but FYI you can change it.
+	// 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// 	glEnable(GL_DEPTH_TEST);
+	// 	glDepthFunc(GL_LESS); //this is the default depth comparison function, but FYI you can change it.
+	// 	RenderText("abcdefghijklmnopqrstuvwxyz wow testing character's", -.90f,-0.8f, .003f, characters,font_texs);
+	// }
+
 }
 
 void PlayMode::CreateModule(Module::RegistryMap::const_iterator it)

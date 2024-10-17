@@ -10,6 +10,8 @@
 #include "scene/SceneManager.hpp"
 #include "core/layers/LayerStack.hpp"
 
+#include "renderText.hpp"
+
 struct PlayMode : Mode {
 	virtual ~PlayMode();
 
@@ -18,6 +20,10 @@ struct PlayMode : Mode {
 	virtual bool handle_event(SDL_Event const &, glm::uvec2 const &window_size) override;
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const &drawable_size) override;
+
+	//fonts stuff
+	std::vector<Character> characters;
+	std::vector<text> font_texs;
 
 	//----- game state -----
 
