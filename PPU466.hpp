@@ -33,8 +33,9 @@ struct PPU : public Module::Registrar<PPU>
 	glm::u8vec3 background_color = glm::u8vec3(0x00, 0x00, 0x00);
 
 	// a palette holds 16 colors
-	typedef std::array< glm::u8vec4, 16 > Palette;
-	static_assert(sizeof(Palette) == 16 * 4);
+	static constexpr uint32_t PALETTE_SIZE = 16;
+	typedef std::array< glm::u8vec4, PALETTE_SIZE > Palette;
+	static_assert(sizeof(Palette) == PALETTE_SIZE * 4);
 	
 	// an unconstrained size of palette tables, yay!
 	std::vector<Palette> palette_table;

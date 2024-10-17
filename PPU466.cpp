@@ -205,11 +205,16 @@ void PPU::draw(glm::uvec2 const &drawable_size) const {
 			uint32_t ox = (i % 16) * 8;
 			uint32_t oy = (i / 16) * 8;
 
-			//copy tile indices into texture:
+			// Copy tile rows into the texture:
 			for (uint32_t y = 0; y < 8; ++y) {
-				for (uint32_t x = 0; x < 8; ++x) {
-					data[ox+x + 128 * (oy+y)] = tile.pixels[y * 8 + x];
-				}
+				// Destination pointer in the texture array
+				uint8_t* dest = &data[ox + 128 * (oy + y)];
+				
+				// Source pointer in the tile's pixel array
+				const uint8_t* src = &tile.pixels[y * 8];
+				
+				// Copy 8 pixels (1 row) from the tile into the texture
+				std::memcpy(dest, src, 8);
 			}
 		}
 

@@ -35,4 +35,5 @@ private:
     [[maybe_unused]] std::vector<SpriteInfo> info;
     
     [[maybe_unused]] std::vector<PPU::Palette> palettes;
+    int currentColor = -1; // index into palettes.back(), indicating the first available slot for inserting a new color
 };
