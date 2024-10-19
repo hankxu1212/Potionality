@@ -4,7 +4,6 @@
 SceneManager::SceneManager()
 {
 	scene = std::make_unique<Scene>();
-	LoadDefault();
 }
 
 SceneManager::~SceneManager()
@@ -12,8 +11,9 @@ SceneManager::~SceneManager()
 	Shutdown();
 }
 
-void SceneManager::LoadDefault()
+void SceneManager::LoadActiveScene()
 {
+	scene->Load();
 }
 
 void SceneManager::Update()

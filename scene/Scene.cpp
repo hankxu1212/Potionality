@@ -3,12 +3,10 @@
 #include "../core/utils/Logger.hpp"
 
 #include <iostream>
+#include "Entity.hpp"
 
 Scene::Scene()
 {
-    entities.resize(1);
-    entities[0] = std::make_unique<Entity>();
-    entities[0]->Load("resources/test.png");
 }
 
 Scene::~Scene()
@@ -16,11 +14,26 @@ Scene::~Scene()
 	Unload();
 }
 
+void Scene::Load()
+{
+    auto e = Instantiate();
+    e->Load("resources/test.png");
+    e->AddComponent<Player>();
+}
+
 void Scene::Unload()
 {
 }
 
 void Scene::Update()
+{
+    for (auto& ent : entities)
+    {
+        ent->Update();
+    }
+}
+
+void Scene::Render()
 {
     PPU::Get()->sprites.clear();
     PPU::Get()->palette_table.clear();
@@ -51,9 +64,4 @@ void Scene::Update()
             tileOffset++;
         }
     }
-}
-
-void Scene::Render()
-{
-
 }

@@ -136,11 +136,17 @@ const core_objs = [
 const scene_objs = [
 	maek.CPP('scene/Entity.cpp'),
 	maek.CPP('scene/Scene.cpp'),
+	maek.CPP('scene/Component.cpp'),
 	maek.CPP('scene/SceneManager.cpp'),
 ]
 
 const scripting_objs = [
+	maek.CPP('scripting/Behaviour.cpp'),
 	maek.CPP('scripting/ScriptingEngine.cpp'),
+]
+
+const gameplay_scripts = [
+	maek.CPP('scripting/Player.cpp'),
 ]
 
 //the '[exeFile =] LINK(objFiles, exeFileBase, [, options])' links an array of objects into an executable:
@@ -152,7 +158,8 @@ const game_exe = maek.LINK(
 		...game_objs,
 		...core_objs,
 		...scene_objs,
-		...scripting_objs
+		...scripting_objs,
+		...gameplay_scripts
 	], 
 	'dist/game'
 );

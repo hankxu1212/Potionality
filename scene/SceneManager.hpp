@@ -15,7 +15,7 @@ public:
 
 	~SceneManager();
 
-	void LoadDefault();
+	void LoadActiveScene();
 
 	/**
 	 * Updates the active scene.

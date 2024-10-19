@@ -1,5 +1,6 @@
 #include "ScriptingEngine.hpp"
 #include "Behaviour.hpp"
+#include <utility>
 
 ScriptingEngine* ScriptingEngine::s_Instance = nullptr;
 
@@ -32,10 +33,10 @@ bool ScriptingEngine::OnEvent(const SDL_Event& e)
     }
     return false;
 }
-
+ 
 void ScriptingEngine::Add(Behaviour* script)
 {
-    m_Scripts[script->getClassName()] = script;
+    // m_Scripts.try_emplace(script->getClassName(), script);
 }
 
 Behaviour* ScriptingEngine::GetScript(const std::string& scriptName)

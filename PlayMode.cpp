@@ -9,6 +9,8 @@
 
 #include "math/Math.hpp"
 #include "scene/SceneManager.hpp"
+#include "core/utils/Logger.hpp"
+#include "core/Time.hpp"
 
 void PlayMode::Init()
 {
@@ -18,6 +20,11 @@ void PlayMode::Init()
 		CreateModule(it);
 	
 	loadText(characters,font_texs); //load in the font
+
+	// initialize time class
+	Time::Now = 0;
+
+	SceneManager::Get()->LoadActiveScene();
 }
 
 PlayMode::~PlayMode() {
@@ -79,6 +86,8 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
+	Time::DeltaTime = elapsed;
+	Time::Now += elapsed;
 	// runs application updates. dont edit or add code before this. 
 	{
 		UpdateStage(Module::UpdateStage::Pre);
@@ -91,11 +100,6 @@ void PlayMode::update(float elapsed) {
 
 		UpdateStage(Module::UpdateStage::Post);
 	}
-
-	//slowly rotates through [0,1):
-	// (will be used to set background color)
-	background_fade += elapsed / 10.0f;
-	background_fade -= std::floor(background_fade);
 
 	constexpr float PlayerSpeed = 30.0f;
 	if (left.pressed) player_at.x -= PlayerSpeed * elapsed;
