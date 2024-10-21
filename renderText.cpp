@@ -8,7 +8,7 @@
 #include FT_FREETYPE_H
 
 // these functions are based on what Jim did in class
-void UploadTexture(GLuint &tex, void* data,uint w,uint h, uint colorformat){
+void UploadTexture(GLuint &tex, void* data, uint32_t w, uint32_t h, uint32_t colorformat){
 	glGenTextures(1, &tex);
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glTexImage2D(GL_TEXTURE_2D, 0, colorformat, w, h, 0, colorformat, GL_UNSIGNED_BYTE, data);
@@ -35,20 +35,20 @@ void SetupBufferandVAO(GLuint &vao,GLuint &buffer){
 		std::vector< PosTexVertex > verts;
 
 		verts.emplace_back(PosTexVertex{
-			.Position = glm::vec3(0.0f, 0.0f, 0.0f),
-			.TexCoord = glm::vec2(0.0f, 0.0f),
+			glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec2(0.0f, 0.0f),
 		});
 		verts.emplace_back(PosTexVertex{
-			.Position = glm::vec3(0.0f, 1.0f, 0.0f),
-			.TexCoord = glm::vec2(0.0f, 1.0f),
+			glm::vec3(0.0f, 1.0f, 0.0f),
+			glm::vec2(0.0f, 1.0f),
 		});
 		verts.emplace_back(PosTexVertex{
-			.Position = glm::vec3(1.0f, 0.0f, 0.0f),
-			.TexCoord = glm::vec2(1.0f, 0.0f),
+			glm::vec3(1.0f, 0.0f, 0.0f),
+			glm::vec2(1.0f, 0.0f),
 		});
 		verts.emplace_back(PosTexVertex{
-			.Position = glm::vec3(1.0f, 1.0f, 0.0f),
-			.TexCoord = glm::vec2(1.0f, 1.0f),
+			glm::vec3(1.0f, 1.0f, 0.0f),
+			glm::vec2(1.0f, 1.0f),
 		});
 		glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(verts[0]), verts.data(), GL_STREAM_DRAW);
 		

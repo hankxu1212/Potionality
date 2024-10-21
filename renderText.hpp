@@ -5,6 +5,7 @@
 #include <ft2build.h>
 #include <stddef.h>
 #include <stdio.h>
+
 #include FT_FREETYPE_H
 
 
@@ -34,7 +35,7 @@ struct Character {
 // std::vector<Character> Characters; 
 
 // these functions are based on what Jim did in class
-void UploadTexture(GLuint &tex, void* data,uint w,uint h, uint colorformat);
+void UploadTexture(GLuint &tex, void* data,uint32_t w,uint32_t h, uint32_t colorformat);
 void SetupBufferandVAO(GLuint &vao,GLuint &buffer);
 
 void loadText(std::vector<Character>& Characters ,std::vector<text> &font_texs);

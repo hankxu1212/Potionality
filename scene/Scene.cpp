@@ -17,7 +17,7 @@ Scene::~Scene()
 void Scene::Load()
 {
     auto e = Instantiate();
-    e->Load("resources/test.png");
+    e->Load("../resources/test.png");
     e->AddComponent<Player>();
 }
 

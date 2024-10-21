@@ -2,6 +2,7 @@
 #include "../core/utils/Bitmap.hpp"
 #include "../core/utils/Logger.hpp"
 #include "../PPU466.hpp"
+#include "../core/Files.hpp"
 
 #include <unordered_map>
 #include <unordered_set>
@@ -35,7 +36,7 @@ static uint32_t ColorDistance(const glm::u8vec4& a, const glm::u8vec4& b) {
 
 static uint8_t FindClosestIndex(glm::u8vec4 col, const PPU::Palette& palette)
 {
-    int min_d = INT32_MAX;
+    uint32_t min_d = INT32_MAX;
     int min_id = -1;
 
     for (int i=0;i<palette.size();i++)
@@ -47,7 +48,7 @@ static uint8_t FindClosestIndex(glm::u8vec4 col, const PPU::Palette& palette)
             min_id = i;
         }
     }
-    return min_id;
+    return uint8_t(min_id);
 }
 
 void* OffsetPointer(void* ptr, size_t offset) {
@@ -66,7 +67,7 @@ void Entity::Update()
 void Entity::Load(const std::string &path)
 {
     // load a 4 byte per pixel RGBA image
-    Bitmap bitmap(path);
+    Bitmap bitmap(Files::Path(path));
     LOG_INFO_F("Found bitmap length :{}", bitmap.GetLength());
 
 	// Reinterpret the data as an array of glm::u8vec4
@@ -74,8 +75,8 @@ void Entity::Load(const std::string &path)
 
     uint32_t numTiles = bitmap.size.x * bitmap.size.y / numPixels;
 
-    for (int i=0;i<numTiles;++i){
-        LoadOne((glm::u8vec4*)OffsetPointer((void*)pixels, i * numPixels * 4), i);
+    for (uint32_t i=0;i<numTiles;++i){
+        LoadOne((glm::u8vec4*)OffsetPointer((void*)pixels, i * numPixels * 4), (size_t)i);
     }
     LOG_INFO_F("Loaded {} into {} tiles and {} palettes", path, numTiles, palettes.size());
 
@@ -116,7 +117,7 @@ void Entity::LoadOne(glm::u8vec4 *pixels, uint32_t index)
     // choose PALETTE_SIZE=16 colors to use
     std::unordered_map<glm::u8vec4, uint8_t> colorsToUse;
     for (int i=0;i<fmin(PPU::PALETTE_SIZE, topColors.size());++i){
-        colorsToUse[topColors[i].first] = i;
+        colorsToUse[topColors[i].first] = (uint8_t)i;
         palette[i] = topColors[i].first;
     }
 

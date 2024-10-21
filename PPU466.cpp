@@ -66,20 +66,7 @@ Load< PPUDataStream > data_stream(LoadTagDefault);
 //-------------------------------------------------------------------
 
 PPU::PPU() {
-	for (auto &palette : palette_table) {
-		for (int i=0;i<PALETTE_SIZE;++i){
-			palette[i] = glm::u8vec4(0x00, 0x00, 0x00, 0x00);
-		}
-	}
-
 	memset(tile_table.data(), 0, tile_table.size() * sizeof(Tile));
-
-	for (uint32_t i = 0; i < background.size(); ++i) {
-		background[i] = int16_t(
-			  (i % 8) << 8 //cycle through all palettes
-			| (i % palette_table.size()) //cycle through all tiles
-		);
-	}
 }
 
 void PPU::draw(glm::uvec2 const &drawable_size) const {
@@ -91,12 +78,7 @@ void PPU::draw(glm::uvec2 const &drawable_size) const {
 	glViewport(0,0,drawable_size.x,drawable_size.y);
 
 	//background gets background color:
-	glClearColor(
-		background_color.r / 255.0f, 
-		background_color.g / 255.0f, 
-		background_color.b / 255.0f,
-		1.0f
-	);
+	glClearColor(0.5f, 0.5f, 0.5f,1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//set up screen scaling:

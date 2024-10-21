@@ -41,7 +41,8 @@ if (maek.OS === "windows") {
 		`/wd4297`, //unforunately SDLmain is nothrow
 		`/wd4100`, //unreferenced formal parameter
 		`/wd4201`, //nameless struct/union
-		`/wd4611`  //interaction between setjmp and C++ object destruction,
+		`/wd4611`,  //interaction between setjmp and C++ object destruction,
+		`/wd4324` // deprecation
 	);
 	maek.options.LINKLibs.push(
 		`/LIBPATH:${NEST_LIBS}/SDL2/lib`, `SDL2main.lib`, `SDL2.lib`, `OpenGL32.lib`, `Shell32.lib`,
@@ -118,7 +119,6 @@ const game_objs = [
 ];
 
 const core_objs = [
-	maek.CPP('core/utils/Bitmap.cpp', undefined, {CPPFlags: [...maek.options.CPPFlags, '-Wno-deprecated-declarations']}),
 	maek.CPP('core/Files.cpp'),
 	maek.CPP('math/Math.cpp'),
 	maek.CPP('math/vector/Vec2.cpp'),
@@ -132,6 +132,15 @@ const core_objs = [
 	maek.CPP('math/matrix/Mat4.cpp'),
 	maek.CPP('core/layers/LayerStack.cpp')
 ]
+
+if (maek.OS === "windows")
+{
+	core_objs.push(maek.CPP('core/utils/Bitmap.cpp')); // the deprecation pragma has been added
+}
+else
+{
+	core_objs.push(maek.CPP('core/utils/Bitmap.cpp', undefined, {CPPFlags: [...maek.options.CPPFlags, '-Wno-deprecated-declarations']}));
+}
 
 const scene_objs = [
 	maek.CPP('scene/Entity.cpp'),

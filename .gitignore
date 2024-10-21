@@ -8,3 +8,4 @@ dist/game
 dist/game.exe
 maek-cache.json
 .vscode/settings.json
+/.vs

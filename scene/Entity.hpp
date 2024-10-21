@@ -31,7 +31,7 @@ public:
         uint8_t palette; // index into local palette table
     };
 
-    glm::uvec2 position;
+    glm::vec2 position;
 
 private:
     friend class Scene;

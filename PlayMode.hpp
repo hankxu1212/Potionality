@@ -42,6 +42,8 @@ struct PlayMode : Mode {
 	//----- stacks and scripting -----
 	LayerStack												m_LayerStack;
 
+	void PushLayer(Layer* layer);
+
 	//----- program modules -----
 
 	std::map<TypeId, std::unique_ptr<Module>>				m_Modules; // a list of program modules
