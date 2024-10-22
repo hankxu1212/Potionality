@@ -107,9 +107,7 @@ if (maek.OS === 'windows') {
 //returns objFile: objFileBase + a platform-dependant suffix ('.o' or '.obj')
 const game_objs = [
 	maek.CPP('PlayMode.cpp'),
-	maek.CPP('PPU466.cpp'),
 	maek.CPP('main.cpp'),
-	maek.CPP('load_save_png.cpp'),
 	maek.CPP('Load.cpp'),
 	maek.CPP('Mode.cpp'),
 	maek.CPP('gl_compile_program.cpp'),
@@ -130,7 +128,11 @@ const core_objs = [
 	maek.CPP('math/matrix/Mat2.cpp'),
 	maek.CPP('math/matrix/Mat3.cpp'),
 	maek.CPP('math/matrix/Mat4.cpp'),
-	maek.CPP('core/layers/LayerStack.cpp')
+	maek.CPP('core/layers/LayerStack.cpp'),
+	maek.CPP('core/ResourceManager.cpp'),
+	maek.CPP('core/Texture.cpp'),
+	maek.CPP('core/Shader.cpp'),
+	maek.CPP('SpriteRenderer.cpp')
 ]
 
 if (maek.OS === "windows")

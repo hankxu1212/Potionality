@@ -12,6 +12,10 @@
 #include "core/utils/Logger.hpp"
 #include "core/Time.hpp"
 #include "scripting/ScriptingEngine.hpp"
+#include "core/ResourceManager.h"
+#include "SpriteRenderer.h"
+
+SpriteRenderer* Renderer;
 
 void PlayMode::Init()
 {
@@ -22,6 +26,20 @@ void PlayMode::Init()
 	
 	loadText(characters,font_texs); //load in the font
 
+	ResourceManager::LoadShader(Files::Path("../shaders/sprite.vert").c_str(), Files::Path("../shaders/sprite.frag").c_str(), nullptr, "sprite");
+
+	// configure shaders
+	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -1.0f, 1.0f);
+	ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
+	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+
+	// set render-specific controls
+	Shader spriteShader = ResourceManager::GetShader("sprite");
+	Renderer = new SpriteRenderer(spriteShader);
+
+	// load textures
+	ResourceManager::LoadTexture(Files::Path("../resources/potions/Blue_potion.png").c_str(), true, "face");
+
 	// initialize time class
 	Time::Now = 0;
 
@@ -29,9 +47,12 @@ void PlayMode::Init()
 	PushLayer(new ScriptingEngine());
 
 	SceneManager::Get()->LoadActiveScene();
+
 }
 
 PlayMode::~PlayMode() {
+	delete Renderer;
+
 	DestroyStage(Module::DestroyStage::Pre);
 
 	m_LayerStack.Detach();
@@ -71,10 +92,11 @@ void PlayMode::update(float elapsed) {
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) 
 {
-	// draw using PPU
-	PPU::Get()->draw(drawable_size);
-
 	UpdateStage(Module::UpdateStage::Render);
+
+	Texture2D spr = ResourceManager::GetTexture("face");
+	Renderer->DrawSprite(spr,
+		glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	
 	RenderText("abcdefghijklmnopqrstuvwxyz wow testing character's", -.90f,-0.8f, .003f, characters,font_texs);
 }

@@ -129,8 +129,6 @@ void renderImg(text *tex){ //texture example drawing
 	glUniformMatrix4fv( texture_program->CLIP_FROM_LOCAL_mat4, 1, GL_FALSE, glm::value_ptr(tex->CLIP_FROM_LOCAL) );
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, tex->count);
-
-	
 }
 
 
@@ -187,6 +185,5 @@ void RenderText(std::string text, float x, float y, float scale, std::vector<Cha
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
 	glBindVertexArray(0);
-	GL_ERRORS();
-	
+	//GL_ERRORS();
 }

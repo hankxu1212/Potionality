@@ -18,7 +18,7 @@ void Scene::Load()
 {
     auto e = Instantiate();
     // e->Load("../resources/test.png", 2, 2);
-    e->Load("../resources/characters/Guy_flipped.png", 8, 16);
+    //e->Load("../resources/characters/Guy_flipped.png", 8, 16);
     e->AddComponent<Player>();
 }
 
@@ -36,33 +36,4 @@ void Scene::Update()
 
 void Scene::Render()
 {
-    PPU::Get()->sprites.clear();
-    PPU::Get()->palette_table.clear();
-    
-    uint32_t tileOffset = 0;
-
-    for (auto& ent : entities)
-    {
-        // update palettes
-        for (int p=0; p<ent->palettes.size(); ++p){
-            PPU::Get()->palette_table.push_back(ent->palettes[p]);
-        }
-
-        for (int i=0; i<ent->info.size(); i++)
-        {
-            // update tiles
-            PPU::Get()->tile_table[tileOffset] = ent->info[i].tile;
-
-            // update sprites
-            uint8_t attributes = ent->draw ? (uint8_t)i + (0x80) : (uint8_t)i;
-            PPU::Get()->sprites.push_back(PPU::Sprite{
-                (uint8_t)(ent->position.x + ent->spriteOffsets[i].x),
-                (uint8_t)(ent->position.y + ent->spriteOffsets[i].y),
-                (uint8_t)tileOffset,
-                attributes
-            });
-
-            tileOffset++;
-        }
-    }
 }

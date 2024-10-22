@@ -10,9 +10,6 @@
 //GL.hpp will include a non-namespace-polluting set of opengl prototypes:
 #include "GL.hpp"
 
-//for screenshots:
-#include "load_save_png.hpp"
-
 //Includes for libSDL:
 #include <SDL.h>
 
@@ -63,16 +60,16 @@ int main(int argc, char **argv) {
 
 	//create window:
 	SDL_Window *window = SDL_CreateWindow(
-		"gp23 game1: remember to change your title", //TODO: remember to set a title for your game!
+		"Potionality", //TODO: remember to set a title for your game!
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		2*PPU::ScreenWidth + 8, 2*PPU::ScreenHeight + 8, //TODO: modify window size if you'd like
+		1920, 1080,
 		SDL_WINDOW_OPENGL
 		| SDL_WINDOW_RESIZABLE //uncomment to allow resizing
 		| SDL_WINDOW_ALLOW_HIGHDPI //uncomment for full resolution on high-DPI screens
 	);
 
 	//prevent exceedingly tiny windows when resizing:
-	SDL_SetWindowMinimumSize(window, PPU::ScreenWidth, PPU::ScreenHeight);
+	SDL_SetWindowMinimumSize(window, 192, 108);
 
 	if (!window) {
 		std::cerr << "Error creating SDL window: " << SDL_GetError() << std::endl;
@@ -145,20 +142,6 @@ int main(int argc, char **argv) {
 				} else if (evt.type == SDL_QUIT) {
 					Mode::set_current(nullptr);
 					break;
-				} else if (evt.type == SDL_KEYDOWN && evt.key.keysym.sym == SDLK_PRINTSCREEN) {
-					// --- screenshot key ---
-					std::string filename = "screenshot.png";
-					std::cout << "Saving screenshot to '" << filename << "'." << std::endl;
-					glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
-					glReadBuffer(GL_FRONT);
-					int w,h;
-					SDL_GL_GetDrawableSize(window, &w, &h);
-					std::vector< glm::u8vec4 > data(w*h);
-					glReadPixels(0,0,w,h, GL_RGBA, GL_UNSIGNED_BYTE, data.data());
-					for (auto &px : data) {
-						px.a = 0xff;
-					}
-					save_png(filename, glm::uvec2(w,h), data.data(), LowerLeftOrigin);
 				}
 			}
 			if (!Mode::current) break;
