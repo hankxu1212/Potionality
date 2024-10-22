@@ -18,7 +18,7 @@ void Scene::Load()
 {
     auto e = Instantiate();
     // e->Load("../resources/test.png", 2, 2);
-    e->Load("../resources/test.png", 1, 4);
+    e->Load("../resources/characters/Guy_flipped.png", 8, 16);
     e->AddComponent<Player>();
 }
 
