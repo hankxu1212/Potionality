@@ -23,7 +23,7 @@ public:
     void Update();
 
     // loads an image, and split it into a bunch of 8x8 sprites
-    void Load(const std::string& relativePath);
+    void Load(const std::string& relativePath, uint32_t width, uint32_t height);
 
     struct SpriteInfo
     {
@@ -36,8 +36,6 @@ public:
 private:
     friend class Scene;
 
-    void LoadSprites();
-
     void LoadOne(glm::u8vec4* pixels, uint32_t index);
 
     bool draw; // is this entity draw or no
@@ -47,6 +45,8 @@ private:
 
     // all the palettes used. Can be reduced in size later
     std::vector<PPU::Palette> palettes;
+
+	std::vector<glm::vec2> spriteOffsets;
 
 public: // entity components
 	// Adds a component to an entity

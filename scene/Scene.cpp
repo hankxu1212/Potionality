@@ -17,7 +17,8 @@ Scene::~Scene()
 void Scene::Load()
 {
     auto e = Instantiate();
-    e->Load("../resources/test.png");
+    // e->Load("../resources/test.png", 2, 2);
+    e->Load("../resources/test.png", 1, 4);
     e->AddComponent<Player>();
 }
 
@@ -55,8 +56,8 @@ void Scene::Render()
             // update sprites
             uint8_t attributes = ent->draw ? (uint8_t)i + (0x80) : (uint8_t)i;
             PPU::Get()->sprites.push_back(PPU::Sprite{
-                (uint8_t)ent->position.x, 
-                (uint8_t)ent->position.y,
+                (uint8_t)(ent->position.x + ent->spriteOffsets[i].x),
+                (uint8_t)(ent->position.y + ent->spriteOffsets[i].y),
                 (uint8_t)tileOffset,
                 attributes
             });

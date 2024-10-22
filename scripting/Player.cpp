@@ -4,10 +4,12 @@
 
 void Player::Awake()
 {
+	LOG_INFO("AWAKE");
 }
 
 void Player::Start()
 {
+	LOG_INFO("START");
 }
 
 void Player::Update()
@@ -15,7 +17,7 @@ void Player::Update()
     if (!entity)
         LOG_WARN("NOT ENRTITY");
 
-    constexpr float PlayerSpeed = 30.0f;
+    constexpr float PlayerSpeed = 100.0f;
 	if (left.pressed) entity->position.x -= PlayerSpeed * Time::DeltaTime;
 	if (right.pressed) entity->position.x += PlayerSpeed * Time::DeltaTime;
 	if (down.pressed) entity->position.y -= PlayerSpeed * Time::DeltaTime;
