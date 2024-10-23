@@ -12,9 +12,18 @@
 class Entity
 {
 public:
-    Entity() = default;
-
     void Update();
+
+	template<typename... TArgs>
+	Entity(Scene* scene, TArgs&... args) :
+		m_Scene(scene), s_Transform(std::make_unique<RectTransform>(args...)) {
+	}
+
+	// template taking an lvalue
+	template<typename... TArgs>
+	Entity(Scene* scene, TArgs&&... args) :
+		m_Scene(scene), s_Transform(std::make_unique<RectTransform>(args...)) {
+	}
 
 private:
     friend class Scene;
@@ -48,10 +57,10 @@ public: // entity components
 
     void SetScene(Scene* newScene) { m_Scene = newScene; }
 	Scene* scene() { return m_Scene; }
-	RectTransform* transform() { return &m_Transform; }
+	RectTransform* transform() { return s_Transform.get(); }
 
 private:
     Scene*									m_Scene = nullptr;
     std::vector<std::unique_ptr<Component>>	m_Components;
-	RectTransform							m_Transform;
+	std::unique_ptr<RectTransform>			s_Transform;
 };

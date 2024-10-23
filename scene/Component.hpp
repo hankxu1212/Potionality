@@ -2,7 +2,8 @@
 
 class Entity;
 class Scene;
-class RectTransform;
+
+#include "RectTransform.hpp"
 
 class Component
 {

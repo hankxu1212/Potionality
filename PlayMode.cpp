@@ -15,7 +15,7 @@
 #include "core/ResourceManager.h"
 #include "SpriteRenderer.h"
 
-SpriteRenderer* Renderer;
+//SpriteRenderer* Renderer;
 
 void PlayMode::Init()
 {
@@ -34,8 +34,8 @@ void PlayMode::Init()
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 
 	// set render-specific controls
-	Shader spriteShader = ResourceManager::GetShader("sprite");
-	Renderer = new SpriteRenderer(spriteShader);
+	//Shader spriteShader = ResourceManager::GetShader("sprite");
+	//Renderer = new SpriteRenderer(spriteShader);
 
 	// load textures
 	ResourceManager::LoadTexture(Files::Path("../resources/potions/Blue_potion.png").c_str(), true, "face");
@@ -51,8 +51,6 @@ void PlayMode::Init()
 }
 
 PlayMode::~PlayMode() {
-	delete Renderer;
-
 	DestroyStage(Module::DestroyStage::Pre);
 
 	m_LayerStack.Detach();
@@ -94,10 +92,10 @@ void PlayMode::draw(glm::uvec2 const &drawable_size)
 {
 	UpdateStage(Module::UpdateStage::Render);
 
-	Texture2D spr = ResourceManager::GetTexture("face");
-	Renderer->DrawSprite(spr,
-		glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	
+	//Texture2D spr = ResourceManager::GetTexture("face");
+	//Renderer->DrawSprite(spr,
+	//	glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	//
 	RenderText("abcdefghijklmnopqrstuvwxyz wow testing character's", -.90f,-0.8f, .003f, characters,font_texs);
 }
 

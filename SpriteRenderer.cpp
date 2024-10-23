@@ -1,15 +1,29 @@
 #include "SpriteRenderer.h"
 #include "GL.hpp"
+#include "core/ResourceManager.h"
+#include "scene/Scene.hpp"
 
 SpriteRenderer::SpriteRenderer(Shader& shader)
 {
-    this->shader = shader;
-    this->initRenderData();
+    shader = shader;
+    initRenderData();
+}
+
+SpriteRenderer::SpriteRenderer(const std::string& shaderName)
+{
+    Shader spriteShader = ResourceManager::GetShader(shaderName);
+    shader = spriteShader;
+    initRenderData();
 }
 
 SpriteRenderer::~SpriteRenderer()
 {
     glDeleteVertexArrays(1, &this->quadVAO);
+}
+
+void SpriteRenderer::Update()
+{
+    DrawSprite("face");
 }
 
 void SpriteRenderer::DrawSprite(Texture2D& texture, glm::vec2 position, glm::vec2 size, float rotate, glm::vec3 color)
@@ -32,6 +46,21 @@ void SpriteRenderer::DrawSprite(Texture2D& texture, glm::vec2 position, glm::vec
 
     glActiveTexture(GL_TEXTURE0);
     texture.Bind();
+
+    glBindVertexArray(this->quadVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
+}
+
+void SpriteRenderer::DrawSprite(const std::string& name, glm::vec3 color)
+{
+    // prepare transformations
+    this->shader.Use();
+    this->shader.SetMatrix4("model", GetTransform()->GetModel());
+    this->shader.SetVector3f("spriteColor", color);
+
+    glActiveTexture(GL_TEXTURE0);
+    ResourceManager::GetTexture(name).Bind();
 
     glBindVertexArray(this->quadVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -64,4 +93,14 @@ void SpriteRenderer::initRenderData()
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
+
+template<>
+void Scene::OnComponentAdded<SpriteRenderer>(Entity& entity, SpriteRenderer& component)
+{
+}
+
+template<>
+void Scene::OnComponentRemoved<SpriteRenderer>(Entity& entity, SpriteRenderer& component)
+{
 }
