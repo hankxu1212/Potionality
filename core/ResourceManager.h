@@ -3,8 +3,8 @@
 #include <map>
 #include <string>
 
-#include "texture.h"
-#include "shader.h"
+#include "Texture.h"
+#include "Shader.h"
 
 
 // manages textures and shaders, with string handles
