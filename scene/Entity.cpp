@@ -20,10 +20,3 @@ void Entity::Update()
 		component->Update();
 	}
 }
-
-void Entity::Load(const std::string &path)
-{
-    // load a 4 byte per pixel RGBA image
-    Bitmap bitmap(Files::Path(path));
-    LOG_INFO_F("Found bitmap length :{}", bitmap.GetLength());
-}

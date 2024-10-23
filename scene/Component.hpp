@@ -2,6 +2,7 @@
 
 class Entity;
 class Scene;
+class RectTransform;
 
 class Component
 {
@@ -12,6 +13,7 @@ public:
 
 	void SetEntity(Entity*);
 
+	RectTransform* GetTransform();
 	Scene* GetScene();
 
 	Entity* entity;

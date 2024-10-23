@@ -18,12 +18,10 @@ void Player::Update()
         LOG_WARN("NOT ENRTITY");
 
     constexpr float PlayerSpeed = 100.0f;
-	if (left.pressed) entity->position.x -= PlayerSpeed * Time::DeltaTime;
-	if (right.pressed) entity->position.x += PlayerSpeed * Time::DeltaTime;
-	if (down.pressed) entity->position.y -= PlayerSpeed * Time::DeltaTime;
-	if (up.pressed) entity->position.y += PlayerSpeed * Time::DeltaTime;
-
-	//LOG_INFO_F("Position {}, {}", entity->position.x, entity->position.y);
+	if (left.pressed) GetTransform()->position.x -= PlayerSpeed * Time::DeltaTime;
+	if (right.pressed) GetTransform()->position.x += PlayerSpeed * Time::DeltaTime;
+	if (down.pressed) GetTransform()->position.y -= PlayerSpeed * Time::DeltaTime;
+	if (up.pressed) GetTransform()->position.y += PlayerSpeed * Time::DeltaTime;
 
 	//reset button press counters:
 	left.downs = 0;

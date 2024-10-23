@@ -7,6 +7,7 @@
 #include "Components.hpp"
 
 #include "../SpriteRenderer.h"
+#include "RectTransform.hpp"
 
 class Entity
 {
@@ -14,11 +15,6 @@ public:
     Entity() = default;
 
     void Update();
-
-    // loads an image, and split it into a bunch of 8x8 sprites
-    void Load(const std::string& relativePath);
-
-    glm::vec2 position;
 
 private:
     friend class Scene;
@@ -52,8 +48,10 @@ public: // entity components
 
     void SetScene(Scene* newScene) { m_Scene = newScene; }
 	Scene* scene() { return m_Scene; }
+	RectTransform* transform() { return &m_Transform; }
 
 private:
     Scene*									m_Scene = nullptr;
     std::vector<std::unique_ptr<Component>>	m_Components;
+	RectTransform							m_Transform;
 };

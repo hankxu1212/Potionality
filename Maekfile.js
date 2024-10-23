@@ -149,6 +149,7 @@ const scene_objs = [
 	maek.CPP('scene/Scene.cpp'),
 	maek.CPP('scene/Component.cpp'),
 	maek.CPP('scene/SceneManager.cpp'),
+	maek.CPP('scene/RectTransform.cpp'),
 ]
 
 const scripting_objs = [
