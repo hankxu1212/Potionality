@@ -2,6 +2,8 @@
 
 #include "Behaviour.hpp"
 
+class SpriteRenderer;
+
 class Player : public Behaviour
 {
 public:
@@ -19,4 +21,6 @@ private:
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
 	} left, right, down, up;
+
+	SpriteRenderer* spriteRenderer;
 };

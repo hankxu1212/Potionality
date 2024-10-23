@@ -26,19 +26,12 @@ void PlayMode::Init()
 	
 	loadText(characters,font_texs); //load in the font
 
-	ResourceManager::LoadShader(Files::Path("../shaders/sprite.vert").c_str(), Files::Path("../shaders/sprite.frag").c_str(), nullptr, "sprite");
+	ResourceManager::LoadShader(Files::Path("../shaders/sprite.vert").c_str(), Files::Path("../shaders/sprite.frag").c_str(), nullptr, SPRITE_SHADER);
 
 	// configure shaders
 	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -1.0f, 1.0f);
-	ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
-	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-
-	// set render-specific controls
-	//Shader spriteShader = ResourceManager::GetShader("sprite");
-	//Renderer = new SpriteRenderer(spriteShader);
-
-	// load textures
-	ResourceManager::LoadTexture(Files::Path("../resources/potions/Blue_potion.png").c_str(), true, "face");
+	ResourceManager::GetShader(SPRITE_SHADER).Use().SetInteger("image", 0);
+	ResourceManager::GetShader(SPRITE_SHADER).SetMatrix4("projection", projection);
 
 	// initialize time class
 	Time::Now = 0;
@@ -96,10 +89,6 @@ void PlayMode::draw(glm::uvec2 const &drawable_size)
 {
 	UpdateStage(Module::UpdateStage::Render);
 
-	//Texture2D spr = ResourceManager::GetTexture("face");
-	//Renderer->DrawSprite(spr,
-	//	glm::vec2(200.0f, 200.0f), glm::vec2(300.0f, 400.0f), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	//
 	RenderText("abcdefghijklmnopqrstuvwxyz wow testing character's", -.90f,-0.8f, .003f, characters,font_texs);
 }
 

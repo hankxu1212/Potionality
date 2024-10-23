@@ -11,6 +11,8 @@
 
 #include "renderText.hpp"
 
+#define SPRITE_SHADER "sprtShader"
+
 struct PlayMode : Mode {
 	virtual ~PlayMode();
 
