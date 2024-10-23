@@ -6,7 +6,7 @@
 #include "Scene.hpp"
 #include "Components.hpp"
 
-#include "../SpriteRenderer.h"
+#include "../sprites/SpriteLoader.h"
 #include "RectTransform.hpp"
 
 class Entity

@@ -24,16 +24,22 @@ void Scene::Load()
     // PLAYER ////////////////////////////////////////////////////////////////// 
     // initiates an entity with coordinates x=200, y=200, and sprite size width=300, height=400, with rotation=45 degrees
     Entity* e = Instantiate(glm::vec2{200, 200}, glm::vec2{300, 400}, 45.0f);
-    // adds a sprite renderer with the corresponding SHADER "sprite"
-    e->AddComponent<SpriteRenderer>(SPRITE_SHADER); // constant defined in PlayMode.cpp
-    // cuz player references SpriteRenderer on awake, SpriteRenderer needs to be added first
+    // adds a sprite loader with the corresponding SHADER "sprite"
+    e->AddComponent<SpriteLoader>(SPRITE_SHADER); // constant defined in PlayMode.cpp
+    // render this static sprite by adding a sprite renderer component. note: the key must correspond exactly with the texture handle!
+    e->AddComponent<SpriteRenderer>("potion");
+    // adds a player Behaviour script for movement
     e->AddComponent<Player>();
 
     // CUSTOMER TEST ////////////////////////////////////////////////////////////////// 
-    // initiates an entity with coordinates x=200, y=200, and sprite size width=300, height=400, with rotation=45 degrees
     Entity* e2 = Instantiate(glm::vec2{ 500, 0 }, glm::vec2{ 700, 400 }, 0.0f);
-    e2->AddComponent<SpriteRenderer>(SPRITE_SHADER); // constant defined in PlayMode.cpp
-    e2->AddComponent<Customer>();
+    e2->AddComponent<SpriteLoader>(SPRITE_SHADER);
+    e2->AddComponent<SpriteRenderer>("man");
+    e2->AddComponent<Customer>(); // TODO: add some proximity check
+
+    //// SPRITESHEET TEST ////////////////////////////////////////////////////////////////// 
+    //Entity* e3 = Instantiate(glm::vec2{ 400, 0 }, glm::vec2{ 200, 200 }, 0.0f);
+    //e3->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER);
 }
 
 void Scene::Unload()

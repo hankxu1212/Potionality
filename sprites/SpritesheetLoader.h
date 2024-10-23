@@ -3,16 +3,16 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "core/Texture.h"
-#include "core/Shader.h"
-#include "scene/Component.hpp"
+#include "../core/Texture.h"
+#include "../core/Shader.h"
+#include "../scene/Component.hpp"
 
-class SpriteRenderer : public Component
+class SpritesheetLoader : public Component
 {
 public:
-    SpriteRenderer(Shader& shader);
-    SpriteRenderer(const std::string& shaderName);
-    ~SpriteRenderer();
+    SpritesheetLoader(Shader& shader);
+    SpritesheetLoader(const std::string& shaderName);
+    ~SpritesheetLoader();
 
     void Update() override;
 
@@ -25,4 +25,11 @@ private:
 
     // Initializes and configures the quad's buffer and vertex attributes
     void initRenderData();
+
+    float nx_frames = 5.0f;
+    float ny_frames = 5.0f;
+    float uv_x = 0;
+    float uv_y = 2;
+    float invFPS = 1 / 2;
+    float prevTime;
 };

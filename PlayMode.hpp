@@ -12,6 +12,7 @@
 #include "renderText.hpp"
 
 #define SPRITE_SHADER "sprtShader"
+#define SPRITESHEET_SHADER "sprtshtShader"
 
 struct PlayMode : Mode {
 	virtual ~PlayMode();
@@ -27,18 +28,6 @@ struct PlayMode : Mode {
 	std::vector<text> font_texs;
 
 	//----- game state -----
-
-	//input tracking:
-	struct Button {
-		uint8_t downs = 0;
-		uint8_t pressed = 0;
-	} left, right, down, up;
-
-	//player position:
-	glm::vec2 player_at = glm::vec2(0.0f);
-
-	//----- scene management -----
-	// Scene scene;
 
 	//----- stacks and scripting -----
 	LayerStack												m_LayerStack;

@@ -2,7 +2,7 @@
 
 #include "Behaviour.hpp"
 
-class SpriteRenderer;
+class SpriteLoader;
 
 class Customer : public Behaviour
 {
@@ -15,6 +15,4 @@ public:
 	const char* getClassName() const override { return "Customer"; }
 
 private:
-
-	SpriteRenderer* spriteRenderer;
 };

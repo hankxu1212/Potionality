@@ -6,7 +6,6 @@
 #include "Texture.h"
 #include "Shader.h"
 
-
 // manages textures and shaders, with string handles
 class ResourceManager
 {
@@ -30,9 +29,6 @@ public:
     static void      Clear();
 
 private:
-    // private constructor, that is we do not want any actual resource manager objects. Its members and functions should be publicly available (static).
-    ResourceManager() { }
-
     // loads and generates a shader from file
     static Shader    loadShaderFromFile(const char* vShaderFile, const char* fShaderFile);
 

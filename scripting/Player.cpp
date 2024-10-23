@@ -4,7 +4,6 @@
 
 void Player::Awake()
 {
-	spriteRenderer = entity->GetComponent<SpriteRenderer>();
 }
 
 void Player::Start()
@@ -27,8 +26,6 @@ void Player::Update()
 	right.downs = 0;
 	up.downs = 0;
 	down.downs = 0;
-
-	spriteRenderer->DrawSprite("potion");
 }
 
 void Player::Shutdown()

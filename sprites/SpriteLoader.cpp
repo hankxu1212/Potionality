@@ -1,31 +1,31 @@
-#include "SpriteRenderer.h"
-#include "GL.hpp"
-#include "core/ResourceManager.h"
-#include "scene/Scene.hpp"
+#include "SpriteLoader.h"
+#include "../GL.hpp"
+#include "../core/ResourceManager.h"
+#include "../scene/Scene.hpp"
 
-SpriteRenderer::SpriteRenderer(Shader& shader)
+SpriteLoader::SpriteLoader(Shader& shader)
 {
     shader = shader;
     initRenderData();
 }
 
-SpriteRenderer::SpriteRenderer(const std::string& shaderName)
+SpriteLoader::SpriteLoader(const std::string& shaderName)
 {
     Shader spriteShader = ResourceManager::GetShader(shaderName);
     shader = spriteShader;
     initRenderData();
 }
 
-SpriteRenderer::~SpriteRenderer()
+SpriteLoader::~SpriteLoader()
 {
     glDeleteVertexArrays(1, &this->quadVAO);
 }
 
-void SpriteRenderer::Update()
+void SpriteLoader::Update()
 {
 }
 
-void SpriteRenderer::DrawSprite(const std::string& name, glm::vec3 color)
+void SpriteLoader::DrawSprite(const std::string& name, glm::vec3 color)
 {
     // prepare transformations
     this->shader.Use();
@@ -46,12 +46,12 @@ static float vertices[] = {
     1.0f, 0.0f, 1.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 0.0f,
 
-    0.0f, 1.0f, 0.0f, 1.0f,
+    0.0f, 1.0f, 0.0f, 1.0f, 
     1.0f, 1.0f, 1.0f, 1.0f,
     1.0f, 0.0f, 1.0f, 0.0f
 };
 
-void SpriteRenderer::initRenderData()
+void SpriteLoader::initRenderData()
 {
     // configure VAO/VBO
     unsigned int VBO;
@@ -69,11 +69,11 @@ void SpriteRenderer::initRenderData()
 }
 
 template<>
-void Scene::OnComponentAdded<SpriteRenderer>(Entity& entity, SpriteRenderer& component)
+void Scene::OnComponentAdded<SpriteLoader>(Entity& entity, SpriteLoader& component)
 {
 }
 
 template<>
-void Scene::OnComponentRemoved<SpriteRenderer>(Entity& entity, SpriteRenderer& component)
+void Scene::OnComponentRemoved<SpriteLoader>(Entity& entity, SpriteLoader& component)
 {
 }

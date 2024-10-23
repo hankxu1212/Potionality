@@ -157,6 +157,10 @@ int main(int argc, char **argv) {
 			//lag to avoid spiral of death:
 			elapsed = std::min(0.1f, elapsed);
 
+			// set clear colors and clear color buffer
+			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			Mode::current->update(elapsed);
 			if (!Mode::current) break;
 		}

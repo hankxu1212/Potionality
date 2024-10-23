@@ -4,4 +4,8 @@
 #include "../scripting/Player.hpp"
 #include "../scripting/Customer.hpp"
 
-#include "../SpriteRenderer.h"
+// sprite components
+#include "../sprites/SpriteLoader.h"
+#include "../sprites/SpriteRenderer.h"
+//#include "../sprites/SpritesheetAnimator.h"
+#include "../sprites/SpritesheetLoader.h"

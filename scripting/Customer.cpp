@@ -4,7 +4,6 @@
 
 void Customer::Awake()
 {
-	spriteRenderer = entity->GetComponent<SpriteRenderer>();
 }
 
 void Customer::Start()
@@ -13,7 +12,6 @@ void Customer::Start()
 
 void Customer::Update()
 {
-	spriteRenderer->DrawSprite("man");
 }
 
 void Customer::Shutdown()

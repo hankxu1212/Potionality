@@ -13,9 +13,6 @@
 #include "core/Time.hpp"
 #include "scripting/ScriptingEngine.hpp"
 #include "core/ResourceManager.h"
-#include "SpriteRenderer.h"
-
-//SpriteRenderer* Renderer;
 
 void PlayMode::Init()
 {
@@ -26,12 +23,17 @@ void PlayMode::Init()
 	
 	loadText(characters,font_texs); //load in the font
 
-	ResourceManager::LoadShader(Files::Path("../shaders/sprite.vert").c_str(), Files::Path("../shaders/sprite.frag").c_str(), nullptr, SPRITE_SHADER);
-
-	// configure shaders
 	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -1.0f, 1.0f);
+
+	// configure static sprite shader
+	ResourceManager::LoadShader(Files::Path("../shaders/sprite.vert").c_str(), Files::Path("../shaders/sprite.frag").c_str(), nullptr, SPRITE_SHADER);
 	ResourceManager::GetShader(SPRITE_SHADER).Use().SetInteger("image", 0);
 	ResourceManager::GetShader(SPRITE_SHADER).SetMatrix4("projection", projection);
+
+	// configure dynamic spritesheet shader
+	ResourceManager::LoadShader(Files::Path("../shaders/spritesheet.vert").c_str(), Files::Path("../shaders/spritesheet.frag").c_str(), nullptr, SPRITESHEET_SHADER);
+	ResourceManager::GetShader(SPRITESHEET_SHADER).Use().SetInteger("image", 0);
+	ResourceManager::GetShader(SPRITESHEET_SHADER).SetMatrix4("projection", projection);
 
 	// initialize time class
 	Time::Now = 0;
@@ -71,6 +73,7 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
+
 	Time::DeltaTime = elapsed;
 
 	UpdateStage(Module::UpdateStage::Pre);
