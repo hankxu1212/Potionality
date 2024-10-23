@@ -44,10 +44,14 @@ void PlayMode::Init()
 	Time::Now = 0;
 
 	// initialize scripting engine
-	PushLayer(new ScriptingEngine());
+	ScriptingEngine *engine = new ScriptingEngine();
 
+	// requires an active scripting engine
+	// for each component, call Awake
 	SceneManager::Get()->LoadActiveScene();
 
+	// for each component, call Start
+	PushLayer(engine);
 }
 
 PlayMode::~PlayMode() {

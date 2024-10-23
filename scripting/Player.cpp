@@ -4,12 +4,10 @@
 
 void Player::Awake()
 {
-	LOG_INFO("AWAKE");
 }
 
 void Player::Start()
 {
-	LOG_INFO("START");
 }
 
 void Player::Update()
@@ -20,8 +18,8 @@ void Player::Update()
     constexpr float PlayerSpeed = 100.0f;
 	if (left.pressed) GetTransform()->position.x -= PlayerSpeed * Time::DeltaTime;
 	if (right.pressed) GetTransform()->position.x += PlayerSpeed * Time::DeltaTime;
-	if (down.pressed) GetTransform()->position.y -= PlayerSpeed * Time::DeltaTime;
-	if (up.pressed) GetTransform()->position.y += PlayerSpeed * Time::DeltaTime;
+	if (down.pressed) GetTransform()->position.y += PlayerSpeed * Time::DeltaTime;
+	if (up.pressed) GetTransform()->position.y -= PlayerSpeed * Time::DeltaTime;
 
 	//reset button press counters:
 	left.downs = 0;
