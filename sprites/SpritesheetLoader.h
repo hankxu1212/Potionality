@@ -30,6 +30,6 @@ private:
     float ny_frames = 5.0f;
     float uv_x = 0;
     float uv_y = 2;
-    float invFPS = 1 / 2;
+    float invFPS = 1.0 / 20;
     float prevTime;
 };

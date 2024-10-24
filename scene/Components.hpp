@@ -7,5 +7,5 @@
 // sprite components
 #include "../sprites/SpriteLoader.h"
 #include "../sprites/SpriteRenderer.h"
-//#include "../sprites/SpritesheetAnimator.h"
+#include "../sprites/SpritesheetRenderer.h"
 #include "../sprites/SpritesheetLoader.h"

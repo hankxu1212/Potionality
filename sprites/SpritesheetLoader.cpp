@@ -3,6 +3,7 @@
 #include "../core/ResourceManager.h"
 #include "../scene/Scene.hpp"
 #include "../core/Time.hpp"
+#include "../core/utils/Logger.hpp"
 
 SpritesheetLoader::SpritesheetLoader(Shader& shader)
 {
@@ -30,7 +31,11 @@ void SpritesheetLoader::Update()
         prevTime = Time::Now;
         uv_x += 1.0f;
         if (uv_x >= nx_frames) {
-            uv_x = 0.0f;
+            uv_x = 0;
+            uv_y += 1.0f;
+
+            if (uv_y >= ny_frames)
+                uv_y = 0;
         }
     }
 }

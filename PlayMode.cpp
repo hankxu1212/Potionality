@@ -72,8 +72,9 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 	return false;
 }
 
-void PlayMode::update(float elapsed) {
-
+void PlayMode::update(float elapsed) 
+{
+	Time::Now += elapsed;
 	Time::DeltaTime = elapsed;
 
 	UpdateStage(Module::UpdateStage::Pre);
