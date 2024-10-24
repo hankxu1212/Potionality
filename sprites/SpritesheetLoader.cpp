@@ -6,7 +6,7 @@
 
 SpritesheetLoader::SpritesheetLoader(Shader& shader)
 {
-    shader = shader;
+    this->shader = shader;
     initRenderData();
 }
 

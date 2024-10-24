@@ -5,7 +5,7 @@
 
 SpriteLoader::SpriteLoader(Shader& shader)
 {
-    shader = shader;
+    this->shader = shader;
     initRenderData();
 }
 
