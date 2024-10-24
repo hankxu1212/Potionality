@@ -23,10 +23,6 @@ struct PlayMode : Mode {
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const &drawable_size) override;
 
-	//fonts stuff
-	std::vector<Character> characters;
-	std::vector<text> font_texs;
-
 	//----- stacks and scripting -----
 	LayerStack												m_LayerStack;
 

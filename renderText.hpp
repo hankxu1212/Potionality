@@ -5,9 +5,9 @@
 #include <ft2build.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <glm/glm.hpp>
 
 #include FT_FREETYPE_H
-
 
 struct PosTexVertex {
 	glm::vec3 Position;
@@ -23,7 +23,7 @@ struct text {
 	GLuint count = 0; //number of vertices in buffer
 	glm::mat4 CLIP_FROM_LOCAL = glm::mat4(1.0f); //transform to use when drawing
 } ;
-// std::vector<text> font_texs;
+
 
 // text
 struct Character {
@@ -32,17 +32,17 @@ struct Character {
 	glm::ivec2   Bearing;    // Offset from baseline to left/top of glyph
 	unsigned int Advance;    // Offset to advance to next glyph
 };
-// std::vector<Character> Characters; 
+
+extern std::vector<Character> Characters;
+extern std::vector<text> font_texs;
 
 // these functions are based on what Jim did in class
 void UploadTexture(GLuint &tex, void* data,uint32_t w,uint32_t h, uint32_t colorformat);
 void SetupBufferandVAO(GLuint &vao,GLuint &buffer);
 
-void loadText(std::vector<Character>& Characters ,std::vector<text> &font_texs);
-
+void loadText();
 
 void renderImg(text tex);
 
-
 // code based on : https://learnopengl.com/In-Practice/Text-Rendering
-void RenderText(std::string text, float x, float y, float scale, std::vector<Character>& Characters,std::vector<struct text>& font_texs);
+void RenderText(std::string text, float x, float y, float scale);

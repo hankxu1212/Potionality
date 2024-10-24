@@ -17,11 +17,10 @@
 void PlayMode::Init()
 {
 	// create all modules
+	loadText();
 	auto& registry = Module::GetRegistry();
 	for (auto it = registry.begin(); it != registry.end(); ++it)
 		CreateModule(it);
-	
-	loadText(characters,font_texs); //load in the font
 
 	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -1.0f, 1.0f);
 
@@ -93,7 +92,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size)
 {
 	UpdateStage(Module::UpdateStage::Render);
 
-	RenderText("abcdefghijklmnopqrstuvwxyz wow testing character's", -.90f,-0.8f, .003f, characters,font_texs);
+	RenderText("abcdefghijklmnopqrstuvwxyz wow testing character's", -.90f,-0.8f, .003f);
 }
 
 void PlayMode::PushLayer(Layer* layer)
