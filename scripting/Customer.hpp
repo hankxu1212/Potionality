@@ -15,4 +15,5 @@ public:
 	const char* getClassName() const override { return "Customer"; }
 
 private:
+	float interactionDistance = 100;
 };

@@ -1,6 +1,8 @@
 #include "Customer.hpp"
 #include "../scene/Scene.hpp"
 #include "../scene/Entity.hpp"
+#include "Player.hpp"
+#include "../PlayMode.hpp"
 
 void Customer::Awake()
 {
@@ -12,6 +14,14 @@ void Customer::Start()
 
 void Customer::Update()
 {
+	auto& playerPos = Player::Instance->GetTransform()->position;
+	float distance = glm::distance(GetTransform()->position, playerPos);
+
+	if (distance < interactionDistance)
+	{
+		LOG_INFO("Customer is close! Render some text here");
+		// RenderText("WHATS UP", -.90f,-0.8f, .003f, characters,font_texs);
+	}
 }
 
 void Customer::Shutdown()

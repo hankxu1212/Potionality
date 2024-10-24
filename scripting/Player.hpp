@@ -7,6 +7,9 @@ class SpriteLoader;
 class Player : public Behaviour
 {
 public:
+	// global player instance
+	inline static Player* Instance;
+
 	void Awake() override;
 	void Start() override;
 	void Update() override;

@@ -4,6 +4,12 @@
 
 void Player::Awake()
 {
+	if (Player::Instance)
+	{
+		LOG_WARN("Multiple player instances found!");
+	}
+
+	Player::Instance = this;
 }
 
 void Player::Start()

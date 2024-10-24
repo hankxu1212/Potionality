@@ -27,8 +27,6 @@ struct PlayMode : Mode {
 	std::vector<Character> characters;
 	std::vector<text> font_texs;
 
-	//----- game state -----
-
 	//----- stacks and scripting -----
 	LayerStack												m_LayerStack;
 
