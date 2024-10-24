@@ -11,11 +11,15 @@ SpritesheetLoader::SpritesheetLoader(Shader& shader)
     initRenderData();
 }
 
-SpritesheetLoader::SpritesheetLoader(const std::string& shaderName)
+SpritesheetLoader::SpritesheetLoader(const std::string& shaderName, uint32_t width, uint32_t height) :
+    dimX(width), dimY(height)
 {
     Shader spriteShader = ResourceManager::GetShader(shaderName);
     shader = spriteShader;
     initRenderData();
+
+    uv_step.x = 1.0 / dimX;
+    uv_step.y = 1.0 / dimY;
 }
 
 SpritesheetLoader::~SpritesheetLoader()
@@ -30,11 +34,11 @@ void SpritesheetLoader::Update()
     {
         prevTime = Time::Now;
         uv_x += 1.0f;
-        if (uv_x >= nx_frames) {
+        if (uv_x >= dimX) {
             uv_x = 0;
             uv_y += 1.0f;
 
-            if (uv_y >= ny_frames)
+            if (uv_y >= dimY)
                 uv_y = 0;
         }
     }
@@ -49,10 +53,8 @@ void SpritesheetLoader::DrawSprite(const std::string& name, glm::vec3 color)
     shader.SetVector3f("spriteColor", color);
     
     // push animation variables
-    shader.SetFloat("uv_x", uv_x);
-    shader.SetFloat("uv_y", uv_y);
-    shader.SetFloat("nx_frames", nx_frames);
-    shader.SetFloat("ny_frames", ny_frames);
+    shader.SetVector2f("uv_offset", glm::vec2(uv_x, uv_y));
+    shader.SetVector2f("uv_step", uv_step);
 
     glActiveTexture(GL_TEXTURE0);
     ResourceManager::GetTexture(name).Bind();

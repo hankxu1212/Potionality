@@ -5,17 +5,11 @@ out vec4 color;
 
 uniform sampler2D image;
 uniform vec3 spriteColor;
-uniform float uv_x;
-uniform float uv_y;
-uniform float nx_frames;
-uniform float ny_frames;
+uniform vec2 uv_offset;
+uniform vec2 uv_step;
 
 void main()
 {
-    float x = 1.0 / nx_frames;
-    float y = 1.0 / ny_frames;
-
-    vec2 uv = vec2(TexCoords.x * x, TexCoords.y * y) + vec2(x * uv_x, y * uv_y);
-
+    vec2 uv = uv_step * (TexCoords + uv_offset);
     color = vec4(spriteColor, 1.0) * texture(image, uv);
 }

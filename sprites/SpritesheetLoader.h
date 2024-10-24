@@ -11,7 +11,7 @@ class SpritesheetLoader : public Component
 {
 public:
     SpritesheetLoader(Shader& shader);
-    SpritesheetLoader(const std::string& shaderName);
+    SpritesheetLoader(const std::string& shaderName, uint32_t width, uint32_t height);
     ~SpritesheetLoader();
 
     void Update() override;
@@ -26,10 +26,10 @@ private:
     // Initializes and configures the quad's buffer and vertex attributes
     void initRenderData();
 
-    float nx_frames = 5.0f;
-    float ny_frames = 5.0f;
+    float dimX, dimY;
+    glm::vec2 uv_step;
     float uv_x = 0;
-    float uv_y = 2;
+    float uv_y = 0;
     float invFPS = 1.0 / 20;
     float prevTime;
 };

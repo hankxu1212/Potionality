@@ -21,6 +21,7 @@ void Scene::Load()
     ResourceManager::LoadTexture(Files::Path("../resources/potions/Blue_potion.png").c_str(), true, "potion");
     ResourceManager::LoadTexture(Files::Path("../resources/characters/Guy_flipped.png").c_str(), true, "man");
     ResourceManager::LoadTexture(Files::Path("../resources/animations/Smoke_5x5.png").c_str(), true, "Smoke5x5");
+    ResourceManager::LoadTexture(Files::Path("../resources/animations/Cat.png").c_str(), true, "Cat");
 
     // PLAYER ////////////////////////////////////////////////////////////////// 
     // initiates an entity with coordinates x=200, y=200, and sprite size width=300, height=400, with rotation=45 degrees
@@ -40,8 +41,13 @@ void Scene::Load()
 
     //// SPRITESHEET TEST ////////////////////////////////////////////////////////////////// 
     Entity* e3 = Instantiate(glm::vec2{ 400, 0 }, glm::vec2{ 200, 200 }, 0.0f);
-    e3->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER);
+    e3->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 5, 5);
     e3->AddComponent<SpritesheetRenderer>("Smoke5x5");
+
+    //// CAT!! ////////////////////////////////////////////////////////////////// 
+    Entity* e4 = Instantiate(glm::vec2{ 90, 90 }, glm::vec2{ 200, 200 }, 0.0f);
+    e4->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 10, 10);
+    e4->AddComponent<SpritesheetRenderer>("Cat");
 }
 
 void Scene::Unload()
