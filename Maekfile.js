@@ -152,6 +152,7 @@ else
 
 const scene_objs = [
 	maek.CPP('scene/Entity.cpp'),
+	maek.CPP('scene/UUID.cpp'),
 	maek.CPP('scene/Scene.cpp'),
 	maek.CPP('scene/Component.cpp'),
 	maek.CPP('scene/SceneManager.cpp'),
