@@ -4,6 +4,8 @@
 #include <list>
 #include <memory>
 
+#include "UUID.hpp"
+
 class Entity;
 
 class Scene
@@ -49,4 +51,5 @@ public: // event functions. Do not create function definitions!
 
 private:
 	std::list<std::unique_ptr<Entity>> entities;
+	std::list<uint64_t> ingredient_ids;
 };

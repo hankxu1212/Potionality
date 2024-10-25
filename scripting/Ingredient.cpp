@@ -19,7 +19,7 @@ void Ingredient::Update()
 
 	if (distance < interactionDistance)
 	{
-		LOG_INFO("Smash!"); // TODO: Render text
+		LOG_INFO("Smashable! Render some text here!"); // TODO: Render text
 	}
 }
 

@@ -51,21 +51,29 @@ void Scene::Load()
     e3->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e3->AddComponent<SpriteRenderer>("flower");
     e3->AddComponent<Ingredient>();
+    ingredient_ids.push_back(e3->uuid());
 
     Entity* e4 = Instantiate(glm::vec2{1200, 600}, glm::vec2{64, 64}, 0.0f);
     e4->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e4->AddComponent<SpriteRenderer>("mushroom");
     e4->AddComponent<Ingredient>();
+    ingredient_ids.push_back(e4->uuid());
 
     Entity* e5 = Instantiate(glm::vec2{400, 400}, glm::vec2{64, 64}, 0.0f);
     e5->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e5->AddComponent<SpriteRenderer>("purple_quartz");
     e5->AddComponent<Ingredient>();
+    ingredient_ids.push_back(e5->uuid());
 
     Entity* e6 = Instantiate(glm::vec2{600, 800}, glm::vec2{64, 64}, 0.0f);
     e6->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e6->AddComponent<SpriteRenderer>("white_quartz");
     e6->AddComponent<Ingredient>();
+    ingredient_ids.push_back(e6->uuid());
+
+    for (UUID uuid : ingredient_ids) {
+        LOG_INFO(uint64_t(uuid)); // TODO: Render text
+    }
 }
 
 void Scene::Unload()
