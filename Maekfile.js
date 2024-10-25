@@ -42,7 +42,10 @@ if (maek.OS === "windows") {
 		`/wd4100`, //unreferenced formal parameter
 		`/wd4201`, //nameless struct/union
 		`/wd4611`,  //interaction between setjmp and C++ object destruction,
-		`/wd4324` // deprecation
+		`/wd4324`, // deprecation
+		`/wd4706`, //assignment within conditional
+		`/wd4305`, //double to float
+		`/wd4244` //double to T (float)
 	);
 	maek.options.LINKLibs.push(
 		`/LIBPATH:${NEST_LIBS}/SDL2/lib`, `SDL2main.lib`, `SDL2.lib`, `OpenGL32.lib`, `Shell32.lib`,
@@ -163,6 +166,7 @@ const scripting_objs = [
 const gameplay_scripts = [
 	maek.CPP('scripting/Player.cpp'),
 	maek.CPP('scripting/Customer.cpp'),
+	maek.CPP('scripting/Ingredient.cpp'),
 ]
 
 //the '[exeFile =] LINK(objFiles, exeFileBase, [, options])' links an array of objects into an executable:

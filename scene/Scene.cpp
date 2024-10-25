@@ -18,36 +18,54 @@ Scene::~Scene()
 void Scene::Load()
 {
     // load textures
-    ResourceManager::LoadTexture(Files::Path("../resources/potions/Blue_potion.png").c_str(), true, "potion");
+    ResourceManager::LoadTexture(Files::Path("../resources/characters/idle.png").c_str(), true, "player_idle");
+    //ResourceManager::LoadTexture(Files::Path("../resources/characters/jump.png").c_str(), true, "player_jump");
+    //ResourceManager::LoadTexture(Files::Path("../resources/characters/walk.png").c_str(), true, "player_walk");
     ResourceManager::LoadTexture(Files::Path("../resources/characters/Guy_flipped.png").c_str(), true, "man");
-    ResourceManager::LoadTexture(Files::Path("../resources/animations/Smoke_5x5.png").c_str(), true, "Smoke5x5");
-    ResourceManager::LoadTexture(Files::Path("../resources/animations/Cat.png").c_str(), true, "Cat");
+    ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Flower.png").c_str(), true, "flower");
+    ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Mushroom.png").c_str(), true, "mushroom");
+    ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Purple_Quartz.png").c_str(), true, "purple_quartz");
+    ResourceManager::LoadTexture(Files::Path("../resources/ingredients/White_Quartz.png").c_str(), true, "white_quartz");
+    //ResourceManager::LoadTexture(Files::Path("../resources/animations/Smoke_5x5.png").c_str(), true, "Smoke5x5");
+    //ResourceManager::LoadTexture(Files::Path("../resources/animations/Cat.png").c_str(), true, "Cat");
 
     // PLAYER ////////////////////////////////////////////////////////////////// 
-    // initiates an entity with coordinates x=200, y=200, and sprite size width=300, height=400, with rotation=45 degrees
-    Entity* e = Instantiate(glm::vec2{200, 200}, glm::vec2{300, 400}, 45.0f);
+    // initiates an entity with coordinates x=200, y=200, and sprite size width=96, height=96, with rotation=0 degrees
+    Entity* e = Instantiate(glm::vec2{200, 200}, glm::vec2{96, 96}, 0.0f);
     // adds a sprite loader with the corresponding SHADER "sprite"
-    e->AddComponent<SpriteLoader>(SPRITE_SHADER); // constant defined in PlayMode.cpp
-    // render this static sprite by adding a sprite renderer component. note: the key must correspond exactly with the texture handle!
-    e->AddComponent<SpriteRenderer>("potion");
+    e->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 4, 1); // constant defined in PlayMode.cpp
+    // render this animated sprite by adding a sprite renderer component. note: the key must correspond exactly with the texture handle!
+    e->AddComponent<SpritesheetRenderer>("player_idle");
     // adds a player Behaviour script for movement
     e->AddComponent<Player>();
 
     // CUSTOMER TEST ////////////////////////////////////////////////////////////////// 
-    Entity* e2 = Instantiate(glm::vec2{ 500, 0 }, glm::vec2{ 700, 400 }, 0.0f);
+    // TODO: Use something else for the counter/potion deposit place
+    Entity* e2 = Instantiate(glm::vec2{1480, 340}, glm::vec2{400, 800}, 180.0f);
     e2->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e2->AddComponent<SpriteRenderer>("man");
     e2->AddComponent<Customer>(); // TODO: add some proximity check
 
-    //// SPRITESHEET TEST ////////////////////////////////////////////////////////////////// 
-    Entity* e3 = Instantiate(glm::vec2{ 400, 0 }, glm::vec2{ 200, 200 }, 0.0f);
-    e3->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 5, 5);
-    e3->AddComponent<SpritesheetRenderer>("Smoke5x5");
+    // INGREDIENTS //////////////////////////////////////////////////
+    Entity* e3 = Instantiate(glm::vec2{800, 200}, glm::vec2{64, 64}, 0.0f);
+    e3->AddComponent<SpriteLoader>(SPRITE_SHADER);
+    e3->AddComponent<SpriteRenderer>("flower");
+    e3->AddComponent<Ingredient>();
 
-    //// CAT!! ////////////////////////////////////////////////////////////////// 
-    Entity* e4 = Instantiate(glm::vec2{ 90, 90 }, glm::vec2{ 200, 200 }, 0.0f);
-    e4->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 10, 10);
-    e4->AddComponent<SpritesheetRenderer>("Cat");
+    Entity* e4 = Instantiate(glm::vec2{1200, 600}, glm::vec2{64, 64}, 0.0f);
+    e4->AddComponent<SpriteLoader>(SPRITE_SHADER);
+    e4->AddComponent<SpriteRenderer>("mushroom");
+    e4->AddComponent<Ingredient>();
+
+    Entity* e5 = Instantiate(glm::vec2{400, 400}, glm::vec2{64, 64}, 0.0f);
+    e5->AddComponent<SpriteLoader>(SPRITE_SHADER);
+    e5->AddComponent<SpriteRenderer>("purple_quartz");
+    e5->AddComponent<Ingredient>();
+
+    Entity* e6 = Instantiate(glm::vec2{600, 800}, glm::vec2{64, 64}, 0.0f);
+    e6->AddComponent<SpriteLoader>(SPRITE_SHADER);
+    e6->AddComponent<SpriteRenderer>("white_quartz");
+    e6->AddComponent<Ingredient>();
 }
 
 void Scene::Unload()

@@ -19,9 +19,9 @@ void Player::Start()
 void Player::Update()
 {
     if (!entity)
-        LOG_WARN("NOT ENRTITY");
+        LOG_WARN("NOT ENTITY");
 
-    constexpr float PlayerSpeed = 100.0f;
+    constexpr float PlayerSpeed = 200.0f;
 	if (left.pressed) GetTransform()->position.x -= PlayerSpeed * Time::DeltaTime;
 	if (right.pressed) GetTransform()->position.x += PlayerSpeed * Time::DeltaTime;
 	if (down.pressed) GetTransform()->position.y += PlayerSpeed * Time::DeltaTime;
