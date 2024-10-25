@@ -21,11 +21,13 @@ void Scene::Load()
     ResourceManager::LoadTexture(Files::Path("../resources/characters/Full.png").c_str(), true, "player_idle");
     //ResourceManager::LoadTexture(Files::Path("../resources/characters/jump.png").c_str(), true, "player_jump");
     //ResourceManager::LoadTexture(Files::Path("../resources/characters/walk.png").c_str(), true, "player_walk");
-    ResourceManager::LoadTexture(Files::Path("../resources/characters/Guy_flipped.png").c_str(), true, "man");
+    //ResourceManager::LoadTexture(Files::Path("../resources/characters/Guy_flipped.png").c_str(), true, "man");
     ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Flower.png").c_str(), true, "flower");
     ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Mushroom.png").c_str(), true, "mushroom");
     ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Purple_Quartz.png").c_str(), true, "purple_quartz");
     ResourceManager::LoadTexture(Files::Path("../resources/ingredients/White_Quartz.png").c_str(), true, "white_quartz");
+    ResourceManager::LoadTexture(Files::Path("../resources/background/Table.png").c_str(), true, "table");
+    ResourceManager::LoadTexture(Files::Path("../resources/background/Counter.png").c_str(), true, "counter");
     //ResourceManager::LoadTexture(Files::Path("../resources/animations/Smoke_5x5.png").c_str(), true, "Smoke5x5");
     //ResourceManager::LoadTexture(Files::Path("../resources/animations/Cat.png").c_str(), true, "Cat");
 
@@ -41,10 +43,11 @@ void Scene::Load()
 
     // CUSTOMER TEST ////////////////////////////////////////////////////////////////// 
     // TODO: Use something else for the counter/potion deposit place
-    Entity* e2 = Instantiate(glm::vec2{1480, 340}, glm::vec2{400, 800}, 180.0f);
+    Entity* e2 = Instantiate(glm::vec2{1500, 300}, glm::vec2{256, 256}, 0.0f);
     e2->AddComponent<SpriteLoader>(SPRITE_SHADER);
-    e2->AddComponent<SpriteRenderer>("man");
+    e2->AddComponent<SpriteRenderer>("counter");
     e2->AddComponent<Customer>(); // TODO: add some proximity check
+    
 
     // INGREDIENTS //////////////////////////////////////////////////
     // Note: Make sure the coordinates in ingredient_locations match the ones used in Instantiate()
@@ -72,6 +75,10 @@ void Scene::Load()
     e6->AddComponent<SpriteRenderer>("white_quartz");
     e6->AddComponent<Ingredient>();
     ingredient_locations[{600, 800}] = e6;
+    
+    Entity* e7 = Instantiate(glm::vec2{500, 500}, glm::vec2{256, 256}, 0.0f);
+    e7->AddComponent<SpriteLoader>(SPRITE_SHADER);
+    e7->AddComponent<SpriteRenderer>("table");
 
     Entity* test = GetClosestIngredient(glm::vec2{500, 500});
     LOG_INFO("Closest ingredient coordinates:");
