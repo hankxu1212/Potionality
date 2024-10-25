@@ -121,6 +121,7 @@ const game_objs = [
 
 const core_objs = [
 	maek.CPP('core/Files.cpp'),
+	maek.CPP('core/utils/sejp/sejp.cpp'),
 	maek.CPP('math/Math.cpp'),
 	maek.CPP('math/vector/Vec2.cpp'),
 	maek.CPP('math/vector/Vec3.cpp'),

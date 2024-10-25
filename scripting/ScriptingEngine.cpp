@@ -26,7 +26,7 @@ void ScriptingEngine::OnDetach()
 
 void ScriptingEngine::OnUpdate()
 {
-    // std::cout << m_Scripts.size() << " scripts found\n";
+    // std::cout << m_Scriptsw.size() << " scripts found\n";
 }
 
 bool ScriptingEngine::OnEvent(const SDL_Event& e)
