@@ -5,6 +5,7 @@
 #include <memory>
 #include <map>
 #include <utility>
+#include <glm/glm.hpp>
 
 class Entity;
 
@@ -46,6 +47,20 @@ public: // event functions. Do not create function definitions!
 	{
 		entities.emplace_back(std::make_unique<Entity>(this, args...));
 		return entities.back().get();
+	}
+
+	Entity* GetClosestIngredient(glm::vec2 playerPos) {
+		float min_distance = -1;
+		Entity* closest = nullptr;
+		for (const auto& mapping : ingredient_locations) {
+			std::pair<float, float> coord = mapping.first;
+			float distance = glm::distance(playerPos, glm::vec2{coord.first, coord.second});
+			if (distance < min_distance || min_distance == -1) {
+				min_distance = distance;
+				closest = mapping.second;
+			}
+		}
+		return closest;
 	}
 
 

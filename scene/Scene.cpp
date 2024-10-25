@@ -73,10 +73,10 @@ void Scene::Load()
     e6->AddComponent<Ingredient>();
     ingredient_locations[{600, 800}] = e6;
 
-    for (const auto& coord : ingredient_locations) {
-        LOG_INFO(coord.first.first); // For testing, delete me when done
-        LOG_INFO(coord.first.second);
-    }
+    Entity* test = GetClosestIngredient(glm::vec2{500, 500});
+    LOG_INFO("Closest ingredient coordinates:");
+    LOG_INFO(test->transform()->position.x);
+    LOG_INFO(test->transform()->position.y);
 }
 
 void Scene::Unload()
