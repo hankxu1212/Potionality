@@ -36,4 +36,6 @@ private:
 	[[maybe_unused]] State m_PlayerState;
 
 	void HandleMovement();
+
+	void HandleState();
 };

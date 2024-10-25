@@ -18,7 +18,7 @@ Scene::~Scene()
 void Scene::Load()
 {
     // load textures
-    ResourceManager::LoadTexture(Files::Path("../resources/characters/idle.png").c_str(), true, "player_idle");
+    ResourceManager::LoadTexture(Files::Path("../resources/characters/Full.png").c_str(), true, "player_idle");
     //ResourceManager::LoadTexture(Files::Path("../resources/characters/jump.png").c_str(), true, "player_jump");
     //ResourceManager::LoadTexture(Files::Path("../resources/characters/walk.png").c_str(), true, "player_walk");
     ResourceManager::LoadTexture(Files::Path("../resources/characters/Guy_flipped.png").c_str(), true, "man");
@@ -33,7 +33,7 @@ void Scene::Load()
     // initiates an entity with coordinates x=200, y=200, and sprite size width=96, height=96, with rotation=0 degrees
     Entity* e = Instantiate(glm::vec2{200, 200}, glm::vec2{96, 96}, 0.0f);
     // adds a sprite loader with the corresponding SHADER "sprite"
-    e->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 4, 1); // constant defined in PlayMode.cpp
+    e->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 6, 4); // constant defined in PlayMode.cpp
     // render this animated sprite by adding a sprite renderer component. note: the key must correspond exactly with the texture handle!
     e->AddComponent<SpritesheetRenderer>("player_idle");
     // adds a player Behaviour script for movement
