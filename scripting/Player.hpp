@@ -25,6 +25,9 @@ private:
 		uint8_t pressed = 0;
 	} left, right, down, up;
 
+	SDL_Keycode interactKey;
+	void OnInteractPressed();
+
 	enum class State
 	{
 		Idle, Walk, Smash, Eat, Deliver
