@@ -18,12 +18,13 @@ void SpritesheetRenderer::Update()
     {
         prevTime = Time::Now;
         uv_x += 1.0f;
-        if (uv_x >= size_x) {
-            uv_x = loop_x;
-            uv_y += 1.0f;
+        if (uv_x >= loop_x) {
+            uv_x = 0;
+            // uv_y += 1.0f;
+            uv_y = loop_y; // TODO: modify this
 
-            if (uv_y >= size_y)
-                uv_y = loop_y;
+            // if (uv_y >= loop_y)
+                // uv_y = 0;
         }
     }
 

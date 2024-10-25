@@ -25,7 +25,9 @@ void Player::Update()
 	assert(entity);
 
 	HandleMovement();
+	HandleState();
 
+	// reset buttons
 	left.downs = 0;
 	right.downs = 0;
 	up.downs = 0;
@@ -99,8 +101,24 @@ void Player::HandleMovement()
 		m_PlayerState = State::Walk;
 		GetTransform()->position += PlayerSpeed * Time::DeltaTime * normalize(direction);
 	}
+	else
+	{
+		m_PlayerState = State::Idle;
+	}
 
 	// Add more controls here for smash!
+}
+
+void Player::HandleState()
+{
+	if (m_PlayerState == State::Idle)
+	{
+		playerSprite->SetLoopRegion(1, 3);
+	}
+	else if (m_PlayerState == State::Walk)
+	{
+		playerSprite->SetLoopRegion(2, 3);
+	}
 }
 
 template<>
