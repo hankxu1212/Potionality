@@ -2,6 +2,8 @@
 #include "../scene/Scene.hpp"
 #include "../scene/Entity.hpp"
 
+SpritesheetRenderer* playerSprite;
+
 void Player::Awake()
 {
 	if (Player::Instance)
@@ -10,6 +12,8 @@ void Player::Awake()
 	}
 
 	Player::Instance = this;
+
+	playerSprite = entity->GetComponent<SpritesheetRenderer>();
 }
 
 void Player::Start()
@@ -51,6 +55,9 @@ bool Player::HandleEvent(const SDL_Event &evt)
 			down.downs += 1;
 			down.pressed = true;
 			return true;
+		}else if (evt.key.keysym.sym == interactKey) {
+			OnInteractPressed();
+			return true;
 		}
 	} else if (evt.type == SDL_KEYUP) {
 		if (evt.key.keysym.sym == SDLK_LEFT) {
@@ -71,6 +78,11 @@ bool Player::HandleEvent(const SDL_Event &evt)
 	return false;
 }
 
+void Player::OnInteractPressed()
+{
+	LOG_INFO("Interact!");
+}
+
 void Player::HandleMovement()
 {
 	constexpr float PlayerSpeed = 200.0f;
@@ -84,8 +96,11 @@ void Player::HandleMovement()
 
 	if (direction != glm::vec2(0))
 	{
+		m_PlayerState = State::Walk;
 		GetTransform()->position += PlayerSpeed * Time::DeltaTime * normalize(direction);
 	}
+
+	// Add more controls here for smash!
 }
 
 template<>
