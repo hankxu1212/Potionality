@@ -58,11 +58,9 @@ public: // entity components
     void SetScene(Scene* newScene) { m_Scene = newScene; }
 	Scene* scene() { return m_Scene; }
 	RectTransform* transform() { return s_Transform.get(); }
-	uint64_t uuid() { return uint64_t(m_UUID); }
 
 private:
     Scene*									m_Scene = nullptr;
     std::vector<std::unique_ptr<Component>>	m_Components;
 	std::unique_ptr<RectTransform>			s_Transform;
-	UUID									m_UUID;
 };
