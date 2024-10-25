@@ -29,22 +29,9 @@ SpritesheetLoader::~SpritesheetLoader()
 
 void SpritesheetLoader::Update()
 {
-    float timeDelta = Time::Now - prevTime;
-    if (timeDelta > invFPS)
-    {
-        prevTime = Time::Now;
-        uv_x += 1.0f;
-        if (uv_x >= dimX) {
-            uv_x = 0;
-            uv_y += 1.0f;
-
-            if (uv_y >= dimY)
-                uv_y = 0;
-        }
-    }
 }
 
-void SpritesheetLoader::DrawSprite(const std::string& name, glm::vec3 color)
+void SpritesheetLoader::DrawSprite(const std::string& name, float uv_x, float uv_y, glm::vec3 color)
 {
     shader.Use();
 
@@ -90,9 +77,6 @@ void SpritesheetLoader::initRenderData()
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-    // initialize animator
-    prevTime = Time::Now;
 }
 
 template<>

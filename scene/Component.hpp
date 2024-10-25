@@ -3,6 +3,7 @@
 class Entity;
 class Scene;
 
+#include "UUID.hpp"
 #include "RectTransform.hpp"
 
 class Component
@@ -16,6 +17,7 @@ public:
 
 	RectTransform* GetTransform();
 	Scene* GetScene();
+	UUID GetEntityID();
 
 	Entity* entity;
 };

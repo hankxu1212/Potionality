@@ -18,16 +18,10 @@ void Player::Start()
 
 void Player::Update()
 {
-    if (!entity)
-        LOG_WARN("NOT ENTITY");
+	assert(entity);
 
-    constexpr float PlayerSpeed = 200.0f;
-	if (left.pressed) GetTransform()->position.x -= PlayerSpeed * Time::DeltaTime;
-	if (right.pressed) GetTransform()->position.x += PlayerSpeed * Time::DeltaTime;
-	if (down.pressed) GetTransform()->position.y += PlayerSpeed * Time::DeltaTime;
-	if (up.pressed) GetTransform()->position.y -= PlayerSpeed * Time::DeltaTime;
+	HandleMovement();
 
-	//reset button press counters:
 	left.downs = 0;
 	right.downs = 0;
 	up.downs = 0;
@@ -75,6 +69,23 @@ bool Player::HandleEvent(const SDL_Event &evt)
 	}
 
 	return false;
+}
+
+void Player::HandleMovement()
+{
+	constexpr float PlayerSpeed = 200.0f;
+
+	glm::vec2 direction = glm::vec2(0);
+
+	if (left.pressed) direction += glm::vec2(-1, 0);
+	if (right.pressed) direction += glm::vec2(1, 0);
+	if (down.pressed) direction += glm::vec2(0, 1);
+	if (up.pressed) direction += glm::vec2(0, -1);
+
+	if (direction != glm::vec2(0))
+	{
+		GetTransform()->position += PlayerSpeed * Time::DeltaTime * normalize(direction);
+	}
 }
 
 template<>

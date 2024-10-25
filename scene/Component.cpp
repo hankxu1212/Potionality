@@ -21,3 +21,8 @@ Scene* Component::GetScene()
 	CHECK_ENTITY
 	return entity->scene();
 }
+
+UUID Component::GetEntityID()
+{
+    return entity->uuid();
+}

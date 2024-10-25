@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdint.h>
 #include <cstddef>
 
@@ -11,13 +13,4 @@ public:
 	operator uint64_t() const { return m_UUID; }
 private:
 	uint64_t m_UUID;
-};
-
-template<>
-struct std::hash<UUID>
-{
-	std::size_t operator()(const UUID& uuid) const
-	{
-		return (uint64_t)uuid;
-	}
 };

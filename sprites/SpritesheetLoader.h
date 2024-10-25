@@ -17,7 +17,10 @@ public:
     void Update() override;
 
     // Renders a defined quad textured with given sprite
-    void DrawSprite(const std::string& name, glm::vec3 color = glm::vec3(1.0f));
+    void DrawSprite(const std::string& name, float uv_x, float uv_y, glm::vec3 color = glm::vec3(1.0f));
+
+    [[nodiscard]] inline float getWidth() { return dimX; }
+    [[nodiscard]] inline float getHeight() { return dimY; }
 
 private:
     Shader       shader;
@@ -28,8 +31,4 @@ private:
 
     float dimX, dimY;
     glm::vec2 uv_step;
-    float uv_x = 0;
-    float uv_y = 0;
-    float invFPS = 1.0 / 20;
-    float prevTime;
 };

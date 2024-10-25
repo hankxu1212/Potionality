@@ -18,11 +18,15 @@ void ScriptingEngine::OnAttach()
 
 void ScriptingEngine::OnDetach()
 {
-
+    for (const auto& script : m_Scripts)
+    {
+        script.second->Shutdown();
+    }
 }
 
 void ScriptingEngine::OnUpdate()
 {
+    std::cout << m_Scripts.size() << " scripts found\n";
 }
 
 bool ScriptingEngine::OnEvent(const SDL_Event& e)
@@ -36,26 +40,5 @@ bool ScriptingEngine::OnEvent(const SDL_Event& e)
  
 void ScriptingEngine::Add(Behaviour* script)
 {
-    m_Scripts[script->getClassName()] = script;
-}
-
-Behaviour* ScriptingEngine::GetScript(const std::string& scriptName)
-{
-    if (!Exists(scriptName)){
-        return nullptr;
-    }
-
-    return m_Scripts[scriptName];
-}
-
-bool ScriptingEngine::Exists(const std::string& scriptName)
-{
-    return m_Scripts.find(scriptName) != m_Scripts.end();
-}
-
-void ScriptingEngine::Remove(const std::string& scriptName)
-{
-    if (!Exists(scriptName))
-        return;
-    m_Scripts.erase(scriptName);
+    m_Scripts[std::make_pair(script->getClassName(), (size_t)script->GetEntityID())] = script;
 }

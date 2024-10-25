@@ -14,5 +14,5 @@ template<>
 void Scene::OnComponentRemoved<Behaviour>(Entity& entity, Behaviour& component)
 {
 	component.Shutdown();
-	ScriptingEngine::Get()->Remove(component.getClassName());
+	// ScriptingEngine::Get()->Remove(component.getClassName());
 }

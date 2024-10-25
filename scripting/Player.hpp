@@ -24,4 +24,13 @@ private:
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
 	} left, right, down, up;
+
+	enum class State
+	{
+		Idle, Walk, Smash, Eat, Deliver
+	};
+
+	[[maybe_unused]] State m_PlayerState;
+
+	void HandleMovement();
 };
