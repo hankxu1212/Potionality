@@ -64,5 +64,4 @@ private:
     Scene*									m_Scene = nullptr;
     std::vector<std::unique_ptr<Component>>	m_Components;
 	std::unique_ptr<RectTransform>			s_Transform;
-	UUID									m_UUID;
 };

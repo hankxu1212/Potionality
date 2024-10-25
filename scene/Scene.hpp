@@ -3,8 +3,8 @@
 #include <string>
 #include <list>
 #include <memory>
-
-#include "UUID.hpp"
+#include <map>
+#include <utility>
 
 class Entity;
 
@@ -51,5 +51,5 @@ public: // event functions. Do not create function definitions!
 
 private:
 	std::list<std::unique_ptr<Entity>> entities;
-	std::list<uint64_t> ingredient_ids;
+	std::map<std::pair<float, float>, Entity*> ingredient_locations; // TODO: Better to use glm::vec2 as keys? Kind of a pain though
 };

@@ -47,32 +47,35 @@ void Scene::Load()
     e2->AddComponent<Customer>(); // TODO: add some proximity check
 
     // INGREDIENTS //////////////////////////////////////////////////
+    // Note: Make sure the coordinates in ingredient_locations match the ones used in Instantiate()
+    // TODO: There should be a way to use glm::vec2 as a key, which would be much more intuitive
     Entity* e3 = Instantiate(glm::vec2{800, 200}, glm::vec2{64, 64}, 0.0f);
     e3->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e3->AddComponent<SpriteRenderer>("flower");
     e3->AddComponent<Ingredient>();
-    ingredient_ids.push_back(e3->uuid());
+    ingredient_locations[{800, 200}] = e3;
 
     Entity* e4 = Instantiate(glm::vec2{1200, 600}, glm::vec2{64, 64}, 0.0f);
     e4->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e4->AddComponent<SpriteRenderer>("mushroom");
     e4->AddComponent<Ingredient>();
-    ingredient_ids.push_back(e4->uuid());
+    ingredient_locations[{1200, 600}] = e4;
 
     Entity* e5 = Instantiate(glm::vec2{400, 400}, glm::vec2{64, 64}, 0.0f);
     e5->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e5->AddComponent<SpriteRenderer>("purple_quartz");
     e5->AddComponent<Ingredient>();
-    ingredient_ids.push_back(e5->uuid());
+    ingredient_locations[{400, 400}] = e5;
 
     Entity* e6 = Instantiate(glm::vec2{600, 800}, glm::vec2{64, 64}, 0.0f);
     e6->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e6->AddComponent<SpriteRenderer>("white_quartz");
     e6->AddComponent<Ingredient>();
-    ingredient_ids.push_back(e6->uuid());
+    ingredient_locations[{600, 800}] = e6;
 
-    for (UUID uuid : ingredient_ids) {
-        LOG_INFO(uint64_t(uuid)); // TODO: Render text
+    for (const auto& coord : ingredient_locations) {
+        LOG_INFO(coord.first.first); // For testing, delete me when done
+        LOG_INFO(coord.first.second);
     }
 }
 
