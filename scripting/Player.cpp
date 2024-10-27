@@ -58,6 +58,8 @@ bool Player::HandleEvent(const SDL_Event &evt)
 			down.pressed = true;
 			return true;
 		}else if (evt.key.keysym.sym == interactKey) {
+			interact.downs += 1;
+			interact.pressed = true;
 			OnInteractPressed();
 			return true;
 		}
@@ -73,6 +75,9 @@ bool Player::HandleEvent(const SDL_Event &evt)
 			return true;
 		} else if (evt.key.keysym.sym == SDLK_DOWN) {
 			down.pressed = false;
+			return true;
+		} else if (evt.key.keysym.sym == interactKey) {
+			interact.pressed = false;
 			return true;
 		}
 	}
@@ -96,7 +101,13 @@ void Player::HandleMovement()
 	if (down.pressed) direction += glm::vec2(0, 1);
 	if (up.pressed) direction += glm::vec2(0, -1);
 
-	if (direction != glm::vec2(0))
+	if (interact.pressed)
+	{
+		// Don't move if currently smashing
+		// TODO: Might want to change this later
+		m_PlayerState = State::Smash;
+	}
+	else if (direction != glm::vec2(0))
 	{
 		m_PlayerState = State::Walk;
 		GetTransform()->position += PlayerSpeed * Time::DeltaTime * normalize(direction);
@@ -119,6 +130,24 @@ void Player::HandleState()
 	{
 		playerSprite->SetLoopRegion(2, 3);
 	}
+	else if (m_PlayerState == State::Smash)
+	{
+		playerSprite->SetLoopRegion(3, 5);
+	}
+}
+
+int Player::GetSmashes() {
+	int smashes = interact.downs;
+	interact.downs = 0;
+	return smashes;
+}
+
+void AddIngredient(uint64_t ingredient_id) {
+	ingredients.emplace_back(ingredient_id);
+}
+
+std::list<uint64_t> GetIngredients() {
+	return ingredients;
 }
 
 template<>

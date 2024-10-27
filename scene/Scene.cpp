@@ -52,6 +52,7 @@ void Scene::Load()
     // INGREDIENTS //////////////////////////////////////////////////
     // Note: Make sure the coordinates in ingredient_locations match the ones used in Instantiate()
     // TODO: There should be a way to use glm::vec2 as a key, which would be much more intuitive
+    // TODO: Serialize scene loading, this is hideous
     Entity* e3 = Instantiate(glm::vec2{800, 200}, glm::vec2{64, 64}, 0.0f);
     e3->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e3->AddComponent<SpriteRenderer>("flower");
