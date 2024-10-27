@@ -51,41 +51,30 @@ void Scene::Load()
     
 
     // INGREDIENTS //////////////////////////////////////////////////
-    // Note: Make sure the coordinates in ingredient_locations match the ones used in Instantiate()
-    // TODO: There should be a way to use glm::vec2 as a key, which would be much more intuitive
     // TODO: Serialize scene loading, this is hideous
     Entity* e3 = Instantiate(glm::vec2{800, 200}, glm::vec2{64, 64}, 0.0f);
     e3->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e3->AddComponent<SpriteRenderer>("flower");
     e3->AddComponent<Ingredient>();
-    ingredient_locations[{800, 200}] = e3;
 
     Entity* e4 = Instantiate(glm::vec2{1200, 600}, glm::vec2{64, 64}, 0.0f);
     e4->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e4->AddComponent<SpriteRenderer>("mushroom");
     e4->AddComponent<Ingredient>();
-    ingredient_locations[{1200, 600}] = e4;
 
     Entity* e5 = Instantiate(glm::vec2{400, 400}, glm::vec2{64, 64}, 0.0f);
     e5->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e5->AddComponent<SpriteRenderer>("purple_quartz");
     e5->AddComponent<Ingredient>();
-    ingredient_locations[{400, 400}] = e5;
 
     Entity* e6 = Instantiate(glm::vec2{600, 800}, glm::vec2{64, 64}, 0.0f);
     e6->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e6->AddComponent<SpriteRenderer>("white_quartz");
     e6->AddComponent<Ingredient>();
-    ingredient_locations[{600, 800}] = e6;
     
     Entity* e7 = Instantiate(glm::vec2{500, 500}, glm::vec2{256, 256}, 0.0f);
     e7->AddComponent<SpriteLoader>(SPRITE_SHADER);
     e7->AddComponent<SpriteRenderer>("table");
-
-    Entity* test = GetClosestIngredient(glm::vec2{500, 500});
-    LOG_INFO("Closest ingredient coordinates:");
-    LOG_INFO(test->transform()->position.x);
-    LOG_INFO(test->transform()->position.y);
 }
 
 void Scene::Unload()
@@ -97,14 +86,18 @@ void Scene::Update()
     for (auto& ent : entities)
     {
         ent->Update();
-
+        
         Player* player = ent->GetComponent<Player>();
         if (player != nullptr) {
-            int smashes = player->GetSmashes();
-            if (smashes > 0) {
-                LOG_INFO("Smash!");
+            std::vector<UUID> inventory = player->GetInventory();
+            if (inventory.size() > 0) {
+                LOG_INFO("Current inventory IDs:");
+                for (int i = 0; i < inventory.size(); i++) {
+                    LOG_INFO(uint64_t(inventory[i]));
+                }
             }
         }
+        
     }
 }
 

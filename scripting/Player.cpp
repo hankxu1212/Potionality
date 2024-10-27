@@ -1,6 +1,7 @@
 #include "Player.hpp"
 #include "../scene/Scene.hpp"
 #include "../scene/Entity.hpp"
+#include "Ingredient.hpp"
 
 SpritesheetRenderer* playerSprite;
 
@@ -87,7 +88,7 @@ bool Player::HandleEvent(const SDL_Event &evt)
 
 void Player::OnInteractPressed()
 {
-	LOG_INFO("Interact!");
+	//LOG_INFO("Interact!");
 }
 
 void Player::HandleMovement()
@@ -118,6 +119,19 @@ void Player::HandleMovement()
 	}
 
 	// Add more controls here for smash!
+	if (interact.downs > 0) {
+		// TODO: Will probably need better method than looping once we have more ingredients
+		for (Ingredient* ingredient : Ingredient::Instances) {
+			auto& ingredientPos = ingredient->GetTransform()->position;
+			float distance = glm::distance(GetTransform()->position, ingredientPos);
+			if (distance < interactionDistance)
+			{
+				inventory.emplace_back(uint64_t(ingredient->GetEntityID()));
+				//TODO: Remove ingredient and sprite from scene
+			}
+		}
+	}
+	interact.downs = 0;
 }
 
 void Player::HandleState()
@@ -136,18 +150,9 @@ void Player::HandleState()
 	}
 }
 
-int Player::GetSmashes() {
-	int smashes = interact.downs;
-	interact.downs = 0;
-	return smashes;
-}
-
-void Player::AddIngredient(uint64_t ingredient_id) {
-	ingredients.emplace_back(ingredient_id);
-}
-
-std::list<uint64_t> Player::GetIngredients() {
-	return ingredients;
+// For testing
+std::vector<UUID> Player::GetInventory() {
+	return inventory;
 }
 
 template<>

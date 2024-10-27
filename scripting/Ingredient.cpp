@@ -6,6 +6,7 @@
 
 void Ingredient::Awake()
 {
+	Instances.emplace_back(this);
 }
 
 void Ingredient::Start()
@@ -19,7 +20,7 @@ void Ingredient::Update()
 
 	if (distance < interactionDistance)
 	{
-		LOG_INFO("Smashable! Render some text here!"); // TODO: Render text
+		//LOG_INFO("Smashable! Render some text here!"); // TODO: Render text
 	}
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
 #include "Behaviour.hpp"
 
@@ -20,9 +20,7 @@ public:
 
 	const char* getClassName() const override { return "Player"; }
 
-	int GetSmashes();
-	void AddIngredient(uint64_t ingredient_id);
-	std::list<uint64_t> GetIngredients();
+	std::vector<UUID> GetInventory();
 
 private:
     //input tracking:
@@ -34,13 +32,15 @@ private:
 	SDL_Keycode interactKey = SDLK_SPACE;
 	void OnInteractPressed();
 
+	float interactionDistance = 100;
+
 	enum class State
 	{
 		Idle, Walk, Smash, Eat, Deliver
 	};
 
 	[[maybe_unused]] State m_PlayerState;
-	std::list<uint64_t> ingredients;
+	std::vector<UUID> inventory;
 
 	void HandleMovement();
 
