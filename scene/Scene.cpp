@@ -5,6 +5,7 @@
 #include "Entity.hpp"
 #include "../core/ResourceManager.h"
 #include "../PlayMode.hpp"
+#include "../scripting/Player.hpp"
 
 Scene::Scene()
 {
@@ -96,6 +97,14 @@ void Scene::Update()
     for (auto& ent : entities)
     {
         ent->Update();
+
+        Player* player = ent->GetComponent<Player>();
+        if (player != nullptr) {
+            int smashes = player->GetSmashes();
+            if (smashes > 0) {
+                LOG_INFO("Smash!");
+            }
+        }
     }
 }
 

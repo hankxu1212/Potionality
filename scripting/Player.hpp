@@ -1,5 +1,7 @@
 #pragma once
 
+#include <list>
+
 #include "Behaviour.hpp"
 
 class SpriteLoader;

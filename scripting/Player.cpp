@@ -142,11 +142,11 @@ int Player::GetSmashes() {
 	return smashes;
 }
 
-void AddIngredient(uint64_t ingredient_id) {
+void Player::AddIngredient(uint64_t ingredient_id) {
 	ingredients.emplace_back(ingredient_id);
 }
 
-std::list<uint64_t> GetIngredients() {
+std::list<uint64_t> Player::GetIngredients() {
 	return ingredients;
 }
 
