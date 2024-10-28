@@ -61,7 +61,7 @@
 	void loadText(){
 		// GLuint idtracker = 0;
 		// setting up characters for text
-		std::string fontstr = Files::Path("Special_Elite/SpecialElite-Regular.ttf"); //test font for now
+		std::string fontstr = Files::Path("Alumni_Sans_Pinstripe/AlumniSansPinstripe-Regular.ttf"); //test font for now
 		const char *fontfile = fontstr.c_str();
 		int FONT_SIZE =36;
 		{
