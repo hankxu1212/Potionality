@@ -3,6 +3,7 @@
 #include "../scene/Entity.hpp"
 #include "Player.hpp"
 #include "../PlayMode.hpp"
+#include "../renderText.hpp"
 
 void Ingredient::Awake()
 {
@@ -20,7 +21,7 @@ void Ingredient::Update()
 
 	if (distance < interactionDistance)
 	{
-		//LOG_INFO("Smashable! Render some text here!"); // TODO: Render text
+		RenderText("Smash", GetTransform()->position.x, 1080 - GetTransform()->position.y);
 	}
 }
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TextTextureProgram.hpp"
 #include "gl_errors.hpp"
 #include "core/Files.hpp"
@@ -45,4 +47,4 @@ void loadText();
 void renderImg(text tex);
 
 // code based on : https://learnopengl.com/In-Practice/Text-Rendering
-void RenderText(std::string text, float x, float y, float scale,float rightlimit = 1920);
+void RenderText(std::string text, float x, float y, float scale= 0.001f,float rightlimit = 1920);

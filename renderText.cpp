@@ -139,12 +139,9 @@
 	void RenderText(std::string text, float xin, float yin, float scale,float rightlimit)
 	{ //texture example drawing
 		float x = xin * 2.0f/1920.0f - 1.0f;
-		float y = yin * 2.0f/1080.0f-1.0f;
+		float y = yin * 2.0f/1080.0f-1.0;
 		float r = rightlimit *2.0f/1920.0f - 1.0f;
 		float origx =x;
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glBlendEquation(GL_FUNC_ADD);
 		glUseProgram(texture_program->program);
 
 		std::string::const_iterator c;
@@ -159,8 +156,8 @@
 			struct text* tex = &font_texs[(int)*c]; // ok this could conflict with other images being rendered I think, so have it be the first one
 
 			float xpos = x + ch.Bearing.x * scale;
-			// float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
-			float ypos = y +ch.Bearing.y * scale;
+			 //float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+			float ypos = y + ch.Bearing.y * scale;
 
 			//prevent text from going off screen, probably best to include a dash but don't have time
 			if(xpos>=r-.05f){
@@ -191,6 +188,5 @@
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glUseProgram(0);
 		glBindVertexArray(0);
-		//GL_ERRORS();
 	}
 // };

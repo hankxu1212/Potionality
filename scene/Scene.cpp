@@ -19,27 +19,18 @@ Scene::~Scene()
 void Scene::Load()
 {
     // load textures
-    ResourceManager::LoadTexture(Files::Path("../resources/characters/Full.png").c_str(), true, "player_idle");
-    //ResourceManager::LoadTexture(Files::Path("../resources/characters/jump.png").c_str(), true, "player_jump");
-    //ResourceManager::LoadTexture(Files::Path("../resources/characters/walk.png").c_str(), true, "player_walk");
-    //ResourceManager::LoadTexture(Files::Path("../resources/characters/Guy_flipped.png").c_str(), true, "man");
-    ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Flower.png").c_str(), true, "flower");
-    ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Mushroom.png").c_str(), true, "mushroom");
-    ResourceManager::LoadTexture(Files::Path("../resources/ingredients/Purple_Quartz.png").c_str(), true, "purple_quartz");
-    ResourceManager::LoadTexture(Files::Path("../resources/ingredients/White_Quartz.png").c_str(), true, "white_quartz");
-    ResourceManager::LoadTexture(Files::Path("../resources/background/Table.png").c_str(), true, "table");
-    ResourceManager::LoadTexture(Files::Path("../resources/background/Counter.png").c_str(), true, "counter");
-    //ResourceManager::LoadTexture(Files::Path("../resources/animations/Smoke_5x5.png").c_str(), true, "Smoke5x5");
-    //ResourceManager::LoadTexture(Files::Path("../resources/animations/Cat.png").c_str(), true, "Cat");
+    ResourceManager::LoadTexture("../resources/characters/Full.png", "player_idle");
+    ResourceManager::LoadTexture("../resources/ingredients/Flower.png", "flower");
+    ResourceManager::LoadTexture("../resources/ingredients/Mushroom.png", "mushroom");
+    ResourceManager::LoadTexture("../resources/ingredients/Purple_Quartz.png", "purple_quartz");
+    ResourceManager::LoadTexture("../resources/ingredients/White_Quartz.png", "white_quartz");
+    ResourceManager::LoadTexture("../resources/background/Table.png", "table");
+    ResourceManager::LoadTexture("../resources/background/Counter.png", "counter");
 
     // PLAYER ////////////////////////////////////////////////////////////////// 
-    // initiates an entity with coordinates x=200, y=200, and sprite size width=96, height=96, with rotation=0 degrees
     Entity* e = Instantiate(glm::vec2{200, 200}, glm::vec2{96, 96}, 0.0f);
-    // adds a sprite loader with the corresponding SHADER "sprite"
-    e->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 6, 4); // constant defined in PlayMode.cpp
-    // render this animated sprite by adding a sprite renderer component. note: the key must correspond exactly with the texture handle!
+    e->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 6, 7);
     e->AddComponent<SpritesheetRenderer>("player_idle");
-    // adds a player Behaviour script for movement
     e->AddComponent<Player>();
 
     // CUSTOMER TEST ////////////////////////////////////////////////////////////////// 
@@ -86,18 +77,6 @@ void Scene::Update()
     for (auto& ent : entities)
     {
         ent->Update();
-        
-        Player* player = ent->GetComponent<Player>();
-        if (player != nullptr) {
-            std::vector<UUID> inventory = player->GetInventory();
-            if (inventory.size() > 0) {
-                LOG_INFO("Current inventory IDs:");
-                for (int i = 0; i < inventory.size(); i++) {
-                    LOG_INFO(uint64_t(inventory[i]));
-                }
-            }
-        }
-        
     }
 }
 

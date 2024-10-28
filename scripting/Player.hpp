@@ -20,29 +20,46 @@ public:
 
 	const char* getClassName() const override { return "Player"; }
 
-	std::vector<UUID> GetInventory();
+	[[nodiscard]] inline const std::vector<UUID>& GetInventory() const { return m_Inventory; }
 
 private:
-    //input tracking:
+	// Debug ////////////////////////////////////////////////////////////////////////
+	// refreshes the debug print every 1 second
+	void DEBUG();
+	float m_DebugPeriodCounter;
+	const float m_DebugPeriodCounterMax = 1;
+
+	// Interaction Handling ////////////////////////////////////////////////////////////////////////
 	struct Button {
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
-	} left, right, down, up, interact;
+	} left, right, down, up;
+
+	void HandleInputReset();
 
 	SDL_Keycode interactKey = SDLK_SPACE;
 	void OnInteractPressed();
 
 	float interactionDistance = 100;
 
+	// State Handling ////////////////////////////////////////////////////////////////////////
 	enum class State
 	{
 		Idle, Walk, Smash, Eat, Deliver
 	};
-
-	[[maybe_unused]] State m_PlayerState;
-	std::vector<UUID> inventory;
-
+	State m_PlayerState;
+	int m_MoveDir;
+	const float PlayerSpeed = 200.0f;
 	void HandleMovement();
 
-	void HandleState();
+	// Smash ////////////////////////////////////////////////////////////////////////
+	float m_SmashCooldown;
+	const float m_SmashCooldownMax = 2;
+
+	// Inventory ////////////////////////////////////////////////////////////////////////
+	std::vector<UUID> m_Inventory;
+
+	// Handling Functions ////////////////////////////////////////////////////////////////////////
+	void HandleAnimations();
+	void HandleAbilityCooldowns();
 };

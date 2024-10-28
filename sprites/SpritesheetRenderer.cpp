@@ -33,8 +33,20 @@ void SpritesheetRenderer::Update()
 
 void SpritesheetRenderer::SetLoopRegion(float row, float col)
 {
-    loop_y = row; 
+    static float prev_row;
+    static float prev_col;
+
+    if (prev_row == row && prev_col == col)
+        return;
+
+    prev_row = row;
+    prev_col = col;
+
+    loop_y = row;
     loop_x = col;
+
+    uv_x = 0;
+    uv_y = loop_y;
 }
 
 template <>

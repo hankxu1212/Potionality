@@ -2,6 +2,7 @@
 #include "../scene/Scene.hpp"
 #include "../scene/Entity.hpp"
 #include "Ingredient.hpp"
+#include <array>
 
 SpritesheetRenderer* playerSprite;
 
@@ -23,16 +24,17 @@ void Player::Start()
 
 void Player::Update()
 {
-	assert(entity);
+	DEBUG();
+
+	HandleAnimations();
+
+	HandleAbilityCooldowns();
+	if (m_PlayerState == State::Smash)
+		return;
 
 	HandleMovement();
-	HandleState();
 
-	// reset buttons
-	left.downs = 0;
-	right.downs = 0;
-	up.downs = 0;
-	down.downs = 0;
+	HandleInputReset();
 }
 
 void Player::Shutdown()
@@ -59,8 +61,6 @@ bool Player::HandleEvent(const SDL_Event &evt)
 			down.pressed = true;
 			return true;
 		}else if (evt.key.keysym.sym == interactKey) {
-			interact.downs += 1;
-			interact.pressed = true;
 			OnInteractPressed();
 			return true;
 		}
@@ -74,11 +74,9 @@ bool Player::HandleEvent(const SDL_Event &evt)
 		} else if (evt.key.keysym.sym == SDLK_UP) {
 			up.pressed = false;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_DOWN) {
+		}
+		else if (evt.key.keysym.sym == SDLK_DOWN) {
 			down.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == interactKey) {
-			interact.pressed = false;
 			return true;
 		}
 	}
@@ -86,73 +84,151 @@ bool Player::HandleEvent(const SDL_Event &evt)
 	return false;
 }
 
+void Player::HandleInputReset()
+{
+	// reset buttons
+	left.downs = 0;
+	right.downs = 0;
+	up.downs = 0;
+	down.downs = 0;
+}
+
 void Player::OnInteractPressed()
 {
-	//LOG_INFO("Interact!");
+	if (m_PlayerState == State::Smash)
+		return; // if already smashing, dont do anythin g
+
+	// TODO: Will probably need better method than looping once we have more ingredients
+	for (Ingredient* ingredient : Ingredient::Instances) {
+		auto& ingredientPos = ingredient->GetTransform()->position;
+		float distance = glm::distance(GetTransform()->position, ingredientPos);
+		if (distance < interactionDistance)
+		{
+			m_Inventory.emplace_back(uint64_t(ingredient->GetEntityID()));
+			//TODO: Remove ingredient and sprite from scene
+		}
+	}
+
+	m_PlayerState = State::Smash;
+	m_SmashCooldown = m_SmashCooldownMax;
 }
+
+static std::array<glm::vec2, 8> DIRECTIONS = {
+	normalize(glm::vec2(1, 0)),     // Right		- 0
+	normalize(glm::vec2(1, -1)),    // Down-Right	- 1
+	normalize(glm::vec2(0, -1)),    // Down			- 2
+	normalize(glm::vec2(-1, -1)),   // Down-Left	- 3 
+	normalize(glm::vec2(-1, 0)),    // Left			- 4
+	normalize(glm::vec2(-1, 1)),    // Up-Left		- 5
+	normalize(glm::vec2(0, 1)),     // Up			- 6
+	normalize(glm::vec2(1, 1))      // Up-Right		- 7
+};
+
 
 void Player::HandleMovement()
 {
-	constexpr float PlayerSpeed = 200.0f;
+	// index into DIRECTIONS
+	m_MoveDir = -1;
 
-	glm::vec2 direction = glm::vec2(0);
+	if (left.pressed) m_MoveDir = 4;       // Left
+	if (right.pressed) m_MoveDir = 0;      // Right
 
-	if (left.pressed) direction += glm::vec2(-1, 0);
-	if (right.pressed) direction += glm::vec2(1, 0);
-	if (down.pressed) direction += glm::vec2(0, 1);
-	if (up.pressed) direction += glm::vec2(0, -1);
-
-	if (interact.pressed)
-	{
-		// Don't move if currently smashing
-		// TODO: Might want to change this later
-		m_PlayerState = State::Smash;
+	if (down.pressed) {
+		switch (m_MoveDir) {
+		case 0: m_MoveDir = 7; break;  // Right + Down
+		case 4: m_MoveDir = 5; break;  // Left + Down
+		default: m_MoveDir = 6; break; // Down
+		}
 	}
-	else if (direction != glm::vec2(0))
+	else if (up.pressed) {
+		switch (m_MoveDir) {
+		case 0: m_MoveDir = 1; break;  // Right + Up
+		case 4: m_MoveDir = 3; break;  // Left + Up
+		default: m_MoveDir = 2; break; // Up
+		}
+	}
+
+	// move dir
+	if (m_MoveDir != -1)
 	{
 		m_PlayerState = State::Walk;
-		GetTransform()->position += PlayerSpeed * Time::DeltaTime * normalize(direction);
+		GetTransform()->position += PlayerSpeed * Time::DeltaTime * DIRECTIONS[m_MoveDir];
 	}
 	else
 	{
 		m_PlayerState = State::Idle;
 	}
-
-	// Add more controls here for smash!
-	if (interact.downs > 0) {
-		// TODO: Will probably need better method than looping once we have more ingredients
-		for (Ingredient* ingredient : Ingredient::Instances) {
-			auto& ingredientPos = ingredient->GetTransform()->position;
-			float distance = glm::distance(GetTransform()->position, ingredientPos);
-			if (distance < interactionDistance)
-			{
-				inventory.emplace_back(uint64_t(ingredient->GetEntityID()));
-				//TODO: Remove ingredient and sprite from scene
-			}
-		}
-	}
-	interact.downs = 0;
 }
 
-void Player::HandleState()
+void Player::HandleAbilityCooldowns()
+{
+	if (m_PlayerState == State::Smash) 
+	{
+		if (m_SmashCooldown > 0) {
+			m_SmashCooldown -= Time::DeltaTime;
+			if (m_SmashCooldown <= 0)
+				m_PlayerState = State::Idle;
+		}
+	}
+}
+
+void Player::HandleAnimations()
 {
 	if (m_PlayerState == State::Idle)
 	{
-		playerSprite->SetLoopRegion(1, 3);
+		playerSprite->SetLoopRegion(0, 3);
 	}
 	else if (m_PlayerState == State::Walk)
 	{
-		playerSprite->SetLoopRegion(2, 3);
+		int blendedDir;
+
+		switch (m_MoveDir) {
+		case 0: // Right
+		case 1: // Up-Right
+		case 7: // Down-Right
+			blendedDir = 5;  // Right
+			break;
+
+		case 4: // Left
+		case 3: // Up-Left
+		case 5: // Down-Left
+			blendedDir = 4;  // Left
+			break;
+
+		case 2: // Up
+			blendedDir = 2;  // Up
+			break;
+
+		case 6: // Down
+			blendedDir = 3;  // Down
+			break;
+
+		default:
+			blendedDir = -1; // Handle unexpected values, if needed
+			break;
+		}
+
+		playerSprite->SetLoopRegion(blendedDir, 3);
 	}
 	else if (m_PlayerState == State::Smash)
 	{
-		playerSprite->SetLoopRegion(3, 5);
+		playerSprite->SetLoopRegion(1, 4);
 	}
 }
 
-// For testing
-std::vector<UUID> Player::GetInventory() {
-	return inventory;
+void Player::DEBUG()
+{
+	if (m_DebugPeriodCounter <= 0) 
+	{
+		if (m_Inventory.size() > 0) {
+			LOG_INFO("Current inventory IDs:");
+			for (int i = 0; i < m_Inventory.size(); i++) {
+				LOG_INFO(uint64_t(m_Inventory[i]));
+			}
+		}
+		m_DebugPeriodCounter = m_DebugPeriodCounterMax;
+	}
+	m_DebugPeriodCounter -= Time::DeltaTime;
 }
 
 template<>

@@ -5,6 +5,7 @@
 #include <fstream>
 #include "utils/Bitmap.hpp"
 #include "utils/Logger.hpp"
+#include "Files.hpp"
 
 std::map<std::string, Texture2D>    ResourceManager::Textures;
 std::map<std::string, Shader>       ResourceManager::Shaders;
@@ -20,10 +21,15 @@ Shader ResourceManager::GetShader(std::string name)
     return Shaders[name];
 }
 
-Texture2D ResourceManager::LoadTexture(const char* file, bool alpha, std::string name)
+Texture2D ResourceManager::LoadTexture(const char* file, bool alpha, const std::string& name)
 {
     Textures[name] = loadTextureFromFile(file, alpha);
     return Textures[name];
+}
+
+Texture2D ResourceManager::LoadTexture(const char* relativeFile, const std::string& name)
+{
+    return LoadTexture(Files::Path(relativeFile).c_str(), true, name);
 }
 
 Texture2D ResourceManager::GetTexture(std::string name)

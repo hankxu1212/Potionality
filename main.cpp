@@ -107,6 +107,10 @@ int main(int argc, char **argv) {
 
 	Mode::current->Init();
 
+	// OpenGL state
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//------------ main loop ------------
 
 	//this inline function will be called whenever the window is resized,
