@@ -45,20 +45,20 @@ bool Player::HandleEvent(const SDL_Event &evt)
 {
 	if (evt.type == SDL_KEYDOWN) {
 		if (evt.key.keysym.sym == SDLK_LEFT) {
-			left.downs += 1;
-			left.pressed = true;
+			negX.downs += 1;
+			negX.pressed = true;
 			return true;
 		} else if (evt.key.keysym.sym == SDLK_RIGHT) {
-			right.downs += 1;
-			right.pressed = true;
+			posX.downs += 1;
+			posX.pressed = true;
 			return true;
 		} else if (evt.key.keysym.sym == SDLK_UP) {
-			up.downs += 1;
-			up.pressed = true;
+			negY.downs += 1;
+			negY.pressed = true;
 			return true;
 		} else if (evt.key.keysym.sym == SDLK_DOWN) {
-			down.downs += 1;
-			down.pressed = true;
+			posY.downs += 1;
+			posY.pressed = true;
 			return true;
 		}else if (evt.key.keysym.sym == interactKey) {
 			OnInteractPressed();
@@ -66,17 +66,17 @@ bool Player::HandleEvent(const SDL_Event &evt)
 		}
 	} else if (evt.type == SDL_KEYUP) {
 		if (evt.key.keysym.sym == SDLK_LEFT) {
-			left.pressed = false;
+			negX.pressed = false;
 			return true;
 		} else if (evt.key.keysym.sym == SDLK_RIGHT) {
-			right.pressed = false;
+			posX.pressed = false;
 			return true;
 		} else if (evt.key.keysym.sym == SDLK_UP) {
-			up.pressed = false;
+			negY.pressed = false;
 			return true;
 		}
 		else if (evt.key.keysym.sym == SDLK_DOWN) {
-			down.pressed = false;
+			posY.pressed = false;
 			return true;
 		}
 	}
@@ -87,10 +87,10 @@ bool Player::HandleEvent(const SDL_Event &evt)
 void Player::HandleInputReset()
 {
 	// reset buttons
-	left.downs = 0;
-	right.downs = 0;
-	up.downs = 0;
-	down.downs = 0;
+	negX.downs = 0;
+	posX.downs = 0;
+	negY.downs = 0;
+	posY.downs = 0;
 }
 
 void Player::OnInteractPressed()
@@ -113,34 +113,34 @@ void Player::OnInteractPressed()
 	m_SmashCooldown = m_SmashCooldownMax;
 }
 
-static std::array<glm::vec2, 8> DIRECTIONS = {
+static std::array<glm::vec2, 8> DIRECTIONS = 
+{
 	normalize(glm::vec2(1, 0)),     // Right		- 0
-	normalize(glm::vec2(1, -1)),    // Down-Right	- 1
-	normalize(glm::vec2(0, -1)),    // Down			- 2
-	normalize(glm::vec2(-1, -1)),   // Down-Left	- 3 
+	normalize(glm::vec2(1, 1)),    // Down-Right	- 1
+	normalize(glm::vec2(0, 1)),    // Down			- 2
+	normalize(glm::vec2(-1, 1)),   // Down-Left	- 3 
 	normalize(glm::vec2(-1, 0)),    // Left			- 4
-	normalize(glm::vec2(-1, 1)),    // Up-Left		- 5
-	normalize(glm::vec2(0, 1)),     // Up			- 6
-	normalize(glm::vec2(1, 1))      // Up-Right		- 7
+	normalize(glm::vec2(-1, -1)),    // Up-Left		- 5
+	normalize(glm::vec2(0, -1)),     // Up			- 6
+	normalize(glm::vec2(1, -1))      // Up-Right		- 7
 };
-
 
 void Player::HandleMovement()
 {
 	// index into DIRECTIONS
 	m_MoveDir = -1;
 
-	if (left.pressed) m_MoveDir = 4;       // Left
-	if (right.pressed) m_MoveDir = 0;      // Right
+	if (negX.pressed) m_MoveDir = 4;       // Left
+	if (posX.pressed) m_MoveDir = 0;      // Right
 
-	if (down.pressed) {
+	if (negY.pressed) {
 		switch (m_MoveDir) {
 		case 0: m_MoveDir = 7; break;  // Right + Down
 		case 4: m_MoveDir = 5; break;  // Left + Down
 		default: m_MoveDir = 6; break; // Down
 		}
 	}
-	else if (up.pressed) {
+	else if (posY.pressed) {
 		switch (m_MoveDir) {
 		case 0: m_MoveDir = 1; break;  // Right + Up
 		case 4: m_MoveDir = 3; break;  // Left + Up
@@ -180,35 +180,7 @@ void Player::HandleAnimations()
 	}
 	else if (m_PlayerState == State::Walk)
 	{
-		int blendedDir;
-
-		switch (m_MoveDir) {
-		case 0: // Right
-		case 1: // Up-Right
-		case 7: // Down-Right
-			blendedDir = 5;  // Right
-			break;
-
-		case 4: // Left
-		case 3: // Up-Left
-		case 5: // Down-Left
-			blendedDir = 4;  // Left
-			break;
-
-		case 2: // Up
-			blendedDir = 2;  // Up
-			break;
-
-		case 6: // Down
-			blendedDir = 3;  // Down
-			break;
-
-		default:
-			blendedDir = -1; // Handle unexpected values, if needed
-			break;
-		}
-
-		playerSprite->SetLoopRegion(blendedDir, 3);
+		playerSprite->SetLoopRegion(m_MoveDir + 2, 3);
 	}
 	else if (m_PlayerState == State::Smash)
 	{

@@ -29,7 +29,7 @@ void Scene::Load()
 
     // PLAYER ////////////////////////////////////////////////////////////////// 
     Entity* e = Instantiate(glm::vec2{200, 200}, glm::vec2{96, 96}, 0.0f);
-    e->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 6, 7);
+    e->AddComponent<SpritesheetLoader>(SPRITESHEET_SHADER, 6, 11);
     e->AddComponent<SpritesheetRenderer>("player_idle");
     e->AddComponent<Player>();
 
