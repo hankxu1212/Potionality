@@ -136,8 +136,11 @@
 
 
 	// code based on : https://learnopengl.com/In-Practice/Text-Rendering
-	void RenderText(std::string text, float x, float y, float scale)
+	void RenderText(std::string text, float xin, float yin, float scale,float rightlimit)
 	{ //texture example drawing
+		float x = xin * 2.0f/1920.0f - 1.0f;
+		float y = yin * 2.0f/1080.0f-1.0f;
+		float r = rightlimit *2.0f/1920.0f - 1.0f;
 		float origx =x;
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -160,7 +163,7 @@
 			float ypos = y +ch.Bearing.y * scale;
 
 			//prevent text from going off screen, probably best to include a dash but don't have time
-			if(xpos>=.95){
+			if(xpos>=r-.05f){
 				y -= (40) * scale; //idk just a guess
 				x = origx;
 				xpos = x + ch.Bearing.x * scale;

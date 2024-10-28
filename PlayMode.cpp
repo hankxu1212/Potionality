@@ -92,7 +92,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size)
 {
 	UpdateStage(Module::UpdateStage::Render);
 
-	RenderText("abcdefghijklmnopqrstuvwxyz wow testing character's", -.90f,-0.8f, .003f);
+	RenderText("abcdefghijklmnopqrstuvwxyz wow testing character's", 30.0f,60.0f, .003f);
 }
 
 void PlayMode::PushLayer(Layer* layer)
