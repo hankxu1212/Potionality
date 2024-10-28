@@ -34,6 +34,20 @@ void PlayMode::Init()
 	ResourceManager::GetShader(SPRITESHEET_SHADER).Use().SetInteger("image", 0);
 	ResourceManager::GetShader(SPRITESHEET_SHADER).SetMatrix4("projection", projection);
 
+	glm::vec2 lightPos(1000, 500);
+
+	// configure lit sprite shader
+	ResourceManager::LoadShader(Files::Path("../shaders/litsprite.vert").c_str(), Files::Path("../shaders/litsprite.frag").c_str(), nullptr, LIT_SPRT_SHADER);
+	ResourceManager::GetShader(LIT_SPRT_SHADER).Use().SetInteger("image", 0);
+	ResourceManager::GetShader(LIT_SPRT_SHADER).SetMatrix4("projection", projection);
+	ResourceManager::GetShader(LIT_SPRT_SHADER).SetVector2f("lightPosition", lightPos);
+
+	// configure dynamic lit sprite shader
+	ResourceManager::LoadShader(Files::Path("../shaders/litspritesheet.vert").c_str(), Files::Path("../shaders/litspritesheet.frag").c_str(), nullptr, LIT_SPRTSHEET_SHADER);
+	ResourceManager::GetShader(LIT_SPRTSHEET_SHADER).Use().SetInteger("image", 0);
+	ResourceManager::GetShader(LIT_SPRTSHEET_SHADER).SetMatrix4("projection", projection);
+	ResourceManager::GetShader(LIT_SPRTSHEET_SHADER).SetVector2f("lightPosition", lightPos);
+
 	// initialize time class
 	Time::Now = 0;
 
