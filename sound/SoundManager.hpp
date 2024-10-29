@@ -19,7 +19,7 @@ public:
 
     void SetConstantListener(const glm::vec2& position);
 
-    void SetFollowListener(RectTransform& transform);
+    void SetFollowListener(RectTransform* transform);
 
     void LoadSample(const std::string& path, const std::string& handle);
 

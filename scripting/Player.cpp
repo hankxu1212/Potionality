@@ -5,6 +5,7 @@
 #include "Ingredient.hpp"
 #include "Customer.hpp"
 #include "Potion.hpp"
+#include "../sound/SoundManager.hpp"
 
 #include <array>
 
@@ -20,6 +21,8 @@ void Player::Awake()
 	Player::Instance = this;
 
 	playerSprite = entity->GetComponent<SpritesheetRenderer>();
+
+	SoundManager::Get()->SetFollowListener(GetTransform());
 }
 
 void Player::Start()
@@ -119,6 +122,9 @@ void Player::OnInteractPressed()
 			// Remove ingredient
 			ingredientSprite->Deactivate();
 			ingredient->Deactivate();
+
+			// Play sfx
+			SoundManager::Get()->PlayOneShot("BiteSFX", *GetTransform());
 		}
 	}
 

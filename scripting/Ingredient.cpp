@@ -22,7 +22,7 @@ void Ingredient::Update()
 
 		if (distance < interactionDistance)
 		{
-			RenderText("Smash", GetTransform()->position.x, 1080 - GetTransform()->position.y);
+			RenderText("Chomp", GetTransform()->position.x, 1080 - GetTransform()->position.y);
 		}
 	}
 }

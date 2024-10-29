@@ -31,9 +31,9 @@ void SoundManager::SetConstantListener(const glm::vec2 &position)
     Sound::listener.set_position_right(listenPosition, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
-void SoundManager::SetFollowListener(RectTransform &transform)
+void SoundManager::SetFollowListener(RectTransform *transform)
 {
-    m_SoundListener = &transform;
+    m_SoundListener = transform;
 }
 
 void SoundManager::LoadSample(const std::string &path, const std::string &handle)
@@ -51,6 +51,13 @@ void SoundManager::PlayOneShot(const std::string &handle)
 
 void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &transform)
 {
+    auto it = m_SoundSamples.find(handle);
+    if (it == m_SoundSamples.end()){
+        LOG_INFO_F("Could not find sound file handle: {}", handle);
+    }
+
+    glm::vec3 listenPosition(transform.position.x, transform.position.y, 0);
+    Sound::play_3D(*it->second.get(), 5, listenPosition);
 }
 
 SoundManager::EventInstance SoundManager::InstantiateSoundInstance(const std::string &handle, const RectTransform &transform)
