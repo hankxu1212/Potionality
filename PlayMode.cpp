@@ -34,7 +34,7 @@ void PlayMode::Init()
 	ResourceManager::GetShader(SPRITESHEET_SHADER).Use().SetInteger("image", 0);
 	ResourceManager::GetShader(SPRITESHEET_SHADER).SetMatrix4("projection", projection);
 
-	glm::vec2 lightPos(1000, 500);
+	glm::vec2 lightPos(1200, 700);
 
 	// configure lit sprite shader
 	ResourceManager::LoadShader(Files::Path("../shaders/litsprite.vert").c_str(), Files::Path("../shaders/litsprite.frag").c_str(), nullptr, LIT_SPRT_SHADER);
