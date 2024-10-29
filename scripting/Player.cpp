@@ -1,9 +1,11 @@
 #include "Player.hpp"
 #include "../scene/Scene.hpp"
 #include "../scene/Entity.hpp"
+#include "../renderText.hpp"
 #include "Ingredient.hpp"
 #include "Customer.hpp"
 #include "Potion.hpp"
+
 #include <array>
 
 SpritesheetRenderer* playerSprite;
@@ -30,6 +32,8 @@ void Player::Update()
 
 	HandleAnimations();
 
+	HandleMessages();
+	
 	HandleAbilityCooldowns();
 	if (m_PlayerState == State::Smash)
 		return;
@@ -128,10 +132,12 @@ void Player::OnInteractPressed()
 			Potion* potion = Potion::Instance;
 			SpriteRenderer* potionSprite = potion->entity->GetComponent<SpriteRenderer>();
 			potionSprite->Activate();
-			LOG_INFO("Delivered potion!");
+			currentMessage = "Delivered potion! You win!";
+			m_Inventory.clear(); // Note: Later on, we'll need to decrement the relevant ingredients in the player's inventory instead of just clearing
 		} else {
-			LOG_INFO("No potion to deliver!");
+			currentMessage = "Missing ingredients!";
 		}
+		m_MessageTimer = m_MessageTimerMax;
 	}
 
 	m_PlayerState = State::Smash;
@@ -210,6 +216,14 @@ void Player::HandleAnimations()
 	else if (m_PlayerState == State::Smash)
 	{
 		playerSprite->SetLoopRegion(1, 4);
+	}
+}
+
+void Player::HandleMessages()
+{
+	if (m_MessageTimer > 0) {
+		m_MessageTimer -= Time::DeltaTime;
+		RenderText(currentMessage, GetTransform()->position.x, 1080 - GetTransform()->position.y);
 	}
 }
 

@@ -59,6 +59,12 @@ private:
 	float m_SmashCooldown;
 	const float m_SmashCooldownMax = 2;
 
+	// Message Display //////////////////////////////////////////////////////////////
+	float m_MessageTimer;
+	const float m_MessageTimerMax = 2;
+	std::string currentMessage;
+	void HandleMessages();
+
 	// Inventory ////////////////////////////////////////////////////////////////////////
 	std::map<const std::string, int> m_Inventory;
 
