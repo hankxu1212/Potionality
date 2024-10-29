@@ -19,7 +19,7 @@ float CalculateAttenuation(float d, float radius, float falloff) {
 void main()
 {
     float D = distance(gl_FragCoord.xy, lightPosition);
-    float falloff = CalculateAttenuation(D, 1000, 0.0001);
+    float falloff = CalculateAttenuation(D, 1500, 0.0001);
 
     vec4 texColor = texture(image, TexCoords);
 
