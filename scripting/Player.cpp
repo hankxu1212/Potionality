@@ -2,6 +2,7 @@
 #include "../scene/Scene.hpp"
 #include "../scene/Entity.hpp"
 #include "Ingredient.hpp"
+#include "Customer.hpp"
 #include <array>
 
 SpritesheetRenderer* playerSprite;
@@ -115,6 +116,20 @@ void Player::OnInteractPressed()
 			ingredient->Deactivate();
 			
 			// TODO: Remove ingredient entity from scene?
+		}
+	}
+
+	Customer* customer = Customer::Instance;
+	auto& customerPos = customer->GetTransform()->position;
+	float distance = glm::distance(GetTransform()->position, customerPos);
+	if (distance < interactionDistance) {
+		// If player has 1 of every ingredient, playtest potion is deliverable
+		// TODO: Change hardcoded values, implement different potion recipes
+		if (m_Inventory.count("flower") && m_Inventory.count("mushroom") && m_Inventory.count("purple_quartz") && m_Inventory.count("white_quartz")) {
+			// TODO: Deliver potion
+			LOG_INFO("Potion delivered!");
+		} else {
+			LOG_INFO("No potion to deliver!");
 		}
 	}
 

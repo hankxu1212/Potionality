@@ -27,6 +27,7 @@ void Scene::Load()
     ResourceManager::LoadTexture("../resources/background/Table.png", "table");
     ResourceManager::LoadTexture("../resources/background/Counter.png", "counter");
     ResourceManager::LoadTexture("../resources/background/Background.png", "background");
+    ResourceManager::LoadTexture("../resources/potions/Red_potion.png", "red_potion");
 
     // Background 
     Entity* backgroundEntity = Instantiate(glm::vec2{0, 0}, glm::vec2{1920, 1080}, 0.0f);
@@ -71,6 +72,13 @@ void Scene::Load()
     Entity* e7 = Instantiate(glm::vec2{500, 500}, glm::vec2{256, 256}, 0.0f);
     e7->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e7->AddComponent<SpriteRenderer>("table");
+
+    Entity* e8 = Instantiate(glm::vec2{500, 500}, glm::vec2{64, 64}, 0.0f);
+    e8->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
+    e8->AddComponent<SpriteRenderer>("red_potion");
+    // Sprites start as active, so deactivate if we don't want to immediately draw it
+    SpriteRenderer* potionSprite = e8->GetComponent<SpriteRenderer>();
+    potionSprite->Deactivate();
 }
 
 void Scene::Unload()

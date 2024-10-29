@@ -6,6 +6,7 @@
 
 void Customer::Awake()
 {
+	Customer::Instance = this;
 }
 
 void Customer::Start()
