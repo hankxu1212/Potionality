@@ -52,7 +52,7 @@ private:
 	};
 	State m_PlayerState;
 	int m_MoveDir;
-	const float PlayerSpeed = 200.0f;
+	const float PlayerSpeed = 300.0f;
 	void HandleMovement();
 
 	// Smash ////////////////////////////////////////////////////////////////////////

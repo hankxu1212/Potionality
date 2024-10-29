@@ -124,7 +124,7 @@ void Player::OnInteractPressed()
 			ingredient->Deactivate();
 
 			// Play sfx
-			SoundManager::Get()->PlayOneShot("BiteSFX", *GetTransform());
+			SoundManager::Get()->PlayOneShot("BiteSFX");
 		}
 	}
 

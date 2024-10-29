@@ -47,6 +47,19 @@ void SoundManager::LoadSample(const std::string &path, const std::string &handle
 
 void SoundManager::PlayOneShot(const std::string &handle)
 {
+    if (!m_SoundListener){
+        LOG_WARN("Could not find sound listener. Use PlayOneShot(handle, transform) instead!");
+        return;
+    }
+
+    auto it = m_SoundSamples.find(handle);
+    if (it == m_SoundSamples.end()){
+        LOG_INFO_F("Could not find sound file handle: {}", handle);
+        return;
+    }
+
+    glm::vec3 listenPosition(m_SoundListener->position.x, m_SoundListener->position.y, 0);
+    Sound::play_3D(*it->second.get(), 5, listenPosition);
 }
 
 void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &transform)
@@ -54,6 +67,7 @@ void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &t
     auto it = m_SoundSamples.find(handle);
     if (it == m_SoundSamples.end()){
         LOG_INFO_F("Could not find sound file handle: {}", handle);
+        return;
     }
 
     glm::vec3 listenPosition(transform.position.x, transform.position.y, 0);
@@ -62,9 +76,11 @@ void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &t
 
 SoundManager::EventInstance SoundManager::InstantiateSoundInstance(const std::string &handle, const RectTransform &transform)
 {
+    LOG_WARN("Unimplemented function!");
     return EventInstance();
 }
 
 void SoundManager::StopInstance(EventInstance instance)
 {
+    LOG_WARN("Unimplemented function!");
 }
