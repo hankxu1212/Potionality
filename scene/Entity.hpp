@@ -19,10 +19,20 @@ public:
 		m_Scene(scene), s_Transform(std::make_unique<RectTransform>(args...)) {
 	}
 
+	template<typename... TArgs>
+	Entity(Scene* scene, const std::string& name, TArgs&... args) :
+		m_Scene(scene), m_Name(name), s_Transform(std::make_unique<RectTransform>(args...)) {
+	}
+
 	// template taking an lvalue
 	template<typename... TArgs>
 	Entity(Scene* scene, TArgs&&... args) :
 		m_Scene(scene), s_Transform(std::make_unique<RectTransform>(args...)) {
+	}
+
+	template<typename... TArgs>
+	Entity(Scene* scene, const std::string& name, TArgs&&... args) :
+		m_Scene(scene), m_Name(name), s_Transform(std::make_unique<RectTransform>(args...)) {
 	}
 
 private:
@@ -59,10 +69,12 @@ public: // entity components
 	Scene* scene() { return m_Scene; }
 	RectTransform* transform() { return s_Transform.get(); }
 	uint64_t uuid() { return uint64_t(m_UUID); }
+	const std::string& name() { return m_Name; }
 
 private:
     Scene*									m_Scene = nullptr;
     std::vector<std::unique_ptr<Component>>	m_Components;
 	std::unique_ptr<RectTransform>			s_Transform;
 	UUID									m_UUID;
+	std::string								m_Name;
 };

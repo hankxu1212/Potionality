@@ -4,6 +4,7 @@
 #include <list>
 #include <memory>
 #include <glm/glm.hpp>
+#include <unordered_map>
 
 class Entity;
 
@@ -21,7 +22,6 @@ public:
 
 	void Render();
 
-	
 public: // event functions. Do not create function definitions!
 	template<typename T>
 	void OnComponentAdded(Entity&, T&);
@@ -29,24 +29,36 @@ public: // event functions. Do not create function definitions!
 	template<typename T>
 	void OnComponentRemoved(Entity&, T&);
 
+	void SetEntity(Entity* ent);
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Entity management
 
 	template<typename... TArgs>
-	Entity* Instantiate(TArgs&... args) 
-	{ 
-		entities.emplace_back(std::make_unique<Entity>(this, args...)); 
-		return entities.back().get();
+	Entity* Instantiate(const std::string& name, TArgs&... args)
+	{
+		Entity* ent = new Entity(this, name, args...);
+		SetEntity(ent);
+		return ent;
 	}
 
-	// template taking lvalues
 	template<typename... TArgs>
-	Entity* Instantiate(TArgs&&... args)
+	Entity* Instantiate(const std::string& name, TArgs&&... args)
 	{
-		entities.emplace_back(std::make_unique<Entity>(this, args...));
-		return entities.back().get();
+		Entity* ent = new Entity(this, name, args...);
+		SetEntity(ent);
+		return ent;
 	}
+
+	// destroy by entity handle, O(n). Can use.
+	void Destroy(Entity* ent);
+
+	// destroy by entity id O(log n). Should use.
+	void Destroy(size_t uuid);
+
+	// destroy by entity name, O(n+). Discouraged to use.
+	void Destroy(const std::string& name);
 
 private:
-	std::list<std::unique_ptr<Entity>> entities;
+	std::unordered_map<size_t, std::unique_ptr<Entity>> entities;
 };

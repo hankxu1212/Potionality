@@ -30,49 +30,49 @@ void Scene::Load()
     ResourceManager::LoadTexture("../resources/potions/Red_potion.png", "red_potion");
 
     // Background 
-    Entity* backgroundEntity = Instantiate(glm::vec2{0, 0}, glm::vec2{1920, 1080}, 0.0f);
+    Entity* backgroundEntity = Instantiate("Background", glm::vec2{0, 0}, glm::vec2{1920, 1080}, 0.0f);
     backgroundEntity->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     backgroundEntity->AddComponent<SpriteRenderer>("background");
 
     // PLAYER ////////////////////////////////////////////////////////////////// 
-    Entity* e = Instantiate(glm::vec2{200, 200}, glm::vec2{96, 96}, 0.0f);
+    Entity* e = Instantiate("Player", glm::vec2{200, 200}, glm::vec2{96, 96}, 0.0f);
     e->AddComponent<SpritesheetLoader>(LIT_SPRTSHEET_SHADER, 6, 11);
     e->AddComponent<SpritesheetRenderer>("player_idle");
     e->AddComponent<Player>();
 
     // CUSTOMER TEST ////////////////////////////////////////////////////////////////// 
-    Entity* e2 = Instantiate(glm::vec2{1500, 300}, glm::vec2{256, 256}, 0.0f);
+    Entity* e2 = Instantiate("Customer1", glm::vec2{1500, 300}, glm::vec2{256, 256}, 0.0f);
     e2->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e2->AddComponent<SpriteRenderer>("counter");
     e2->AddComponent<Customer>(); // TODO: add some proximity check
     
     // INGREDIENTS //////////////////////////////////////////////////
     // TODO: Serialize scene loading, this is hideous
-    Entity* e3 = Instantiate(glm::vec2{800, 900}, glm::vec2{64, 64}, 0.0f);
+    Entity* e3 = Instantiate("FlowerIngredient", glm::vec2{800, 900}, glm::vec2{64, 64}, 0.0f);
     e3->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e3->AddComponent<SpriteRenderer>("flower");
     e3->AddComponent<Ingredient>();
 
-    Entity* e4 = Instantiate(glm::vec2{1000, 600}, glm::vec2{64, 64}, 0.0f);
+    Entity* e4 = Instantiate("MushroomIngredient", glm::vec2{1000, 600}, glm::vec2{64, 64}, 0.0f);
     e4->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e4->AddComponent<SpriteRenderer>("mushroom");
     e4->AddComponent<Ingredient>();
 
-    Entity* e5 = Instantiate(glm::vec2{200, 400}, glm::vec2{64, 64}, 0.0f);
+    Entity* e5 = Instantiate("PurpleQuartzIngredient", glm::vec2{200, 400}, glm::vec2{64, 64}, 0.0f);
     e5->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e5->AddComponent<SpriteRenderer>("purple_quartz");
     e5->AddComponent<Ingredient>();
 
-    Entity* e6 = Instantiate(glm::vec2{400, 800}, glm::vec2{64, 64}, 0.0f);
+    Entity* e6 = Instantiate("WhiteQuartzIngredient", glm::vec2{400, 800}, glm::vec2{64, 64}, 0.0f);
     e6->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e6->AddComponent<SpriteRenderer>("white_quartz");
     e6->AddComponent<Ingredient>();
     
-    Entity* e7 = Instantiate(glm::vec2{500, 500}, glm::vec2{256, 256}, 0.0f);
+    Entity* e7 = Instantiate("Table", glm::vec2{500, 500}, glm::vec2{256, 256}, 0.0f);
     e7->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e7->AddComponent<SpriteRenderer>("table");
 
-    Entity* e8 = Instantiate(glm::vec2{1600, 375}, glm::vec2{64, 64}, 0.0f);
+    Entity* e8 = Instantiate("RedPotion", glm::vec2{1600, 375}, glm::vec2{64, 64}, 0.0f);
     e8->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e8->AddComponent<SpriteRenderer>("red_potion");
     e8->AddComponent<Potion>(); // Doesn't do much right now, but might be useful down the line
@@ -89,10 +89,44 @@ void Scene::Update()
 {
     for (auto& ent : entities)
     {
-        ent->Update();
+        ent.second->Update();
     }
 }
 
 void Scene::Render()
 {
+}
+
+void Scene::SetEntity(Entity* ent)
+{
+    entities[ent->uuid()] = std::unique_ptr<Entity>(ent);
+}
+
+void Scene::Destroy(Entity* ent)
+{
+    for (auto it = entities.begin(); it != entities.end(); ++it) 
+    {
+        if (it->second.get() == ent) 
+        {
+            entities.erase(it);       
+            break;
+        }
+    }
+}
+
+void Scene::Destroy(size_t uuid)
+{
+    entities.erase(uuid);
+}
+
+void Scene::Destroy(const std::string& name)
+{
+    for (auto it = entities.begin(); it != entities.end(); ++it) 
+    {
+        if (strcmp(it->second->name().c_str(), name.c_str()) == 0) 
+        {
+            entities.erase(it);
+            break;
+        }
+    }
 }
