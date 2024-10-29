@@ -140,6 +140,9 @@ void Player::OnInteractPressed()
 			potionSprite->Activate();
 			currentMessage = "Delivered potion! You win!";
 			m_Inventory.clear(); // Note: Later on, we'll need to decrement the relevant ingredients in the player's inventory instead of just clearing
+
+			// Play sfx
+			SoundManager::Get()->PlayOneShot("SuccessSFX");
 		} else {
 			currentMessage = "Missing ingredients!";
 		}

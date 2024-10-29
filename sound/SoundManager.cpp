@@ -8,6 +8,7 @@ SoundManager::SoundManager()
     Sound::init();
 
     LoadSample("../resources/sound/CartoonBite.wav", "BiteSFX");
+    LoadSample("../resources/sound/Congratulations.wav", "SuccessSFX");
 }
 
 SoundManager::~SoundManager()
