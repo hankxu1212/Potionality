@@ -10,7 +10,14 @@ public:
 
 	void Update() override;
 
+	inline void Activate() { active = true; }
+	inline void Deactivate() { active = false; }
+	inline bool GetActive() { return active; }
+
 	const std::string spriteToDraw;
 	SpriteLoader* spriteLoader = nullptr;
+
+private:
+	bool active = true;
 };
 

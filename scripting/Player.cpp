@@ -102,14 +102,19 @@ void Player::OnInteractPressed()
 	for (Ingredient* ingredient : Ingredient::Instances) {
 		auto& ingredientPos = ingredient->GetTransform()->position;
 		float distance = glm::distance(GetTransform()->position, ingredientPos);
-		if (distance < interactionDistance)
+		if (distance < interactionDistance && ingredient->GetActive())
 		{
+			// Add ingredient to inventory
 			SpriteRenderer* ingredientSprite = ingredient->entity->GetComponent<SpriteRenderer>();
 			const std::string& ingredientName = ingredientSprite->spriteToDraw;
 			if (m_Inventory.count(ingredientName)) m_Inventory[ingredientName]++;
 			else m_Inventory[ingredientName] = 1;
 
-			//TODO: Remove ingredient and sprite from scene
+			// Remove ingredient
+			ingredientSprite->Deactivate();
+			ingredient->Deactivate();
+			
+			// TODO: Remove ingredient entity from scene?
 		}
 	}
 

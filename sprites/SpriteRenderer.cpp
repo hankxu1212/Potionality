@@ -10,8 +10,10 @@ SpriteRenderer::SpriteRenderer(const std::string& spriteToDraw_) :
 
 void SpriteRenderer::Update()
 {
-	assert(spriteLoader);
-	spriteLoader->DrawSprite(spriteToDraw);
+	if (active) {
+		assert(spriteLoader);
+		spriteLoader->DrawSprite(spriteToDraw);
+	}
 }
 
 template<>

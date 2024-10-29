@@ -47,7 +47,6 @@ public: // event functions. Do not create function definitions!
 		return entities.back().get();
 	}
 
-
 private:
 	std::list<std::unique_ptr<Entity>> entities;
 };
