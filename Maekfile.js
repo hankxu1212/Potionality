@@ -169,6 +169,7 @@ const gameplay_scripts = [
 	maek.CPP('scripting/Player.cpp'),
 	maek.CPP('scripting/Customer.cpp'),
 	maek.CPP('scripting/Ingredient.cpp'),
+	maek.CPP('scripting/Potion.cpp')
 ]
 
 //the '[exeFile =] LINK(objFiles, exeFileBase, [, options])' links an array of objects into an executable:

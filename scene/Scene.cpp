@@ -41,7 +41,6 @@ void Scene::Load()
     e->AddComponent<Player>();
 
     // CUSTOMER TEST ////////////////////////////////////////////////////////////////// 
-    // TODO: Use something else for the counter/potion deposit place
     Entity* e2 = Instantiate(glm::vec2{1500, 300}, glm::vec2{256, 256}, 0.0f);
     e2->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e2->AddComponent<SpriteRenderer>("counter");
@@ -73,9 +72,10 @@ void Scene::Load()
     e7->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e7->AddComponent<SpriteRenderer>("table");
 
-    Entity* e8 = Instantiate(glm::vec2{500, 500}, glm::vec2{64, 64}, 0.0f);
+    Entity* e8 = Instantiate(glm::vec2{1600, 375}, glm::vec2{64, 64}, 0.0f);
     e8->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e8->AddComponent<SpriteRenderer>("red_potion");
+    e8->AddComponent<Potion>(); // Doesn't do much right now, but might be useful down the line
     // Sprites start as active, so deactivate if we don't want to immediately draw it
     SpriteRenderer* potionSprite = e8->GetComponent<SpriteRenderer>();
     potionSprite->Deactivate();

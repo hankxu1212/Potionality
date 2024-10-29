@@ -3,6 +3,7 @@
 #include "../scene/Entity.hpp"
 #include "Ingredient.hpp"
 #include "Customer.hpp"
+#include "Potion.hpp"
 #include <array>
 
 SpritesheetRenderer* playerSprite;
@@ -114,8 +115,6 @@ void Player::OnInteractPressed()
 			// Remove ingredient
 			ingredientSprite->Deactivate();
 			ingredient->Deactivate();
-			
-			// TODO: Remove ingredient entity from scene?
 		}
 	}
 
@@ -126,8 +125,10 @@ void Player::OnInteractPressed()
 		// If player has 1 of every ingredient, playtest potion is deliverable
 		// TODO: Change hardcoded values, implement different potion recipes
 		if (m_Inventory.count("flower") && m_Inventory.count("mushroom") && m_Inventory.count("purple_quartz") && m_Inventory.count("white_quartz")) {
-			// TODO: Deliver potion
-			LOG_INFO("Potion delivered!");
+			Potion* potion = Potion::Instance;
+			SpriteRenderer* potionSprite = potion->entity->GetComponent<SpriteRenderer>();
+			potionSprite->Activate();
+			LOG_INFO("Delivered potion!");
 		} else {
 			LOG_INFO("No potion to deliver!");
 		}

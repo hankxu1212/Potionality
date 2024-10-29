@@ -25,5 +25,5 @@ public:
 
 private:
 	float interactionDistance = 100;
-	bool active = true;
+	bool active = true; // TODO: Move active and relevant functions to Behaviour? Might need for several scripts
 };
