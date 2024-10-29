@@ -48,22 +48,22 @@ void Scene::Load()
     
     // INGREDIENTS //////////////////////////////////////////////////
     // TODO: Serialize scene loading, this is hideous
-    Entity* e3 = Instantiate(glm::vec2{800, 200}, glm::vec2{64, 64}, 0.0f);
+    Entity* e3 = Instantiate(glm::vec2{800, 900}, glm::vec2{64, 64}, 0.0f);
     e3->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e3->AddComponent<SpriteRenderer>("flower");
     e3->AddComponent<Ingredient>();
 
-    Entity* e4 = Instantiate(glm::vec2{1200, 600}, glm::vec2{64, 64}, 0.0f);
+    Entity* e4 = Instantiate(glm::vec2{1000, 600}, glm::vec2{64, 64}, 0.0f);
     e4->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e4->AddComponent<SpriteRenderer>("mushroom");
     e4->AddComponent<Ingredient>();
 
-    Entity* e5 = Instantiate(glm::vec2{400, 400}, glm::vec2{64, 64}, 0.0f);
+    Entity* e5 = Instantiate(glm::vec2{200, 400}, glm::vec2{64, 64}, 0.0f);
     e5->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e5->AddComponent<SpriteRenderer>("purple_quartz");
     e5->AddComponent<Ingredient>();
 
-    Entity* e6 = Instantiate(glm::vec2{600, 800}, glm::vec2{64, 64}, 0.0f);
+    Entity* e6 = Instantiate(glm::vec2{400, 800}, glm::vec2{64, 64}, 0.0f);
     e6->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e6->AddComponent<SpriteRenderer>("white_quartz");
     e6->AddComponent<Ingredient>();

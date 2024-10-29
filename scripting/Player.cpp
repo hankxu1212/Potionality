@@ -104,7 +104,11 @@ void Player::OnInteractPressed()
 		float distance = glm::distance(GetTransform()->position, ingredientPos);
 		if (distance < interactionDistance)
 		{
-			m_Inventory.emplace_back(uint64_t(ingredient->GetEntityID()));
+			SpriteRenderer* ingredientSprite = ingredient->entity->GetComponent<SpriteRenderer>();
+			const std::string& ingredientName = ingredientSprite->spriteToDraw;
+			if (m_Inventory.count(ingredientName)) m_Inventory[ingredientName]++;
+			else m_Inventory[ingredientName] = 1;
+
 			//TODO: Remove ingredient and sprite from scene
 		}
 	}
@@ -193,9 +197,9 @@ void Player::DEBUG()
 	if (m_DebugPeriodCounter <= 0) 
 	{
 		if (m_Inventory.size() > 0) {
-			LOG_INFO("Current inventory IDs:");
-			for (int i = 0; i < m_Inventory.size(); i++) {
-				LOG_INFO(uint64_t(m_Inventory[i]));
+			LOG_INFO("Current inventory counts:");
+			for (const auto& [key, val] : m_Inventory) {
+				LOG_INFO(key + ':' + std::to_string(val));
 			}
 		}
 		m_DebugPeriodCounter = m_DebugPeriodCounterMax;

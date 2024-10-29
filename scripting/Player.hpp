@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <map>
 
 #include "Behaviour.hpp"
 
@@ -20,7 +20,10 @@ public:
 
 	const char* getClassName() const override { return "Player"; }
 
-	[[nodiscard]] inline const std::vector<UUID>& GetInventory() const { return m_Inventory; }
+	const int GetCount(const std::string& itemName) {
+		if (m_Inventory.count(itemName)) return m_Inventory[itemName];
+		else return 0;
+	}
 
 private:
 	// Debug ////////////////////////////////////////////////////////////////////////
@@ -57,7 +60,7 @@ private:
 	const float m_SmashCooldownMax = 2;
 
 	// Inventory ////////////////////////////////////////////////////////////////////////
-	std::vector<UUID> m_Inventory;
+	std::map<const std::string, int> m_Inventory;
 
 	// Handling Functions ////////////////////////////////////////////////////////////////////////
 	void HandleAnimations();
