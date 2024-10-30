@@ -22,7 +22,7 @@ void PlayMode::Init()
 	for (auto it = registry.begin(); it != registry.end(); ++it)
 		CreateModule(it);
 
-	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -1.0f, 1.0f);
+	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -10.0f, 10.0f);
 
 	// configure static sprite shader
 	ResourceManager::LoadShader(Files::Path("../shaders/sprite.vert").c_str(), Files::Path("../shaders/sprite.frag").c_str(), nullptr, SPRITE_SHADER);

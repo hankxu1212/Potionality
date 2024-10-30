@@ -107,8 +107,11 @@ int main(int argc, char **argv) {
 
 	Mode::current->Init();
 
-	// OpenGL state
-	glDepthFunc(GL_NEVER);
+	// depth testing
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+
+	// blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -163,15 +166,14 @@ int main(int argc, char **argv) {
 			elapsed = std::min(0.1f, elapsed);
 
 			// set clear colors and clear color buffer
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			Mode::current->update(elapsed);
 			if (!Mode::current) break;
 		}
 
 		{ //(3) call the current mode's "draw" function to produce output:
-		
 			Mode::current->draw(drawable_size);
 		}
 

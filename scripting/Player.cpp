@@ -13,6 +13,7 @@ SpritesheetRenderer* playerSprite;
 
 void Player::Awake()
 {
+	LOG_INFO("Instantiated player!");
 	if (Player::Instance)
 	{
 		LOG_WARN("Multiple player instances found!");

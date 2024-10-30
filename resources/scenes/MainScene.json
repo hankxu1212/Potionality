@@ -43,7 +43,7 @@
       "translation": [ 0, 0 ],
       "rotation": 0,
       "scale": [ 1920, 1080 ],
-      "depth": 0,
+      "depth": -9,
       "active": "true",
       "components": [
         {
@@ -60,10 +60,10 @@
     },
     {
       "name": "Player",
-      "translation": [ 0, 0 ],
-      "rotation": 0,
-      "scale": [ 1, 1 ],
-      "depth": 0,
+      "translation": [ 200, 200 ],
+      "rotation": 1,
+      "scale": [ 128, 128 ],
+      "depth": 1,
       "active": "true",
       "components": [
         {
