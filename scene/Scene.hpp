@@ -50,20 +50,10 @@ public: // event functions. Do not create function definitions!
 	// Entity management
 
 	template<typename... TArgs>
-	Entity* Instantiate(const std::string& name, TArgs&... args)
-	{
-		Entity* ent = new Entity(this, name, args...);
-		SetEntity(ent);
-		return ent;
-	}
+	Entity* Instantiate(const std::string& name, TArgs&... args);
 
 	template<typename... TArgs>
-	Entity* Instantiate(const std::string& name, TArgs&&... args)
-	{
-		Entity* ent = new Entity(this, name, args...);
-		SetEntity(ent);
-		return ent;
-	}
+	Entity* Instantiate(const std::string& name, TArgs&&... args);
 
 	// destroy by entity handle, O(n). Can use.
 	void Destroy(Entity* ent);

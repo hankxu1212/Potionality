@@ -113,9 +113,9 @@ public: // get and set
 
 private:
     Scene*									m_Scene = nullptr;
+	std::string								m_Name;
     std::vector<std::unique_ptr<Component>>	m_Components;
 	std::unique_ptr<RectTransform>			s_Transform;
 	UUID									m_UUID;
-	std::string								m_Name;
 	bool									m_Active = true;
 };

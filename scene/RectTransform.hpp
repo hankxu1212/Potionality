@@ -27,13 +27,5 @@ public:
     RectTransform(const RectTransform& other)
         : position(other.position), size(other.size), rotation(other.rotation), depth(other.depth) {}
 
-    // Move Constructor
-    RectTransform(RectTransform&& other) noexcept
-        : position(std::move(other.position)), size(std::move(other.size)),
-        rotation(other.rotation), depth(other.depth) {
-        other.rotation = 0.0f;
-        other.depth = 0.0f;
-    }
-
     glm::mat4 GetModel() const;
 };
