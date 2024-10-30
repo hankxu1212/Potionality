@@ -60,13 +60,9 @@ private:
 
 	// Message Display //////////////////////////////////////////////////////////////
 	float m_MessageTimer;
-	const float m_MessageTimerMax = 2;
+	[[maybe_unused]] const float m_MessageTimerMax = 2;
 	std::string currentMessage;
 	void HandleMessages();
-
-	// Interactables ////////////////////////////////////////////////////////////////////////
-	InteractableObject* currentInteractable;
-	InteractableObject* previousInteractable;
 
 	// Inventory ////////////////////////////////////////////////////////////////////////
 	std::map<const std::string, int> m_Inventory;

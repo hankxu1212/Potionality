@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 enum class Action
 {
@@ -31,7 +32,7 @@ struct Potion
 struct Ingredient_T
 {
 	std::string name;
-	const std::vector<Action> executableActions;
+	std::vector<Action> executableActions;
 	std::unordered_map<Action, ActionState> actionStates;
 };
 

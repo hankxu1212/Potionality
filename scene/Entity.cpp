@@ -20,6 +20,9 @@ Entity::~Entity()
 
 void Entity::Update()
 {
+	if (m_Parent && m_Parent->s_Transform->IsDirty())
+		s_Transform->SetDirty();
+
     // update components
 	for (auto& component : m_Components)
 	{

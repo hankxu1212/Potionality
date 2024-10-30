@@ -26,6 +26,9 @@ public:
 
     void Translate(const glm::vec2& offset);
 
+    bool IsDirty() const { return isDirty; }
+    void SetDirty() { isDirty = true; }
+
 private: // DO NOT move the private variables to public, or caching breaks
     RectTransform* m_Parent = nullptr;
 	glm::vec2 m_Position;

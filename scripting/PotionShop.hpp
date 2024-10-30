@@ -24,7 +24,7 @@ public:
 
 private:
 	std::unordered_map<size_t, Customer*> m_Customers;
-	float reputation = 0;
+	[[maybe_unused]] float reputation = 0;
 
 	float m_WaitCounter;
 };

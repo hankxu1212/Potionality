@@ -18,7 +18,7 @@ public:
 
 private:
 	std::vector<PotionRequest> requests;
-	float patience;
+	[[maybe_unused]] float patience;
 
 	// display initial request
 	float m_InitialRequestTimer;
