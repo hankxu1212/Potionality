@@ -60,4 +60,5 @@ void Scene::OnComponentAdded<SpritesheetRenderer>(Entity &entity, SpritesheetRen
 template<>
 void Scene::OnComponentRemoved<SpritesheetRenderer>(Entity& entity, SpritesheetRenderer& component)
 {
+    LOG_INFO("removed a SpritesheetRenderer");
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
 #include "Behaviour.hpp"
 
@@ -10,7 +10,7 @@ class Ingredient : public Behaviour
 {
 public:
 	// list of ingredient instances
-	inline static std::list<Ingredient*> Instances;
+	inline static std::vector<Ingredient*> Instances;
 
 	void Awake() override;
 	void Start() override;

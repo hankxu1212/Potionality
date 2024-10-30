@@ -9,18 +9,31 @@ public:
 	glm::vec2 position;
 	glm::vec2 size;
 	float rotation;
+	float depth;
 
-	// Default constructor
-	RectTransform()
-		: position(0.0f, 0.0f), size(1.0f, 1.0f), rotation(0.0f) {}
+    // Default Constructor
+    RectTransform()
+        : position(0.0f, 0.0f), size(1.0f, 1.0f), rotation(0.0f), depth(0.0f) {}
 
-	// Constructor with position and size, rotation defaults to 0
-	RectTransform(const glm::vec2& pos, const glm::vec2& sz)
-		: position(pos), size(sz), rotation(0.0f) {}
+    // Parameterized Constructor
+    RectTransform(const glm::vec2& pos, const glm::vec2& s, float rot = 0.0f, float d = 0.0f)
+        : position(pos), size(s), rotation(rot), depth(d) {}
 
-	// Constructor with position, size, and rotation
-	RectTransform(const glm::vec2& pos, const glm::vec2& sz, float rot)
-		: position(pos), size(sz), rotation(rot) {}
+    // Constructor with individual float values for position and size
+    RectTransform(float posX, float posY, float width, float height, float rot = 0.0f, float d = 0.0f)
+        : position(posX, posY), size(width, height), rotation(rot), depth(d) {}
+
+    // Copy Constructor
+    RectTransform(const RectTransform& other)
+        : position(other.position), size(other.size), rotation(other.rotation), depth(other.depth) {}
+
+    // Move Constructor
+    RectTransform(RectTransform&& other) noexcept
+        : position(std::move(other.position)), size(std::move(other.size)),
+        rotation(other.rotation), depth(other.depth) {
+        other.rotation = 0.0f;
+        other.depth = 0.0f;
+    }
 
 	glm::mat4 GetModel() const
 	{

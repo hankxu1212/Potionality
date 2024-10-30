@@ -26,6 +26,8 @@ public:
     static ScriptingEngine* Get() { return s_Instance; }
 
     void Add(Behaviour*);
+
+    void Remove(Behaviour*);
     
 private:
     struct string_size_t_hash {

@@ -87,4 +87,5 @@ void Scene::OnComponentAdded<SpritesheetLoader>(Entity& entity, SpritesheetLoade
 template<>
 void Scene::OnComponentRemoved<SpritesheetLoader>(Entity& entity, SpritesheetLoader& component)
 {
+    LOG_INFO("removed a SpritesheetLoader");
 }

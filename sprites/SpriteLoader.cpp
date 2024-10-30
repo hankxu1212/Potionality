@@ -2,6 +2,7 @@
 #include "../GL.hpp"
 #include "../core/ResourceManager.h"
 #include "../scene/Scene.hpp"
+#include "../core/utils/Logger.hpp"
 
 SpriteLoader::SpriteLoader(Shader& shader)
 {
@@ -76,4 +77,5 @@ void Scene::OnComponentAdded<SpriteLoader>(Entity& entity, SpriteLoader& compone
 template<>
 void Scene::OnComponentRemoved<SpriteLoader>(Entity& entity, SpriteLoader& component)
 {
+    LOG_INFO("removed a SpriteLoader");
 }

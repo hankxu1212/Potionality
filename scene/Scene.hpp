@@ -5,6 +5,7 @@
 #include <memory>
 #include <glm/glm.hpp>
 #include <unordered_map>
+#include <mutex>
 
 class Entity;
 
@@ -17,6 +18,8 @@ public:
 	void Load();
 
 	void Unload();
+
+	void Deserialize(const std::string& path);
 
 	void Update();
 
@@ -61,4 +64,7 @@ public: // event functions. Do not create function definitions!
 
 private:
 	std::unordered_map<size_t, std::unique_ptr<Entity>> entities;
+
+	std::vector<size_t> m_DestroyQueue;
+	void ExecuteDestroyQueue();
 };

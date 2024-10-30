@@ -11,3 +11,14 @@
 #include "../sprites/SpriteRenderer.h"
 #include "../sprites/SpritesheetRenderer.h"
 #include "../sprites/SpritesheetLoader.h"
+
+template<typename... C> struct ComponentGroup { };
+
+using AllComponents = ComponentGroup
+<
+	Behaviour,
+	SpriteLoader,
+	SpriteRenderer,
+	SpritesheetRenderer,
+	SpritesheetLoader
+>;

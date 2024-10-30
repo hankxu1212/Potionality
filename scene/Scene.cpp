@@ -6,6 +6,7 @@
 #include "../core/ResourceManager.h"
 #include "../PlayMode.hpp"
 #include "../scripting/Player.hpp"
+#include "../core/utils/sejp/sejp.hpp"
 
 Scene::Scene()
 {
@@ -75,7 +76,8 @@ void Scene::Load()
     Entity* e8 = Instantiate("RedPotion", glm::vec2{1600, 375}, glm::vec2{64, 64}, 0.0f);
     e8->AddComponent<SpriteLoader>(LIT_SPRT_SHADER);
     e8->AddComponent<SpriteRenderer>("red_potion");
-    e8->AddComponent<Potion>(); // Doesn't do much right now, but might be useful down the line
+    e8->AddComponent<Potion>(); 
+    // Doesn't do much right now, but might be useful down the line
     // Sprites start as active, so deactivate if we don't want to immediately draw it
     SpriteRenderer* potionSprite = e8->GetComponent<SpriteRenderer>();
     potionSprite->Deactivate();
@@ -85,8 +87,13 @@ void Scene::Unload()
 {
 }
 
+void Scene::Deserialize(const std::string& path)
+{
+}
+
 void Scene::Update()
 {
+    ExecuteDestroyQueue();
     for (auto& ent : entities)
     {
         ent.second->Update();
@@ -108,7 +115,7 @@ void Scene::Destroy(Entity* ent)
     {
         if (it->second.get() == ent) 
         {
-            entities.erase(it);       
+            m_DestroyQueue.push_back(it->second->uuid());
             break;
         }
     }
@@ -116,7 +123,7 @@ void Scene::Destroy(Entity* ent)
 
 void Scene::Destroy(size_t uuid)
 {
-    entities.erase(uuid);
+    m_DestroyQueue.push_back(uuid);
 }
 
 void Scene::Destroy(const std::string& name)
@@ -125,8 +132,20 @@ void Scene::Destroy(const std::string& name)
     {
         if (strcmp(it->second->name().c_str(), name.c_str()) == 0) 
         {
-            entities.erase(it);
+            m_DestroyQueue.push_back(it->second->uuid());
             break;
         }
     }
+}
+
+void Scene::ExecuteDestroyQueue()
+{
+    if (m_DestroyQueue.empty())
+        return;
+
+    for (int i = 0; i < m_DestroyQueue.size(); ++i)
+    {
+        entities.erase(m_DestroyQueue[i]);
+    }
+    m_DestroyQueue.clear();
 }

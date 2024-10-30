@@ -42,3 +42,8 @@ void ScriptingEngine::Add(Behaviour* script)
 {
     m_Scripts[std::make_pair(script->getClassName(), (size_t)script->GetEntityID())] = script;
 }
+
+void ScriptingEngine::Remove(Behaviour* script)
+{
+    m_Scripts.erase(std::make_pair(script->getClassName(), (size_t)script->GetEntityID()));
+}

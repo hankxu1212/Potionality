@@ -12,6 +12,8 @@
 class Entity
 {
 public:
+	~Entity();
+
     void Update();
 
 	template<typename... TArgs>
@@ -34,6 +36,12 @@ public:
 	Entity(Scene* scene, const std::string& name, TArgs&&... args) :
 		m_Scene(scene), m_Name(name), s_Transform(std::make_unique<RectTransform>(args...)) {
 	}
+
+	// destroys this component immediately.
+	// maybe best to push this to an execution queue.
+	// to prevent objects destroying themselves in the middle of sth
+	// if you see a bug with this function (segfaults), let Hank know
+	void Destroy();
 
 private:
     friend class Scene;
@@ -59,12 +67,30 @@ public: // entity components
 		{
 			if (dynamic_cast<T*>(component.get()))
 				return (T*)component.get();
-			else
-				continue;
 		}
 		return nullptr;
 	}
 
+	// removes the first component by class type
+	template<typename T>
+	void RemoveComponent()
+	{
+		for (int i=0;i<m_Components.size();++i)
+		{
+			const auto& component = m_Components[i];
+
+			if (dynamic_cast<T*>(component.get()))
+			{
+				T* comp = (T*)component.get();
+				m_Scene->OnComponentRemoved(*this, *comp);
+				m_Components.erase(m_Components.begin() + i);
+			}
+		}
+	}
+
+	void RemoveAllComponents();
+
+public: // get and set
     void SetScene(Scene* newScene) { m_Scene = newScene; }
 	Scene* scene() { return m_Scene; }
 	RectTransform* transform() { return s_Transform.get(); }

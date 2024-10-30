@@ -29,6 +29,12 @@ void Ingredient::Update()
 
 void Ingredient::Shutdown()
 {
+	auto it = std::find(Instances.begin(), Instances.end(), this);
+	if (it != Ingredient::Instances.end()) {
+		Ingredient::Instances.erase(it);  // Removes the first occurrence of `ingredient`
+	}
+
+	LOG_INFO("shut down an ingredient component");
 }
 
 template<>

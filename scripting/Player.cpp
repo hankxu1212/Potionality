@@ -105,7 +105,7 @@ void Player::HandleInputReset()
 void Player::OnInteractPressed()
 {
 	if (m_PlayerState == State::Smash)
-		return; // if already smashing, dont do anythin g
+		return; // if already smashing, dont do anything
 
 	// TODO: Will probably need better method than looping once we have more ingredients
 	for (Ingredient* ingredient : Ingredient::Instances) {
@@ -118,10 +118,9 @@ void Player::OnInteractPressed()
 			const std::string& ingredientName = ingredientSprite->spriteToDraw;
 			if (m_Inventory.count(ingredientName)) m_Inventory[ingredientName]++;
 			else m_Inventory[ingredientName] = 1;
-
-			// Remove ingredient
-			ingredientSprite->Deactivate();
-			ingredient->Deactivate();
+			
+			// destroys the ingredient
+			ingredient->entity->Destroy();
 
 			// Play sfx
 			SoundManager::Get()->PlayOneShot("BiteSFX");
