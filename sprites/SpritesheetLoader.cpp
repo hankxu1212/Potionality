@@ -31,13 +31,13 @@ void SpritesheetLoader::Update()
 {
 }
 
-void SpritesheetLoader::DrawSprite(const std::string& name, float uv_x, float uv_y, glm::vec3 color)
+void SpritesheetLoader::DrawSprite(const std::string& name, float uv_x, float uv_y)
 {
     shader.Use();
 
     // set transformations
     shader.SetMatrix4("model", GetTransform()->GetModel());
-    shader.SetVector3f("spriteColor", color);
+    shader.SetVector2f("textureDims", GetTransform()->size);
     
     // push animation variables
     shader.SetVector2f("uv_offset", glm::vec2(uv_x, uv_y));

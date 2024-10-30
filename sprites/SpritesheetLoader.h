@@ -17,10 +17,10 @@ public:
     void Update() override;
 
     // Renders a defined quad textured with given sprite
-    void DrawSprite(const std::string& name, float uv_x, float uv_y, glm::vec3 color = glm::vec3(1.0f));
+    void DrawSprite(const std::string& name, float uv_x, float uv_y);
 
-    [[nodiscard]] inline float getWidth() { return dimX; }
-    [[nodiscard]] inline float getHeight() { return dimY; }
+    [[nodiscard]] inline float getWidth() const { return dimX; }
+    [[nodiscard]] inline float getHeight() const { return dimY; }
 
 private:
     Shader       shader;

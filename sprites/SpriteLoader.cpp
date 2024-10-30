@@ -26,12 +26,12 @@ void SpriteLoader::Update()
 {
 }
 
-void SpriteLoader::DrawSprite(const std::string& name, glm::vec3 color)
+void SpriteLoader::DrawSprite(const std::string& name)
 {
     // prepare transformations
     shader.Use();
     shader.SetMatrix4("model", GetTransform()->GetModel());
-    shader.SetVector3f("spriteColor", color);
+    shader.SetVector2f("textureDims", GetTransform()->size);
 
     glActiveTexture(GL_TEXTURE0);
     ResourceManager::GetTexture(name).Bind();

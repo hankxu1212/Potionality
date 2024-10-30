@@ -1,40 +1,48 @@
 {
   "textures": [
     {
-      "src": "../resources/characters/Full.png",
+      "src": "../resources/characters/FullDownsampled.png",
       "name": "player_idle"
     },
     {
-      "src": "../resources/ingredients/Flower.png",
+      "src": "../resources/ingredients/FlowerDS2.png",
       "name": "flower"
     },
     {
-      "src": "../resources/ingredients/Mushroom.png",
+      "src": "../resources/ingredients/MushroomDS2.png",
       "name": "mushroom"
     },
     {
-      "src": "../resources/ingredients/Purple_Quartz.png",
+      "src": "../resources/ingredients/Purple_QuartzDS2.png",
       "name": "purple_quartz"
     },
     {
-      "src": "../resources/ingredients/White_Quartz.png",
+      "src": "../resources/ingredients/White_QuartzDS2.png",
       "name": "white_quartz"
     },
     {
-      "src": "../resources/background/Table.png",
+      "src": "../resources/background/TableDS4.png",
       "name": "table"
     },
     {
-      "src": "../resources/background/Counter.png",
+      "src": "../resources/background/CounterDS4.png",
       "name": "counter"
     },
     {
-      "src": "../resources/background/Background.png",
+      "src": "../resources/background/BackgroundDS5.png",
       "name": "background"
+    },
+    {
+      "src": "../resources/background/CauldronDS7.png",
+      "name": "cauldron"
     },
     {
       "src": "../resources/potions/Red_potion.png",
       "name": "red_potion"
+    },
+    {
+      "src": "../resources/background/VerybadIngredientClosetPlzReplace.png",
+      "name": "closet"
     }
   ],
   "entities": [
@@ -62,7 +70,7 @@
       "name": "Player",
       "translation": [ 200, 200 ],
       "rotation": 1,
-      "scale": [ 128, 128 ],
+      "scale": [ 96, 128 ],
       "depth": 1,
       "active": "true",
       "components": [
@@ -87,9 +95,9 @@
     },
     {
       "name": "Customer1",
-      "translation": [ 1500, 300 ],
+      "translation": [ 1200, 600 ],
       "rotation": 0,
-      "scale": [ 256, 256 ],
+      "scale": [ 512, 512 ],
       "depth": 0,
       "active": "true",
       "components": [
@@ -251,6 +259,46 @@
         {
           "type": "Behaviour",
           "classname": "Potion",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Cauldron",
+      "translation": [ 1000, 500 ],
+      "rotation": 0,
+      "scale": [ 128, 128 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "litSprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "cauldron",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Closet",
+      "translation": [ 10, 400 ],
+      "rotation": 0,
+      "scale": [ 512, 512 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "litSprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "closet",
           "active": "true"
         }
       ]

@@ -4,10 +4,9 @@ in vec2 TexCoords;
 out vec4 outColor;
 
 uniform sampler2D image;
-uniform vec3 spriteColor;
 uniform vec2 uv_offset;
 uniform vec2 uv_step;
-
+uniform vec2 textureDims;
 uniform vec2 lightPosition;
 
 float CalculateAttenuation(float d, float radius, float falloff) {
@@ -29,7 +28,7 @@ void main()
     float D = distance(gl_FragCoord.xy, lightPosition);
     float falloff = CalculateAttenuation(D, 1500, 0.001);
 
-    vec3 finalColor = 1 * falloff * spriteColor * texColor.rgb;
+    vec3 finalColor = 1 * falloff * texColor.rgb;
     
     outColor = vec4(finalColor, texColor.a);
 }

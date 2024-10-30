@@ -17,7 +17,7 @@ public:
     void Update() override;
 
     // Renders a defined quad textured with given sprite
-    void DrawSprite(const std::string& name, glm::vec3 color = glm::vec3(1.0f));
+    void DrawSprite(const std::string& name);
 
 private:
     Shader       shader;
