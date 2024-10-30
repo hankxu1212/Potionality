@@ -195,3 +195,20 @@ void Scene::ExecuteDestroyQueue()
     }
     m_DestroyQueue.clear();
 }
+
+
+template<typename... TArgs>
+Entity* Scene::Instantiate(const std::string& name, TArgs&... args)
+{
+    Entity* ent = new Entity(this, name, args...);
+    SetEntity(ent);
+    return ent;
+}
+
+template<typename... TArgs>
+Entity* Scene::Instantiate(const std::string& name, TArgs&&... args)
+{
+    Entity* ent = new Entity(this, name, args...);
+    SetEntity(ent);
+    return ent;
+}
