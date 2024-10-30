@@ -98,15 +98,21 @@ public: // entity components
 
 	void RemoveAllComponents();
 
+	void SetParent(Entity* newParent);
+
+	Entity* AddChild(const std::string& name, const glm::vec2& pos, const glm::vec2& size, float rotation, float depth);
+
 public: // get and set
     void SetScene(Scene* newScene) { m_Scene = newScene; }
 	Scene* scene() { return m_Scene; }
 
 	RectTransform* transform() { return s_Transform.get(); }
-
 	uint64_t uuid() { return uint64_t(m_UUID); }
 
 	const std::string& name() { return m_Name; }
+
+	inline Entity* parent() { return m_Parent; }
+	inline std::vector<Entity*>& children() { return m_Children; }
 
 	bool isActive() const { return m_Active; }
 	void SetActive(bool value) { m_Active = value; }
@@ -118,4 +124,7 @@ private:
 	std::unique_ptr<RectTransform>			s_Transform;
 	UUID									m_UUID;
 	bool									m_Active = true;
+
+	Entity*									m_Parent = nullptr;
+	std::vector<Entity*>						m_Children; // just a handle to its children
 };

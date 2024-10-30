@@ -2,6 +2,9 @@
 
 #include "../Behaviour.hpp"
 
+class SpriteRenderer;
+class SpritesheetRenderer;
+
 class InteractableObject : public Behaviour
 {
 public:
@@ -17,5 +20,8 @@ protected:
 	void Update() override;
 
 	bool isCurrentInteractable = false;
+
+	SpriteRenderer* spriteRenderer;
+	[[maybe_unused]] SpriteRenderer* spritesheetRenderer;
 };
 

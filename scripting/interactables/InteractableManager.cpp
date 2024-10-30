@@ -19,7 +19,7 @@ void InteractableManager::Update()
 	InteractableObject* closestObj = nullptr;
 	for (auto& [id, obj] : m_Interactables)
 	{
-		float d = glm::distance(Player::Instance->GetTransform()->position, obj->GetTransform()->position);
+		float d = glm::distance(Player::Instance->GetTransform()->position(), obj->GetTransform()->position());
 		if (d < closestDistance && d < interactionDistance)
 		{
 			closestDistance = d;

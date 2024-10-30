@@ -49,11 +49,7 @@ public: // event functions. Do not create function definitions!
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Entity management
 
-	template<typename... TArgs>
-	Entity* Instantiate(const std::string& name, TArgs&... args);
-
-	template<typename... TArgs>
-	Entity* Instantiate(const std::string& name, TArgs&&... args);
+	Entity* Instantiate(const std::string& name, const glm::vec2& pos, const glm::vec2& size, float rotation, float depth);
 
 	// destroy by entity handle, O(n). Can use.
 	void Destroy(Entity* ent);

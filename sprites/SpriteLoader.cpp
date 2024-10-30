@@ -31,7 +31,7 @@ void SpriteLoader::DrawSprite(const std::string& name)
     // prepare transformations
     shader.Use();
     shader.SetMatrix4("model", GetTransform()->GetModel());
-    shader.SetVector2f("textureDims", GetTransform()->size);
+    shader.SetVector2f("textureDims", GetTransform()->size());
 
     glActiveTexture(GL_TEXTURE0);
     ResourceManager::GetTexture(name).Bind();

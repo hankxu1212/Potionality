@@ -17,9 +17,29 @@ void Customer::Shutdown()
 	PotionShop::Get()->Remove(this);
 }
 
+void Customer::Update()
+{
+	InteractableObject::Update(); // need to call baseclass explicitly
+
+	if (m_InitialRequestTimer >= 0) {
+		// display text
+		RenderText("Can you help me make a potion?", GetTransform()->position().x, 1080 - GetTransform()->position().y);
+
+		// walk towards middle
+		GetTransform()->SetPositionX(GetTransform()->position().x - Time::DeltaTime * 100);
+
+		m_InitialRequestTimer -= Time::DeltaTime;
+	}
+}
+
 void Customer::Interact()
 {
-	LOG_INFO("Inetracted with this customer!");
+	LOG_INFO("Interacted with this customer!");
+}
+
+void Customer::InstantiateRequests(uint32_t numRequests)
+{
+	m_InitialRequestTimer = m_InitialRequestTimerMax;
 }
 
 SETUP_DEFAULT_CALLBACKS(Customer)

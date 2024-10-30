@@ -32,6 +32,8 @@ public:
 		*/
 	static float Random(float min = 0.0f, float max = 1.0f);
 
+	static int RandomInt(int min = 0.0f, int max = 1.0f);
+
 	/**
 		* Generates a single value from a normal distribution, using Box-Muller.
 		* @param standardDeviation The standards deviation of the distribution.

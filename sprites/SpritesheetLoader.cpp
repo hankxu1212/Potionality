@@ -37,7 +37,7 @@ void SpritesheetLoader::DrawSprite(const std::string& name, float uv_x, float uv
 
     // set transformations
     shader.SetMatrix4("model", GetTransform()->GetModel());
-    shader.SetVector2f("textureDims", GetTransform()->size);
+    shader.SetVector2f("textureDims", GetTransform()->size());
     
     // push animation variables
     shader.SetVector2f("uv_offset", glm::vec2(uv_x, uv_y));

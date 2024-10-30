@@ -9,6 +9,12 @@ float Math::Random(float min, float max) {
 	return dist(RandomGenerator);
 }
 
+int Math::RandomInt(int min, int max)
+{
+	std::uniform_int_distribution<> dist(min, max);
+	return dist(RandomGenerator);
+}
+
 float Math::RandomNormal(float standardDeviation, float mean) {
 	std::normal_distribution<float> dist(mean, standardDeviation);
 	return dist(RandomGenerator);

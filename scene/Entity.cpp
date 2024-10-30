@@ -49,3 +49,17 @@ static void DestroyComponentGroup(ComponentGroup<C...>, Entity& e)
 void Entity::RemoveAllComponents() {
 	DestroyComponentGroup(AllComponents{}, *this);
 }
+
+void Entity::SetParent(Entity* newParent)
+{
+	m_Parent = newParent;
+	s_Transform->SetParent(newParent->transform());
+}
+
+Entity* Entity::AddChild(const std::string& name, const glm::vec2& pos, const glm::vec2& size, float rotation, float depth)
+{
+	Entity* child = m_Scene->Instantiate(name, pos, size, rotation, depth);
+	m_Children.emplace_back(child);
+	child->SetParent(this);
+	return child;
+}

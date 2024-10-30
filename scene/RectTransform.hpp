@@ -6,26 +6,33 @@
 class RectTransform
 {
 public:
-	glm::vec2 position;
-	glm::vec2 size;
-	float rotation;
-	float depth;
+    RectTransform();
+    RectTransform(const glm::vec2& pos, const glm::vec2& s, float rot = 0.0f, float d = 0.0f);
+    RectTransform(const RectTransform& other);
 
-    // Default Constructor
-    RectTransform()
-        : position(0.0f, 0.0f), size(1.0f, 1.0f), rotation(0.0f), depth(0.0f) {}
+    // this is explicitly done to avoid extra matrix multiplications and dirty flag caching
+    // thats why the variables are made private
+    glm::vec2 position() const;
+    glm::vec2 size() const;
+    float rotation() const;
 
-    // Parameterized Constructor
-    RectTransform(const glm::vec2& pos, const glm::vec2& s, float rot = 0.0f, float d = 0.0f)
-        : position(pos), size(s), rotation(rot), depth(d) {}
+    void SetPositionX(float x);
+    void SetPositionY(float y);
+    // TODO: add more setters here as you wish, but DO NOT move the private variables to public, or caching breaks
 
-    // Constructor with individual float values for position and size
-    RectTransform(float posX, float posY, float width, float height, float rot = 0.0f, float d = 0.0f)
-        : position(posX, posY), size(width, height), rotation(rot), depth(d) {}
+    glm::mat4& GetModel();
 
-    // Copy Constructor
-    RectTransform(const RectTransform& other)
-        : position(other.position), size(other.size), rotation(other.rotation), depth(other.depth) {}
+    void SetParent(RectTransform* newParent) { m_Parent = newParent; }
 
-    glm::mat4 GetModel() const;
+    void Translate(const glm::vec2& offset);
+
+private: // DO NOT move the private variables to public, or caching breaks
+    RectTransform* m_Parent = nullptr;
+	glm::vec2 m_Position;
+	glm::vec2 m_Size;
+	float m_Rotation;
+	float m_Depth;
+
+    bool isDirty = true;
+    glm::mat4 model;
 };

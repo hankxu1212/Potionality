@@ -197,18 +197,9 @@ void Scene::ExecuteDestroyQueue()
 }
 
 
-template<typename... TArgs>
-Entity* Scene::Instantiate(const std::string& name, TArgs&... args)
+Entity* Scene::Instantiate(const std::string& name, const glm::vec2& pos, const glm::vec2& size, float rotation, float depth)
 {
-    Entity* ent = new Entity(this, name, args...);
-    SetEntity(ent);
-    return ent;
-}
-
-template<typename... TArgs>
-Entity* Scene::Instantiate(const std::string& name, TArgs&&... args)
-{
-    Entity* ent = new Entity(this, name, args...);
+    Entity* ent = new Entity(this, name, pos, size, rotation, depth);
     SetEntity(ent);
     return ent;
 }

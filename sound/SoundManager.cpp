@@ -21,7 +21,7 @@ void SoundManager::Update()
     // update sound listener
     if (m_SoundListener)
     {
-        glm::vec3 listenPosition(m_SoundListener->position.x, m_SoundListener->position.y, 0);
+        glm::vec3 listenPosition(m_SoundListener->position().x, m_SoundListener->position().y, 0);
         Sound::listener.set_position_right(listenPosition, glm::vec3(1.0f, 0.0f, 0.0f));
     }
 }
@@ -59,7 +59,7 @@ void SoundManager::PlayOneShot(const std::string &handle)
         return;
     }
 
-    glm::vec3 listenPosition(m_SoundListener->position.x, m_SoundListener->position.y, 0);
+    glm::vec3 listenPosition(m_SoundListener->position().x, m_SoundListener->position().y, 0);
     Sound::play_3D(*it->second.get(), 5, listenPosition);
 }
 
@@ -71,7 +71,7 @@ void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &t
         return;
     }
 
-    glm::vec3 listenPosition(transform.position.x, transform.position.y, 0);
+    glm::vec3 listenPosition(transform.position().x, transform.position().y, 0);
     Sound::play_3D(*it->second.get(), 5, listenPosition);
 }
 

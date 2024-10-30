@@ -20,8 +20,12 @@ public:
 
 	void Remove(Customer*);
 
+	void SpawnNewCustomer();
+
 private:
 	std::unordered_map<size_t, Customer*> m_Customers;
 	float reputation = 0;
+
+	float m_WaitCounter;
 };
 

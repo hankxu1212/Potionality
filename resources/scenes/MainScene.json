@@ -5,6 +5,10 @@
       "name": "player_idle"
     },
     {
+      "src": "../resources/characters/Guy_flipped.png",
+      "name": "Guy"
+    },
+    {
       "src": "../resources/ingredients/FlowerDS2.png",
       "name": "flower"
     },
@@ -43,6 +47,10 @@
     {
       "src": "../resources/background/VerybadIngredientClosetPlzReplace.png",
       "name": "closet"
+    },
+    {
+      "src": "../resources/UI/questionmark.png",
+      "name": "UI_questionmark"
     }
   ],
   "entities": [

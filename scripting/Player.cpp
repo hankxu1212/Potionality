@@ -158,7 +158,7 @@ void Player::HandleMovement()
 	if (m_MoveDir != -1)
 	{
 		m_PlayerState = State::Walk;
-		GetTransform()->position += PlayerSpeed * Time::DeltaTime * DIRECTIONS[m_MoveDir];
+		GetTransform()->Translate(PlayerSpeed * Time::DeltaTime * DIRECTIONS[m_MoveDir]);
 	}
 	else
 	{
@@ -198,7 +198,7 @@ void Player::HandleMessages()
 {
 	if (m_MessageTimer > 0) {
 		m_MessageTimer -= Time::DeltaTime;
-		RenderText(currentMessage, GetTransform()->position.x, 1080 - GetTransform()->position.y);
+		RenderText(currentMessage, GetTransform()->position().x, 1080 - GetTransform()->position().y);
 	}
 }
 
