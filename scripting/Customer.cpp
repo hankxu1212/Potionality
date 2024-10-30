@@ -3,39 +3,23 @@
 #include "../scene/Entity.hpp"
 #include "Player.hpp"
 #include "../PlayMode.hpp"
+#include "PotionShop.hpp"
 
 void Customer::Awake()
 {
-	Customer::Instance = this;
-}
-
-void Customer::Start()
-{
-}
-
-void Customer::Update()
-{
-	auto& playerPos = Player::Instance->GetTransform()->position;
-	float distance = glm::distance(GetTransform()->position, playerPos);
-
-	if (distance < interactionDistance)
-	{
-		RenderText("Deliver!", GetTransform()->position.x, 1080 - GetTransform()->position.y);
-	}
+	InteractableObject::Awake(); // need to call baseclass explicitly
+	PotionShop::Get()->Add(this);
 }
 
 void Customer::Shutdown()
 {
+	InteractableObject::Shutdown(); // need to call baseclass explicitly
+	PotionShop::Get()->Remove(this);
 }
 
-template<>
-void Scene::OnComponentAdded<Customer>(Entity& entity, Customer& component)
+void Customer::Interact()
 {
-	this->OnComponentAdded<Behaviour>(entity, component);
+	LOG_INFO("Inetracted with this customer!");
 }
 
-template<>
-void Scene::OnComponentRemoved<Customer>(Entity& entity, Customer& component)
-{
-	this->OnComponentRemoved<Behaviour>(entity, component);
-}
+SETUP_DEFAULT_CALLBACKS(Customer)

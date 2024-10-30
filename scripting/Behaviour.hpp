@@ -20,3 +20,15 @@ public:
 
 	virtual const char* getClassName() const { return "empty"; }
 };
+
+#define SETUP_DEFAULT_CALLBACKS(T)																\
+template<>																				\
+void Scene::OnComponentAdded<T>(Entity& entity, T& component)				\
+{																						\
+	this->OnComponentAdded<Behaviour>(entity, component);								\
+}																						\
+template<>																				\
+void Scene::OnComponentRemoved<T>(Entity& entity, T& component)			\
+{																						\
+	this->OnComponentRemoved<Behaviour>(entity, component);								\
+}

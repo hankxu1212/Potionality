@@ -1,22 +1,20 @@
 #pragma once
 
 #include "Behaviour.hpp"
+#include "PotionCore.hpp"
+#include "interactables/InteractableObject.h"
 
-class SpriteLoader;
-
-class Customer : public Behaviour
+class Customer : public InteractableObject
 {
 public:
-	// global customer instance
-	inline static Customer* Instance;
-
 	void Awake() override;
-	void Start() override;
-	void Update() override;
 	void Shutdown() override;
+
+	void Interact() override;
 
 	const char* getClassName() const override { return "Customer"; }
 
 private:
-	float interactionDistance = 100;
+	std::vector<PotionRequest> requests;
+	float patience;
 };

@@ -77,5 +77,4 @@ void Scene::OnComponentAdded<SpriteLoader>(Entity& entity, SpriteLoader& compone
 template<>
 void Scene::OnComponentRemoved<SpriteLoader>(Entity& entity, SpriteLoader& component)
 {
-    LOG_INFO("removed a SpriteLoader");
 }

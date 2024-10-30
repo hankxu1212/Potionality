@@ -18,10 +18,6 @@ void ScriptingEngine::OnAttach()
 
 void ScriptingEngine::OnDetach()
 {
-    for (const auto& script : m_Scripts)
-    {
-        script.second->Shutdown();
-    }
 }
 
 void ScriptingEngine::OnUpdate()

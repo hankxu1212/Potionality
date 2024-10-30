@@ -3,6 +3,7 @@
 #include <map>
 
 #include "Behaviour.hpp"
+#include "interactables/InteractableObject.h"
 
 class SpriteLoader;
 
@@ -43,8 +44,6 @@ private:
 	SDL_Keycode interactKey = SDLK_SPACE;
 	void OnInteractPressed();
 
-	float interactionDistance = 100;
-
 	// State Handling ////////////////////////////////////////////////////////////////////////
 	enum class State
 	{
@@ -64,6 +63,10 @@ private:
 	const float m_MessageTimerMax = 2;
 	std::string currentMessage;
 	void HandleMessages();
+
+	// Interactables ////////////////////////////////////////////////////////////////////////
+	InteractableObject* currentInteractable;
+	InteractableObject* previousInteractable;
 
 	// Inventory ////////////////////////////////////////////////////////////////////////
 	std::map<const std::string, int> m_Inventory;

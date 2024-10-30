@@ -25,5 +25,4 @@ void Scene::OnComponentAdded<SpriteRenderer>(Entity& entity, SpriteRenderer& com
 template<>
 void Scene::OnComponentRemoved<SpriteRenderer>(Entity& entity, SpriteRenderer& component)
 {
-	LOG_INFO("removed a SpriteRenderer");
 }

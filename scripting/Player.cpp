@@ -2,10 +2,9 @@
 #include "../scene/Scene.hpp"
 #include "../scene/Entity.hpp"
 #include "../renderText.hpp"
-#include "Ingredient.hpp"
 #include "Customer.hpp"
-#include "Potion.hpp"
 #include "../sound/SoundManager.hpp"
+#include "interactables/InteractableManager.h"
 
 #include <array>
 
@@ -108,46 +107,13 @@ void Player::OnInteractPressed()
 	if (m_PlayerState == State::Smash)
 		return; // if already smashing, dont do anything
 
-	// TODO: Will probably need better method than looping once we have more ingredients
-	for (Ingredient* ingredient : Ingredient::Instances) {
-		auto& ingredientPos = ingredient->GetTransform()->position;
-		float distance = glm::distance(GetTransform()->position, ingredientPos);
-		if (distance < interactionDistance && ingredient->isActive)
-		{
-			// Add ingredient to inventory
-			SpriteRenderer* ingredientSprite = ingredient->entity->GetComponent<SpriteRenderer>();
-			const std::string& ingredientName = ingredientSprite->spriteToDraw;
-			if (m_Inventory.count(ingredientName)) m_Inventory[ingredientName]++;
-			else m_Inventory[ingredientName] = 1;
-			
-			// destroys the ingredient
-			ingredient->entity->Destroy();
-
-			// Play sfx
-			SoundManager::Get()->PlayOneShot("BiteSFX");
-		}
+	InteractableObject* obj = InteractableManager::Get()->GetClosestObject();
+	if (!obj) {
+		LOG_WARN("DID not find anything to interact with!");
+		return;
 	}
-
-	Customer* customer = Customer::Instance;
-	auto& customerPos = customer->GetTransform()->position;
-	float distance = glm::distance(GetTransform()->position, customerPos);
-	if (distance < interactionDistance) {
-		// If player has 1 of every ingredient, playtest potion is deliverable
-		// TODO: Change hardcoded values, implement different potion recipes
-		if (m_Inventory.count("flower") && m_Inventory.count("mushroom") && m_Inventory.count("purple_quartz") && m_Inventory.count("white_quartz")) {
-			Potion* potion = Potion::Instance;
-			SpriteRenderer* potionSprite = potion->entity->GetComponent<SpriteRenderer>();
-			potionSprite->Activate();
-			currentMessage = "Delivered potion! You win!";
-			m_Inventory.clear(); // Note: Later on, we'll need to decrement the relevant ingredients in the player's inventory instead of just clearing
-
-			// Play sfx
-			SoundManager::Get()->PlayOneShot("SuccessSFX");
-		} else {
-			currentMessage = "Missing ingredients!";
-		}
-		m_MessageTimer = m_MessageTimerMax;
-	}
+	// you may overload the interaction function!
+	obj->Interact();
 
 	m_PlayerState = State::Smash;
 	m_SmashCooldown = m_SmashCooldownMax;
@@ -251,14 +217,4 @@ void Player::DEBUG()
 	m_DebugPeriodCounter -= Time::DeltaTime;
 }
 
-template<>
-void Scene::OnComponentAdded<Player>(Entity& entity, Player& component)
-{
-	this->OnComponentAdded<Behaviour>(entity, component);
-}
-
-template<>
-void Scene::OnComponentRemoved<Player>(Entity& entity, Player& component)
-{
-	this->OnComponentRemoved<Behaviour>(entity, component);
-}
+SETUP_DEFAULT_CALLBACKS(Player)

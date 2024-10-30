@@ -190,6 +190,7 @@ int main(int argc, char **argv) {
 	SDL_DestroyWindow(window);
 	window = NULL;
 
+	system("pause");
 	return 0;
 
 #ifdef _WIN32

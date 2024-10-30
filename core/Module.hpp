@@ -98,7 +98,7 @@ public:
 	using StageIndex = std::pair<UpdateStage, TypeId>;
 
 	virtual ~Module() = default;
-	virtual void Update() = 0;
+	virtual void Update() {};
 };
 
 template class Type<Module>;
