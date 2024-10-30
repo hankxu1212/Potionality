@@ -38,6 +38,7 @@ namespace sejp {
 		// NOTE: the following unsafe functions will throw error on exception...
 		const glm::vec4 as_vec4() const;
 		const glm::vec3 as_vec3() const;
+		const glm::vec2 as_vec2() const;
 		uint32_t as_uint32t() const;
 		float as_float() const;
 		const std::optional<std::string>& as_texPath() const;

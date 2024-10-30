@@ -25,7 +25,7 @@ const NEST_LIBS = `../nest-libs/${maek.OS}`;
 //set compile flags (these can also be overridden per-task using the "options" parameter):
 if (maek.OS === "windows") {
 	maek.options.CPPFlags.push(
-		`/O2`, //optimize
+		//`/O2`, //optimize
 		// // libraries for sound
 		`/I${NEST_LIBS}/opusfile/include`,
 		`/I${NEST_LIBS}/libopus/include`,

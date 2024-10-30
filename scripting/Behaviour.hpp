@@ -19,6 +19,4 @@ public:
 	virtual bool HandleEvent(const SDL_Event& e) { return false; }
 
 	virtual const char* getClassName() const { return "empty"; }
-
-	bool enabled;
 };

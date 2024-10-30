@@ -386,6 +386,18 @@ const glm::vec3 value::as_vec3() const
 	return ret;
 }
 
+const glm::vec2 value::as_vec2() const
+{
+	const auto& arr = as_array().value();
+	if (arr.size() != 2)
+		LOG_ERROR_F("Array size is not compatible with vec3. Found size: {}", arr.size());
+
+	glm::vec2 ret;
+	for (int i = 0; i < 2; i++)
+		ret[i] = arr[i].as_float();
+	return ret;
+}
+
 uint32_t value::as_uint32t() const
 {
 	return static_cast<uint32_t>(as_number().value());

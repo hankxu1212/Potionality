@@ -5,7 +5,10 @@
 #include <memory>
 #include <glm/glm.hpp>
 #include <unordered_map>
-#include <mutex>
+#include <map>
+#include <filesystem>
+
+#include "../core/utils/sejp/sejp.hpp"
 
 class Entity;
 
@@ -19,11 +22,20 @@ public:
 
 	void Unload();
 
-	void Deserialize(const std::string& path);
-
 	void Update();
 
 	void Render();
+
+public: // serialization
+	// { name, serialized object map }
+	using TValueMap = std::map<std::string, sejp::value>;
+
+	using TValueArray = std::vector<sejp::value>;
+
+	// { name, serialized object unordered map }
+	using TValueUMap = std::unordered_map<std::string, sejp::value>;
+
+	void Deserialize(const std::string& path);
 
 public: // event functions. Do not create function definitions!
 	template<typename T>
@@ -65,6 +77,10 @@ public: // event functions. Do not create function definitions!
 private:
 	std::unordered_map<size_t, std::unique_ptr<Entity>> entities;
 
+	// entity destruction
 	std::vector<size_t> m_DestroyQueue;
 	void ExecuteDestroyQueue();
+
+	// root of the scene file
+	std::filesystem::path sceneRootAbsolutePath;
 };

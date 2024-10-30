@@ -111,7 +111,7 @@ void Player::OnInteractPressed()
 	for (Ingredient* ingredient : Ingredient::Instances) {
 		auto& ingredientPos = ingredient->GetTransform()->position;
 		float distance = glm::distance(GetTransform()->position, ingredientPos);
-		if (distance < interactionDistance && ingredient->GetActive())
+		if (distance < interactionDistance && ingredient->isActive)
 		{
 			// Add ingredient to inventory
 			SpriteRenderer* ingredientSprite = ingredient->entity->GetComponent<SpriteRenderer>();

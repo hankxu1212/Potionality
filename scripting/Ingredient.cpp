@@ -16,14 +16,12 @@ void Ingredient::Start()
 
 void Ingredient::Update()
 {
-	if (active) {
-		auto& playerPos = Player::Instance->GetTransform()->position;
-		float distance = glm::distance(GetTransform()->position, playerPos);
+	auto& playerPos = Player::Instance->GetTransform()->position;
+	float distance = glm::distance(GetTransform()->position, playerPos);
 
-		if (distance < interactionDistance)
-		{
-			RenderText("Chomp", GetTransform()->position.x, 1080 - GetTransform()->position.y);
-		}
+	if (distance < interactionDistance)
+	{
+		RenderText("Chomp", GetTransform()->position.x, 1080 - GetTransform()->position.y);
 	}
 }
 

@@ -19,6 +19,10 @@ public:
     RectTransform(const glm::vec2& pos, const glm::vec2& s, float rot = 0.0f, float d = 0.0f)
         : position(pos), size(s), rotation(rot), depth(d) {}
 
+    //// Parameterized Constructor
+    //RectTransform(glm::vec2 pos, glm::vec2 s, float rot = 0.0f, float d = 0.0f)
+    //    : position(pos), size(s), rotation(rot), depth(d) {}
+
     // Constructor with individual float values for position and size
     RectTransform(float posX, float posY, float width, float height, float rot = 0.0f, float d = 0.0f)
         : position(posX, posY), size(width, height), rotation(rot), depth(d) {}

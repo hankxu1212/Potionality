@@ -6,9 +6,8 @@ class Scene;
 #include "UUID.hpp"
 #include "RectTransform.hpp"
 
-class Component
+struct Component
 {
-public:
 	virtual ~Component() = default;
 
 	virtual void Update() {}
@@ -20,4 +19,5 @@ public:
 	UUID GetEntityID();
 
 	Entity* entity;
+	bool isActive = true;
 };

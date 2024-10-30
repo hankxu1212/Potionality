@@ -23,7 +23,8 @@ void Entity::Update()
     // update components
 	for (auto& component : m_Components)
 	{
-		component->Update();
+		if (component->isActive)
+			component->Update();
 	}
 }
 

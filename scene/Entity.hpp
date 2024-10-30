@@ -37,16 +37,11 @@ public:
 		m_Scene(scene), m_Name(name), s_Transform(std::make_unique<RectTransform>(args...)) {
 	}
 
-	// destroys this component immediately.
-	// maybe best to push this to an execution queue.
-	// to prevent objects destroying themselves in the middle of sth
-	// if you see a bug with this function (segfaults), let Hank know
+	// destroys self
 	void Destroy();
 
 private:
     friend class Scene;
-
-    bool draw; // is this entity draw or no
 
 public: // entity components
 	// Adds a component to an entity
@@ -57,6 +52,19 @@ public: // entity components
 		m_Components.back()->SetEntity(this);
 		T& newComponent = *dynamic_cast<T*>(m_Components.back().get());
 		m_Scene->OnComponentAdded(*this, newComponent);
+		return newComponent;
+	}
+
+	// Adds a component to an entity, toggling initial active
+	template<typename T, typename... Args>
+	T& AddComponent(bool active, Args&&... args)
+	{
+		m_Components.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));
+		m_Components.back()->SetEntity(this);
+		T& newComponent = *dynamic_cast<T*>(m_Components.back().get());
+		m_Scene->OnComponentAdded(*this, newComponent);
+		newComponent.isActive = active;
+
 		return newComponent;
 	}
 
@@ -93,9 +101,15 @@ public: // entity components
 public: // get and set
     void SetScene(Scene* newScene) { m_Scene = newScene; }
 	Scene* scene() { return m_Scene; }
+
 	RectTransform* transform() { return s_Transform.get(); }
+
 	uint64_t uuid() { return uint64_t(m_UUID); }
+
 	const std::string& name() { return m_Name; }
+
+	bool isActive() const { return m_Active; }
+	void SetActive(bool value) { m_Active = value; }
 
 private:
     Scene*									m_Scene = nullptr;
@@ -103,4 +117,5 @@ private:
 	std::unique_ptr<RectTransform>			s_Transform;
 	UUID									m_UUID;
 	std::string								m_Name;
+	bool									m_Active = true;
 };
