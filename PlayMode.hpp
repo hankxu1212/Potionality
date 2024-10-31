@@ -13,8 +13,6 @@
 
 #define SPRITE_SHADER "sprtShader"
 #define SPRITESHEET_SHADER "sprtshtShader"
-#define LIT_SPRT_SHADER "litSprtShader"
-#define LIT_SPRTSHEET_SHADER "litSprtshtShader"
 
 struct PlayMode : Mode {
 	virtual ~PlayMode();

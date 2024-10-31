@@ -12,7 +12,7 @@ void InteractableObject::Awake()
 	Entity* uiEntity = entity->AddChild("Interaction UI Icon", glm::vec2{0,0}, glm::vec2{32, 32}, 0, 3);
 	
 	// add some sprite stuff
-	uiEntity->AddComponent<SpriteLoader>(true, LIT_SPRT_SHADER);
+	uiEntity->AddComponent<SpriteLoader>(true, SPRITE_SHADER);
 	spriteRenderer = &uiEntity->AddComponent<SpriteRenderer>(true, "UI_questionmark");
 }
 

@@ -9,6 +9,7 @@ InteractableManager::InteractableManager()
 
 InteractableManager::~InteractableManager()
 {
+	LOG_WARN("HI");
 }
 
 void InteractableManager::Update()
@@ -50,6 +51,11 @@ void InteractableManager::Add(InteractableObject* InteractableObject)
 
 void InteractableManager::Remove(InteractableObject* InteractableObject)
 {
+	if(!InteractableObject)
+	{
+		LOG_WARN("Interactable object is null!");
+	}
+
 	auto it = m_Interactables.find(InteractableObject->entity->uuid());
 	if (it == m_Interactables.end()) {
 		LOG_WARN("Tried to remove a InteractableObject that was already removed or never added. This should never happen");

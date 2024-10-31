@@ -6,7 +6,7 @@
 
 class InteractableManager : public Module::Registrar<InteractableManager>
 {
-	inline static const bool Registered = Register(UpdateStage::Pre, DestroyStage::Normal);
+	inline static const bool Registered = Register(UpdateStage::Pre, DestroyStage::Post);
 public:
 	InteractableManager();
 

@@ -64,7 +64,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -84,7 +84,7 @@
       "components": [
         {
           "type": "SpritesheetLoader",
-          "shader": "litSprtshtShader",
+          "shader": "sprtshtShader",
           "width": 6,
           "height": 11,
           "active": "true"
@@ -111,7 +111,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -136,7 +136,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -161,7 +161,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -186,7 +186,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -211,7 +211,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -236,7 +236,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -256,7 +256,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -281,7 +281,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
@@ -301,7 +301,7 @@
       "components": [
         {
           "type": "SpriteLoader",
-          "shader": "litSprtShader",
+          "shader": "sprtShader",
           "active": "true"
         },
         {
