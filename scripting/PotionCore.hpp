@@ -31,6 +31,8 @@ struct ActionState
 struct Potion
 {
 	std::string name;
+	Potion() = default;
+	Potion(const std::string& str) : name(str){}
 };
 */
 

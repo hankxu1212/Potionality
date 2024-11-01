@@ -9,6 +9,7 @@
 
 PotionShop::PotionShop()
 {
+	LoadAllPossibleCustomers();
 }
 
 PotionShop::~PotionShop()
@@ -57,6 +58,12 @@ void PotionShop::SpawnNewCustomer()
 	// add the customer script, instantiate a new request
 	Customer& cust = newCustomer->AddComponent<Customer>(true);
 	cust.InstantiateRequests((uint32_t)Math::RandomInt(1, 2));
+}
+
+void PotionShop::LoadAllPossibleCustomers()
+{
+	CustomerInfo customer;
+	customer.Deserialize("../resources/scenes/Customers.json");
 }
 
 void PotionShop::Update()
