@@ -82,7 +82,7 @@
       "name": "Player",
       "translation": [ 200, 200 ],
       "rotation": 1,
-      "scale": [ 96, 128 ],
+      "scale": [ 192, 256 ],
       "depth": 1,
       "active": "true",
       "components": [
