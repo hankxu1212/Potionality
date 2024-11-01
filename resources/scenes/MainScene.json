@@ -252,7 +252,7 @@
     },
     {
       "name": "RedPotion",
-      "translation": [ 1600, 375 ],
+      "translation": [ 600, 375 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -266,7 +266,7 @@
         {
           "type": "SpriteRenderer",
           "texture": "red_potion",
-          "active": "false"
+          "active": "true"
         },
         {
           "type": "Behaviour",

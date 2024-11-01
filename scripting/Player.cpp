@@ -8,6 +8,7 @@
 
 #include <array>
 #include <string>
+#include <algorithm>
 
 SpritesheetRenderer* playerSprite;
 
@@ -173,6 +174,10 @@ void Player::HandleMovement()
 	{
 		m_PlayerState = State::Idle;
 	}
+
+	// clamp location
+	GetTransform()->SetPositionX(std::clamp(GetTransform()->position().x, 80.0f, 1730.0f));
+	GetTransform()->SetPositionY(std::clamp(GetTransform()->position().y, 250.0f, 950.0f));
 }
 
 void Player::HandleAbilityCooldowns()
@@ -217,6 +222,11 @@ void Player::DEBUG()
 	{
 		if (m_Held == nullptr) LOG_INFO("No item held!");
 		else LOG_INFO(m_Held->getClassName());
+		/*
+		LOG_INFO("Current position:");
+		LOG_INFO(GetTransform()->position().x);
+		LOG_INFO(GetTransform()->position().y);
+		*/
 		m_DebugPeriodCounter = m_DebugPeriodCounterMax;
 	}
 	m_DebugPeriodCounter -= Time::DeltaTime;
