@@ -1,15 +1,18 @@
 #pragma once
 
-#include "TextTextureProgram.hpp"
 #include "gl_errors.hpp"
-#include "core/Files.hpp"
+
 #include <glm/gtc/type_ptr.hpp>
-#include <ft2build.h>
-#include <stddef.h>
-#include <stdio.h>
 #include <glm/glm.hpp>
 
+#include <ft2build.h>
 #include FT_FREETYPE_H
+
+#include "core/Files.hpp"
+#include "core/Module.hpp"
+#include "core/ResourceManager.h"
+
+#define FONT_SHADER "fontShader"
 
 struct PosTexVertex {
 	glm::vec3 Position;
@@ -17,17 +20,14 @@ struct PosTexVertex {
 };
 static_assert( sizeof(PosTexVertex) == 3*4 + 2*4, "PosTexVertex is packed." );
 
-struct text {
+struct Text {
 	GLuint tex = 0; //created at startup
 	GLuint tristrip = 0; //vertex buffer (of PosTexVertex)
 	GLuint tristrip_for_texture_program = 0; //vertex array object
 
 	GLuint count = 0; //number of vertices in buffer
-	glm::mat4 CLIP_FROM_LOCAL = glm::mat4(1.0f); //transform to use when drawing
-} ;
+};
 
-
-// text
 struct Character {
 	unsigned int TextureID;  // ID handle of the glyph texture
 	glm::ivec2   Size;       // Size of glyph
@@ -35,16 +35,28 @@ struct Character {
 	unsigned int Advance;    // Offset to advance to next glyph
 };
 
-extern std::vector<Character> Characters;
-extern std::vector<text> font_texs;
+class TextRenderer : public Module::Registrar<TextRenderer>
+{
+	inline static const bool Registered = Register(UpdateStage::Never, DestroyStage::Normal);
+public:
+	TextRenderer();
 
-// these functions are based on what Jim did in class
-void UploadTexture(GLuint &tex, void* data,uint32_t w,uint32_t h, uint32_t colorformat);
-void SetupBufferandVAO(GLuint &vao,GLuint &buffer);
+	virtual ~TextRenderer();
 
-void loadText();
+	// code based on : https://learnopengl.com/In-Practice/Text-Rendering
+	void RenderText(const std::string& text, float x, float y, float scale= 0.001f,float rightlimit = 1920);
 
-void renderImg(text tex);
+private:
+	// these functions are based on what Jim did in class
+	void UploadTexture(GLuint &tex, void* data,uint32_t w,uint32_t h, uint32_t colorformat);
+	void SetupBufferandVAO(GLuint &vao, GLuint &buffer);
 
-// code based on : https://learnopengl.com/In-Practice/Text-Rendering
-void RenderText(std::string text, float x, float y, float scale= 0.001f,float rightlimit = 1920);
+	void LoadText();
+
+	std::vector<Character> Characters;
+	std::vector<Text> font_texs;
+
+	Shader fontShader;
+	GLuint Position_vec4;
+	GLuint TexCoord_vec2;
+};

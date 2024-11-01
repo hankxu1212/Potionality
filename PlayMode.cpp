@@ -16,12 +16,6 @@
 
 void PlayMode::Init()
 {
-	// create all modules
-	loadText();
-	auto& registry = Module::GetRegistry();
-	for (auto it = registry.begin(); it != registry.end(); ++it)
-		CreateModule(it);
-
 	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -10.0f, 10.0f);
 
 	// configure static sprite shader
@@ -33,6 +27,15 @@ void PlayMode::Init()
 	ResourceManager::LoadShader(Files::Path("../shaders/spritesheet.vert").c_str(), Files::Path("../shaders/spritesheet.frag").c_str(), nullptr, SPRITESHEET_SHADER);
 	ResourceManager::GetShader(SPRITESHEET_SHADER).Use().SetInteger("image", 0);
 	ResourceManager::GetShader(SPRITESHEET_SHADER).SetMatrix4("projection", projection);
+
+	// configure font rendering shader
+	ResourceManager::LoadShader(Files::Path("../shaders/font.vert").c_str(), Files::Path("../shaders/font.frag").c_str(), nullptr, FONT_SHADER);
+	ResourceManager::GetShader(FONT_SHADER).Use().SetInteger("image", 0);
+
+	// create all modules
+	auto& registry = Module::GetRegistry();
+	for (auto it = registry.begin(); it != registry.end(); ++it)
+		CreateModule(it);
 
 	// initialize time class
 	Time::Now = 0;

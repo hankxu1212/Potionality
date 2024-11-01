@@ -25,7 +25,7 @@ void InteractableObject::Update()
 {
 	if (isCurrentInteractable)
 	{
-		RenderText("Interact", GetTransform()->position().x, 1080 - GetTransform()->position().y);
+		TextRenderer::Get()->RenderText("Interact", GetTransform()->position().x, 1080 - GetTransform()->position().y);
 	}
 	spriteRenderer->isActive = isCurrentInteractable;
 }

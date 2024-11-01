@@ -23,7 +23,7 @@ void Customer::Update()
 
 	if (m_InitialRequestTimer >= 0) {
 		// display text
-		RenderText("Can you help me make a potion?", GetTransform()->position().x, 1080 - GetTransform()->position().y);
+		TextRenderer::Get()->RenderText("Can you help me make a potion?", GetTransform()->position().x, 1080 - GetTransform()->position().y);
 
 		// walk towards middle
 		GetTransform()->SetPositionX(GetTransform()->position().x - Time::DeltaTime * 100);

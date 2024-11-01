@@ -212,7 +212,7 @@ void Player::HandleMessages()
 {
 	if (m_MessageTimer > 0) {
 		m_MessageTimer -= Time::DeltaTime;
-		RenderText(currentMessage, GetTransform()->position().x, 1080 - GetTransform()->position().y);
+		TextRenderer::Get()->RenderText(currentMessage, GetTransform()->position().x, 1080 - GetTransform()->position().y);
 	}
 }
 
