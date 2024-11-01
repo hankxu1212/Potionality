@@ -9,6 +9,7 @@ InteractableManager::InteractableManager()
 
 InteractableManager::~InteractableManager()
 {
+	LOG_WARN("HI");
 }
 
 void InteractableManager::Update()

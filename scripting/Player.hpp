@@ -20,6 +20,8 @@ public:
 	bool HandleEvent(const SDL_Event& e) override;
 
 	const char* getClassName() const override { return "Player"; }
+    InteractableObject* getHeldObject() const { return m_Held; }
+    void removeHeldObject(){ m_Held = nullptr;}
 
 private:
 	// Debug ////////////////////////////////////////////////////////////////////////
@@ -62,6 +64,7 @@ private:
 	// Inventory ////////////////////////////////////////////////////////////////////////
 	// Note: Can only hold one ingredient or potion at a time
 	InteractableObject* m_Held;
+
 
 	// Handling Functions ////////////////////////////////////////////////////////////////////////
 	void HandleAnimations();

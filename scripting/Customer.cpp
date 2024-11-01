@@ -9,8 +9,6 @@ void Customer::Awake()
 {
 	InteractableObject::Awake(); // need to call baseclass explicitly
 	PotionShop::Get()->Add(this);
-
-	customerSprite = entity->GetComponent<SpritesheetRenderer>();
 }
 
 void Customer::Shutdown()
@@ -23,24 +21,12 @@ void Customer::Update()
 {
 	InteractableObject::Update(); // need to call baseclass explicitly
 
-	HandleAnimations();
-
 	if (m_InitialRequestTimer >= 0) {
 		// display text
 		RenderText("Can you help me make a potion?", GetTransform()->position().x, 1080 - GetTransform()->position().y);
 
 		// walk towards middle
 		GetTransform()->SetPositionX(GetTransform()->position().x - Time::DeltaTime * 100);
-		
-		// if still moving
-		if (m_InitialRequestTimer>0)
-		{
-			m_CustomerState = State::Walk;
-		}
-		else
-		{
-			m_CustomerState = State::Idle;
-		}
 
 		m_InitialRequestTimer -= Time::DeltaTime;
 	}

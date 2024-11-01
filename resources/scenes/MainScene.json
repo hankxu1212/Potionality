@@ -5,10 +5,6 @@
       "name": "player_idle"
     },
     {
-      "src": "../resources/characters/customer1_walk.png",
-      "name": "Customer1_walk"
-    },
-    {
       "src": "../resources/characters/Guy_flipped.png",
       "name": "Guy"
     },
@@ -82,7 +78,7 @@
       "name": "Player",
       "translation": [ 200, 200 ],
       "rotation": 1,
-      "scale": [ 192, 256 ],
+      "scale": [ 96, 128 ],
       "depth": 1,
       "active": "true",
       "components": [
@@ -90,7 +86,7 @@
           "type": "SpritesheetLoader",
           "shader": "sprtshtShader",
           "width": 7,
-          "height": 13,
+          "height": 12,
           "active": "true"
         },
         {
@@ -226,7 +222,7 @@
       ]
     },
     {
-      "name": "Table",
+      "name": "CuttingStation",
       "translation": [ 500, 500 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
@@ -242,12 +238,17 @@
           "type": "SpriteRenderer",
           "texture": "table",
           "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "CuttingStation",
+          "active": "true"
         }
       ]
     },
     {
       "name": "RedPotion",
-      "translation": [ 600, 375 ],
+      "translation": [ 1600, 375 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -261,7 +262,7 @@
         {
           "type": "SpriteRenderer",
           "texture": "red_potion",
-          "active": "true"
+          "active": "false"
         },
         {
           "type": "Behaviour",

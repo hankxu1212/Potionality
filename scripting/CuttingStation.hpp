@@ -1,13 +1,19 @@
-//
-//  CuttingStation.hpp
-//  
-//
-//  Created by Zixin Qiu on 11/1/24.
-//
+#pragma once
+#include "Behaviour.hpp"
+#include "PotionCore.hpp"
+#include "interactables/InteractableObject.h"
+#include <unordered_map>
 
-#ifndef CuttingStation_hpp
-#define CuttingStation_hpp
-
-#include <stdio.h>
-
-#endif /* CuttingStation_hpp */
+class CuttingStation : public InteractableObject
+{
+public:
+    void Awake() override;
+    void Shutdown() override;
+    void Update() override;
+    void Interact() override;
+    
+    const char* getClassName() const override { return "CuttingStation"; }
+private:
+    bool isEmpty;
+    InteractableObject* storedIngredient;
+};
