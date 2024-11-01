@@ -44,7 +44,7 @@ public:
 	virtual ~TextRenderer();
 
 	// code based on : https://learnopengl.com/In-Practice/Text-Rendering
-	void RenderText(const std::string& text, float x, float y, float scale= 0.001f,float rightlimit = 1920);
+	void RenderText(const std::string& text, float x, float y, float scale= 0.001f,float rightlimit = 1920, uint32_t visibleCharacters=-1);
 
 private:
 	// these functions are based on what Jim did in class

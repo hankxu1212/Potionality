@@ -103,8 +103,10 @@ void TextRenderer::LoadText(){
 }
 
 // code based on : https://learnopengl.com/In-Practice/Text-Rendering
-void TextRenderer::RenderText(const std::string& text, float xin, float yin, float scale,float rightlimit)
+void TextRenderer::RenderText(const std::string& text, float xin, float yin, float scale,float rightlimit, uint32_t visibleCharacters)
 {
+	assert(visibleCharacters == -1 || visibleCharacters <= text.size());
+
 	// bind shader only once!
 	fontShader.Use();
 
@@ -115,7 +117,8 @@ void TextRenderer::RenderText(const std::string& text, float xin, float yin, flo
 	float origx =x;
 
 	std::string::const_iterator c;
-	for (c = text.begin(); c != text.end(); c++) 
+	std::string::const_iterator endit = visibleCharacters == -1 ? text.end() : text.begin() + visibleCharacters;
+	for (c = text.begin(); c != endit; c++)
 	{
 		if (*c=='\n'){
 			y -= (40) * scale; //idk just a guess
