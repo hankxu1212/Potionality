@@ -5,6 +5,8 @@
 #include "interactables/InteractableObject.h"
 #include "CustomerInfo.hpp"
 
+class SpritesheetRenderer;
+
 class Customer : public InteractableObject
 {
 public:
@@ -30,4 +32,6 @@ private:
 	State m_CustomerState;
 
 	void HandleAnimations();
+
+	SpritesheetRenderer* customerSprite;
 };

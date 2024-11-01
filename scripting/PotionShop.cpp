@@ -52,7 +52,7 @@ void PotionShop::SpawnNewCustomer()
 	Entity* newCustomer = scene->Instantiate("customer", randPos, randScale, 0, 2);
 
 	// add some sprite stuff
-	newCustomer->AddComponent<SpritesheetLoader>(true, SPRITE_SHADER,4,1);
+	newCustomer->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,1);
 	newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer1_walk");
 	
 	// add the customer script, instantiate a new request

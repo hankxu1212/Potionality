@@ -5,8 +5,6 @@
 #include "../PlayMode.hpp"
 #include "PotionShop.hpp"
 
-SpritesheetRenderer* customerSprite;
-
 void Customer::Awake()
 {
 	InteractableObject::Awake(); // need to call baseclass explicitly
@@ -50,14 +48,14 @@ void Customer::Update()
 
 void Customer::HandleAnimations()
 {
-	// if (m_CustomerState == State::Idle)
-	// {
-	// 	customerSprite->SetLoopRegion(0, 0);
-	// }
-	// else if (m_CustomerState == State::Walk)
-	// {
-	// 	customerSprite->SetLoopRegion(0, 3);
-	// }
+	 if (m_CustomerState == State::Idle)
+	 {
+	 	customerSprite->SetLoopRegion(0, 0);
+	 }
+	 else if (m_CustomerState == State::Walk)
+	 {
+	 	customerSprite->SetLoopRegion(0, 3);
+	 }
 }
 
 void Customer::Interact()

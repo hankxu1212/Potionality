@@ -31,5 +31,8 @@ private:
 	// animation
     float invFPS = 1.0 / 3;
     float prevTime;
+
+	float prev_row;
+	float prev_col;
 };
 

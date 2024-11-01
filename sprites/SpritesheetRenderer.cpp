@@ -33,9 +33,6 @@ void SpritesheetRenderer::Update()
 
 void SpritesheetRenderer::SetLoopRegion(float row, float col)
 {
-    static float prev_row;
-    static float prev_col;
-
     if (prev_row == row && prev_col == col)
         return;
 

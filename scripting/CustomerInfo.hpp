@@ -9,9 +9,9 @@ struct CustomerInfo
     std::string m_Type;
     PotionRequest m_Request;
     float m_Patience;
-    std::vector<const std::string> m_MonologueOnAsk;
-    std::vector<const std::string> m_MonologueOnRecieveSuccess;
-    std::vector<const std::string> m_MonologueOnRecieveFailure;
+    std::vector<std::string> m_MonologueOnAsk;
+    std::vector<std::string> m_MonologueOnRecieveSuccess;
+    std::vector<std::string> m_MonologueOnRecieveFailure;
 
     void Deserialize(const std::string& path)
     {
@@ -49,6 +49,7 @@ struct CustomerInfo
             m_MonologueOnRecieveFailure.push_back(fail.as_string().value());
 
         // add debug messaging
+        LOG_DEBUG("Displaying customer info loaded: ", Logger::CYAN, Logger::BOLD);
         std::cout << "Loaded customer: " << m_Type;
         std::cout << " with request: ";
         for (const auto& p : m_Request.potionsToMake){
@@ -66,5 +67,6 @@ struct CustomerInfo
         for (const auto& p : m_MonologueOnRecieveFailure){
             std::cout << p << " ";
         }
+        std::cout << std::endl;
     }
 };

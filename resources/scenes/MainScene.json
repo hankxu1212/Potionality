@@ -106,7 +106,7 @@
       ]
     },
     {
-      "name": "Customer1",
+      "name": "Counter",
       "translation": [ 1200, 600 ],
       "rotation": 0,
       "scale": [ 512, 512 ],
@@ -121,11 +121,6 @@
         {
           "type": "SpriteRenderer",
           "texture": "counter",
-          "active": "true"
-        },
-        {
-          "type": "Behaviour",
-          "classname": "Customer",
           "active": "true"
         }
       ]
