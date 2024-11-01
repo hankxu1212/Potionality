@@ -72,18 +72,12 @@ static void MakeComponents(const Scene::TValueArray& componentObj, Entity* newEn
                 else if (classname == "Ingredient") {
                     newEntity->AddComponent<Ingredient>(active);
                 }
-<<<<<<< HEAD
                 else if (classname == "CuttingStation") {
                     newEntity->AddComponent<CuttingStation>(active);
                 }
                 //else if (classname == "Potion") {
                 //    newEntity->AddComponent<Potion>(active);
                 //}
-=======
-                else if (classname == "Potion") {
-                    newEntity->AddComponent<Potion>(active);
-                }
->>>>>>> 42d51b070f2659a210fd0f0ad7dc894c1ac668d5
             }
         }
     }

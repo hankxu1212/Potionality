@@ -222,11 +222,9 @@ void Player::DEBUG()
 	{
 		if (m_Held == nullptr) LOG_INFO("No item held!");
 		else LOG_INFO(m_Held->getClassName());
-		/*
 		LOG_INFO("Current position:");
 		LOG_INFO(GetTransform()->position().x);
 		LOG_INFO(GetTransform()->position().y);
-		*/
 		m_DebugPeriodCounter = m_DebugPeriodCounterMax;
 	}
 	m_DebugPeriodCounter -= Time::DeltaTime;

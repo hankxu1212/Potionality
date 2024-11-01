@@ -9,7 +9,6 @@
 
 PotionShop::PotionShop()
 {
-	LoadAllPossibleCustomers();
 }
 
 PotionShop::~PotionShop()
@@ -52,18 +51,12 @@ void PotionShop::SpawnNewCustomer()
 	Entity* newCustomer = scene->Instantiate("customer", randPos, randScale, 0, 2);
 
 	// add some sprite stuff
-	newCustomer->AddComponent<SpritesheetLoader>(true, SPRITE_SHADER,4,1);
-	newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer1_walk");
+	newCustomer->AddComponent<SpriteLoader>(true, SPRITE_SHADER);
+	newCustomer->AddComponent<SpriteRenderer>(true, "Guy");
 	
 	// add the customer script, instantiate a new request
 	Customer& cust = newCustomer->AddComponent<Customer>(true);
 	cust.InstantiateRequests((uint32_t)Math::RandomInt(1, 2));
-}
-
-void PotionShop::LoadAllPossibleCustomers()
-{
-	CustomerInfo customer;
-	customer.Deserialize("../resources/scenes/Customers.json");
 }
 
 void PotionShop::Update()

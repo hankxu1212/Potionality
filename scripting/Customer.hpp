@@ -3,7 +3,6 @@
 #include "Behaviour.hpp"
 #include "PotionCore.hpp"
 #include "interactables/InteractableObject.h"
-#include "CustomerInfo.hpp"
 
 class Customer : public InteractableObject
 {
@@ -18,16 +17,10 @@ public:
 	void InstantiateRequests(uint32_t numRequests);
 
 private:
-	CustomerInfo info;
+	std::vector<PotionRequest> requests;
+	[[maybe_unused]] float patience;
+
 	// display initial request
 	float m_InitialRequestTimer;
 	const float m_InitialRequestTimerMax = 4;
-
-	enum class State
-	{
-		Idle, Walk
-	};
-	State m_CustomerState;
-
-	void HandleAnimations();
 };

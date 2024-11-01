@@ -7,7 +7,7 @@ class Customer;
 
 class PotionShop : public Module::Registrar<PotionShop>
 {
-	inline static const bool Registered = Register(UpdateStage::Pre, DestroyStage::Post);
+	inline static const bool Registered = Register(UpdateStage::Pre, DestroyStage::Normal);
 public:
 
 	PotionShop();
@@ -27,7 +27,5 @@ private:
 	[[maybe_unused]] float reputation = 0;
 
 	float m_WaitCounter;
-
-	void LoadAllPossibleCustomers();
 };
 
