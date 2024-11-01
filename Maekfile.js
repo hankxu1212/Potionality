@@ -130,7 +130,6 @@ const game_objs = [
 	maek.CPP('Mode.cpp'),
 	maek.CPP('gl_compile_program.cpp'),
 	maek.CPP('GL.cpp'),
-	maek.CPP('TextTextureProgram.cpp'),
 	maek.CPP('renderText.cpp'),
 	maek.CPP('sound/Sound.cpp'),
 	maek.CPP('sound/load_opus.cpp'),
