@@ -1,8 +1,8 @@
 #pragma once
-#include "Behaviour.hpp"
-#include "PotionCore.hpp"
+
 #include "interactables/InteractableObject.h"
-#include <unordered_map>
+
+class Ingredient;
 
 class CuttingStation : public InteractableObject
 {
@@ -14,6 +14,6 @@ public:
     
     const char* getClassName() const override { return "CuttingStation"; }
 private:
-    bool isEmpty;
-    InteractableObject* storedIngredient;
+    bool isEmpty = true;
+    Ingredient* storedIngredient;
 };
