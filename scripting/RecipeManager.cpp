@@ -47,7 +47,8 @@ void RecipeManager::LoadRecipes(const std::string& path)
             newRecipe.actionsToTake.clear();
 
             const auto& val = recipeArr[i].as_object().value();
-            newRecipe.potion.name = val.at("potion").as_string().value();
+            //newRecipe.potion.name = val.at("potion").as_string().value();
+            newRecipe.potionName = val.at("potion").as_string().value();
 
             const auto& actions = val.at("actions").as_array().value();
 
@@ -73,7 +74,7 @@ void RecipeManager::LoadRecipes(const std::string& path)
 
         for (auto& [key, val] : m_Recipes)
         {
-            std::cout<< "Recipe: " << val.potion.name << " requires actions: ";
+            std::cout<< "Recipe: " << val.potionName << " requires actions: "; // Note to self: val.potion.name if recipe ends up having a Potion
             for (auto& action : val.actionsToTake)
             {
                 std::cout << "[ action: " << ActionToString(action.action) << ", src: " << action.sourceIngredient << ", dst: " << action.destinationIngredient << "]";
