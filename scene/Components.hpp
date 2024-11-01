@@ -4,6 +4,7 @@
 #include "../scripting/Player.hpp"
 #include "../scripting/Customer.hpp"
 #include "../scripting/Ingredient.hpp"
+#include "../scripting/CuttingStation.hpp"
 
 // sprite components
 #include "../sprites/SpriteLoader.h"

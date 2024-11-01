@@ -16,6 +16,7 @@ public:
 
 	bool GetHoldable() { return isHoldable; }
 	bool GetHeld() { return isHeld; }
+    void SetHeld(bool heldstate) { isHeld = heldstate; }
 
 protected:
 	void Awake() override;

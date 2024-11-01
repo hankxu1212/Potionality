@@ -227,7 +227,7 @@
       ]
     },
     {
-      "name": "Table",
+      "name": "CuttingStation",
       "translation": [ 500, 500 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
@@ -242,6 +242,11 @@
         {
           "type": "SpriteRenderer",
           "texture": "table",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "CuttingStation",
           "active": "true"
         }
       ]
