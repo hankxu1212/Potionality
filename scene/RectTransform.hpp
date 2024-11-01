@@ -18,6 +18,7 @@ public:
 
     void SetPositionX(float x);
     void SetPositionY(float y);
+    void SetPosition(float x, float y);
     // TODO: add more setters here as you wish, but DO NOT move the private variables to public, or caching breaks
 
     glm::mat4& GetModel();

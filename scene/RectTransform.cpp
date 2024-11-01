@@ -40,6 +40,13 @@ void RectTransform::SetPositionY(float y)
 	isDirty = true;
 }
 
+void RectTransform::SetPosition(float x, float y)
+{
+	m_Position.x = x;
+	m_Position.y = y;
+	isDirty = true;
+}
+
 glm::mat4& RectTransform::GetModel()
 {
 	if (isDirty) {

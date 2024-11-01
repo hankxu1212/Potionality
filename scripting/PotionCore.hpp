@@ -36,6 +36,7 @@ struct Ingredient_T
 	std::unordered_map<Action, ActionState> actionStates;
 };
 
+/*
 struct Ingredient
 {
 	Ingredient_T* ingredient;
@@ -45,6 +46,7 @@ struct Ingredient
 		// check if actionProgress has fufilled 
 	}
 };
+*/
 
 struct Recipe
 {

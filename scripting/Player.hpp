@@ -21,11 +21,6 @@ public:
 
 	const char* getClassName() const override { return "Player"; }
 
-	const int GetCount(const std::string& itemName) {
-		if (m_Inventory.count(itemName)) return m_Inventory[itemName];
-		else return 0;
-	}
-
 private:
 	// Debug ////////////////////////////////////////////////////////////////////////
 	// refreshes the debug print every 1 second
@@ -65,7 +60,8 @@ private:
 	void HandleMessages();
 
 	// Inventory ////////////////////////////////////////////////////////////////////////
-	std::map<const std::string, int> m_Inventory;
+	// Note: Can only hold one ingredient or potion at a time
+	InteractableObject* m_Held;
 
 	// Handling Functions ////////////////////////////////////////////////////////////////////////
 	void HandleAnimations();

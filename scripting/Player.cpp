@@ -7,6 +7,7 @@
 #include "interactables/InteractableManager.h"
 
 #include <array>
+#include <string>
 
 SpritesheetRenderer* playerSprite;
 
@@ -115,6 +116,14 @@ void Player::OnInteractPressed()
 	// you may overload the interaction function!
 	obj->Interact();
 
+	if (obj->GetHoldable()) { // Potions and ingredients should be holdable
+		if (obj->GetHeld()) { // TODO: Currently interact always drops held item, fix for workstation/cauldron
+			m_Held = obj;
+		} else {
+			m_Held = nullptr;
+		}
+	}
+
 	m_PlayerState = State::Smash;
 	m_SmashCooldown = m_SmashCooldownMax;
 }
@@ -206,12 +215,8 @@ void Player::DEBUG()
 {
 	if (m_DebugPeriodCounter <= 0) 
 	{
-		if (m_Inventory.size() > 0) {
-			LOG_INFO("Current inventory counts:");
-			for (const auto& [key, val] : m_Inventory) {
-				LOG_INFO(key + ':' + std::to_string(val));
-			}
-		}
+		if (m_Held == nullptr) LOG_INFO("No item held!");
+		else LOG_INFO(m_Held->getClassName());
 		m_DebugPeriodCounter = m_DebugPeriodCounterMax;
 	}
 	m_DebugPeriodCounter -= Time::DeltaTime;

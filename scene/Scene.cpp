@@ -69,9 +69,9 @@ static void MakeComponents(const Scene::TValueArray& componentObj, Entity* newEn
                 else if (classname == "Customer") {
                     newEntity->AddComponent<Customer>(active);
                 }
-                //else if (classname == "Ingredient") {
-                //    newEntity->AddComponent<Ingredient>(active);
-                //}
+                else if (classname == "Ingredient") {
+                    newEntity->AddComponent<Ingredient>(active);
+                }
                 //else if (classname == "Potion") {
                 //    newEntity->AddComponent<Potion>(active);
                 //}

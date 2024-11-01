@@ -14,6 +14,9 @@ public:
 
 	void SetInactive();
 
+	bool GetHoldable() { return isHoldable; }
+	bool GetHeld() { return isHeld; }
+
 protected:
 	void Awake() override;
 	void Shutdown() override;
@@ -23,5 +26,7 @@ protected:
 
 	SpriteRenderer* spriteRenderer;
 	[[maybe_unused]] SpriteRenderer* spritesheetRenderer;
+	bool isHoldable = false;
+	bool isHeld = false;
 };
 
