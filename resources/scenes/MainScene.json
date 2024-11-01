@@ -5,6 +5,10 @@
       "name": "player_idle"
     },
     {
+      "src": "../resources/characters/customer1_walk.png",
+      "name": "Customer1_walk"
+    },
+    {
       "src": "../resources/characters/Guy_flipped.png",
       "name": "Guy"
     },
@@ -86,7 +90,7 @@
           "type": "SpritesheetLoader",
           "shader": "sprtshtShader",
           "width": 7,
-          "height": 12,
+          "height": 13,
           "active": "true"
         },
         {

@@ -23,4 +23,12 @@ private:
 	// display initial request
 	float m_InitialRequestTimer;
 	const float m_InitialRequestTimerMax = 4;
+
+	enum class State
+	{
+		Idle, Walk
+	};
+	State m_CustomerState;
+
+	void HandleAnimations();
 };
