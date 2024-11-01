@@ -1,4 +1,7 @@
 #pragma once
+
+#include "Potion.hpp"
+
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -24,10 +27,12 @@ struct ActionState
 	float progress = 0;
 };
 
+/*
 struct Potion
 {
 	std::string name;
 };
+*/
 
 struct Ingredient_T
 {
@@ -51,11 +56,11 @@ struct Ingredient
 struct Recipe
 {
 	std::vector<ActionSpecification> actionsToTake;
-	Potion potion;
+	std::string potionName;
 };
 
 struct PotionRequest
 {
-	std::vector<Potion> potionsToMake;
+	std::vector<std::string> potionsToMake;
 	float reward;
 };
