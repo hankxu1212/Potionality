@@ -188,7 +188,11 @@ const gameplay_scripts = [
 	maek.CPP('scripting/Player.cpp'),
 	maek.CPP('scripting/Customer.cpp'),
 	maek.CPP('scripting/Ingredient.cpp'),
+<<<<<<< HEAD
     maek.CPP('scripting/CuttingStation.cpp'),
+=======
+	maek.CPP('scripting/Potion.cpp'),
+>>>>>>> 42d51b070f2659a210fd0f0ad7dc894c1ac668d5
 	maek.CPP('scripting/PotionShop.cpp'),
 	maek.CPP('scripting/RecipeManager.cpp'),
 	maek.CPP('scripting/interactables/InteractableObject.cpp'),
