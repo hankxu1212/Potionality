@@ -1,7 +1,7 @@
 {
   "textures": [
     {
-      "src": "../resources/characters/FullDownsampled.png",
+      "src": "../resources/characters/Full.png",
       "name": "player_idle"
     },
     {
@@ -85,8 +85,8 @@
         {
           "type": "SpritesheetLoader",
           "shader": "sprtshtShader",
-          "width": 6,
-          "height": 11,
+          "width": 7,
+          "height": 12,
           "active": "true"
         },
         {
@@ -131,7 +131,7 @@
       "translation": [ 800, 900 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 0,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -156,7 +156,7 @@
       "translation": [ 1000, 600 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 0,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -181,7 +181,7 @@
       "translation": [ 200, 400 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 0,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -206,7 +206,7 @@
       "translation": [ 400, 800 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 0,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -251,7 +251,7 @@
       "translation": [ 1600, 375 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 0,
+      "depth": 1,
       "active": "true",
       "components": [
         {
