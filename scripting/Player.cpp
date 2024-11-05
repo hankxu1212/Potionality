@@ -40,7 +40,7 @@ void Player::Update()
 	HandleMessages();
 	
 	HandleAbilityCooldowns();
-	if (m_PlayerState == State::Smash)
+	if (m_PlayerState == State::Smash || m_PlayerState == State::InDialogue)
 		return;
 
 	HandleMovement();
@@ -106,27 +106,55 @@ void Player::HandleInputReset()
 
 void Player::OnInteractPressed()
 {
+	// if in dialogue, continue conversation
+	if (m_PlayerState == State::InDialogue) {
+		// if cannot continue, end conversation
+		if (!DialogueUI::Instance->CanContinue()) 
+		{
+			DialogueUI::Instance->Disable();
+			m_PlayerState = State::Idle;
+			return;
+		}
+
+		// other wise, continue conversation
+		DialogueUI::Instance->ContinueConversation();
+		return;
+	}
+
+	// if already smashing, dont do anything
 	if (m_PlayerState == State::Smash)
-		return; // if already smashing, dont do anything
+		return;
 
 	InteractableObject* obj = InteractableManager::Get()->GetClosestObject();
 	if (!obj) {
 		LOG_WARN("DID not find anything to interact with!");
 		return;
 	}
+
 	// you may overload the interaction function!
-	obj->Interact();
+	InteractPayload payload;
+	obj->Interact(&payload);
 
-	if (obj->GetHoldable()) { // Potions and ingredients should be holdable
-		if (obj->GetHeld()) { // TODO: Currently interact always drops held item, fix for workstation/cauldron
-			m_Held = obj;
-		} else {
-			m_Held = nullptr;
-		}
+	// we interacted with a customer!
+	if (payload.isInDialogue)
+	{
+		m_PlayerState = State::InDialogue;
 	}
+	// we interacted with a holdable/actionable item!
+	else 
+	{
+		if (obj->GetHoldable()) { // Potions and ingredients should be holdable
+			if (obj->GetHeld()) { // TODO: Currently interact always drops held item, fix for workstation/cauldron
+				m_Held = obj;
+			}
+			else {
+				m_Held = nullptr;
+			}
+		}
 
-	m_PlayerState = State::Smash;
-	m_SmashCooldown = m_SmashCooldownMax;
+		m_PlayerState = State::Smash;
+		m_SmashCooldown = m_SmashCooldownMax;
+	}
 }
 
 static std::array<glm::vec2, 8> DIRECTIONS = 

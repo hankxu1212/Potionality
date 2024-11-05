@@ -24,7 +24,7 @@ void Potion::Update()
     }
 }
 
-void Potion::Interact()
+void Potion::Interact(InteractPayload* payload)
 {
 	LOG_INFO("Interacted with this Potion!");
     if (isHeld) {

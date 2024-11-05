@@ -31,7 +31,7 @@ void CuttingStation::Update()
      */
 }
 
-void CuttingStation::Interact()
+void CuttingStation::Interact(InteractPayload* payload)
 {
     LOG_INFO("Interacted with work station!");
     if (Player::Instance) {

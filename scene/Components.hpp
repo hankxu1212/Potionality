@@ -6,6 +6,7 @@
 #include "../scripting/Ingredient.hpp"
 #include "../scripting/CuttingStation.hpp"
 #include "../scripting/Potion.hpp"
+#include "../scripting/DialogueUI.h"
 
 // sprite components
 #include "../sprites/SpriteLoader.h"

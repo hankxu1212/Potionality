@@ -24,7 +24,7 @@ void Ingredient::Update()
     }
 }
 
-void Ingredient::Interact()
+void Ingredient::Interact(InteractPayload* payload)
 {
 	LOG_INFO("Interacted with this ingredient!");
     if (isHeld) {

@@ -23,9 +23,9 @@ public:
 
     void LoadSample(const std::string& path, const std::string& handle);
 
-    void PlayOneShot(const std::string& handle);
+    void PlayOneShot(const std::string& handle, float volume=5);
 
-    void PlayOneShot(const std::string& handle, const RectTransform& transform);
+    void PlayOneShot(const std::string& handle, const RectTransform& transform, float volume=5);
 
     EventInstance InstantiateSoundInstance(const std::string& handle, const RectTransform& transform);
 

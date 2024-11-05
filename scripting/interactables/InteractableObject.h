@@ -5,10 +5,14 @@
 class SpriteRenderer;
 class SpritesheetRenderer;
 
+struct InteractPayload {
+	bool isInDialogue = false;
+};
+
 class InteractableObject : public Behaviour
 {
 public:
-	virtual void Interact() {}
+	virtual void Interact(InteractPayload* payload=nullptr) {}
 
 	void SetActive();
 

@@ -23,7 +23,7 @@ void Customer::Update()
 
 	if (m_InitialRequestTimer >= 0) {
 		// display text
-		TextRenderer::Get()->RenderText("Can you help me make a potion?", GetTransform()->position().x, 1080 - GetTransform()->position().y);
+		//TextRenderer::Get()->RenderText("Can you help me make a potion?", GetTransform()->position().x, 1080 - GetTransform()->position().y);
 
 		// walk towards middle
 		GetTransform()->SetPositionX(GetTransform()->position().x - Time::DeltaTime * 100);
@@ -44,9 +44,11 @@ void Customer::HandleAnimations()
 	 }
 }
 
-void Customer::Interact()
+void Customer::Interact(InteractPayload* payload)
 {
-	LOG_INFO("Interacted with this customer!");
+	payload->isInDialogue = true;
+	DialogueUI::Instance->Enable();
+	DialogueUI::Instance->StartConversation("Hi, can you give me sth?");
 }
 
 void Customer::InstantiateRequests(uint32_t numRequests)

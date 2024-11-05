@@ -44,7 +44,7 @@ private:
 	// State Handling ////////////////////////////////////////////////////////////////////////
 	enum class State
 	{
-		Idle, Walk, Smash, Eat, Deliver
+		Idle, Walk, Smash, Eat, Deliver, InDialogue
 	};
 	State m_PlayerState;
 	int m_MoveDir;

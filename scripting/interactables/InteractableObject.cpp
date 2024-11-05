@@ -5,6 +5,7 @@
 
 #include "../../scene/Entity.hpp"
 #include "../../PlayMode.hpp"
+#include "../../sound/SoundManager.hpp"
 
 void InteractableObject::Awake()
 {
@@ -33,9 +34,11 @@ void InteractableObject::Update()
 void InteractableObject::SetActive()
 {
 	isCurrentInteractable = true;
+	SoundManager::Get()->PlayOneShot("InteractAppearSFX", 0.1f);
 }
 
 void InteractableObject::SetInactive()
 {
 	isCurrentInteractable = false;
+	//SoundManager::Get()->PlayOneShot("InteractDisappearSFX", 0.1f);
 }

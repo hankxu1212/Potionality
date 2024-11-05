@@ -9,6 +9,10 @@ SoundManager::SoundManager()
 
     LoadSample("../resources/sound/CartoonBite.wav", "BiteSFX");
     LoadSample("../resources/sound/Congratulations.wav", "SuccessSFX");
+    LoadSample("../resources/sound/Negative.wav", "FailSFX");
+    LoadSample("../resources/sound/Type.wav", "TypeSFX");
+    LoadSample("../resources/sound/InteractDisappear.wav", "InteractDisappearSFX");
+    LoadSample("../resources/sound/InteractAppear.wav", "InteractAppearSFX");
 }
 
 SoundManager::~SoundManager()
@@ -46,7 +50,7 @@ void SoundManager::LoadSample(const std::string &path, const std::string &handle
     LOG_INFO_F("Loaded sound file at: {}", path);
 }
 
-void SoundManager::PlayOneShot(const std::string &handle)
+void SoundManager::PlayOneShot(const std::string &handle, float volume)
 {
     if (!m_SoundListener){
         LOG_WARN("Could not find sound listener. Use PlayOneShot(handle, transform) instead!");
@@ -60,10 +64,10 @@ void SoundManager::PlayOneShot(const std::string &handle)
     }
 
     glm::vec3 listenPosition(m_SoundListener->position().x, m_SoundListener->position().y, 0);
-    Sound::play_3D(*it->second.get(), 5, listenPosition);
+    Sound::play_3D(*it->second.get(), volume, listenPosition);
 }
 
-void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &transform)
+void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &transform, float volume)
 {
     auto it = m_SoundSamples.find(handle);
     if (it == m_SoundSamples.end()){
@@ -72,7 +76,7 @@ void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &t
     }
 
     glm::vec3 listenPosition(transform.position().x, transform.position().y, 0);
-    Sound::play_3D(*it->second.get(), 5, listenPosition);
+    Sound::play_3D(*it->second.get(), volume, listenPosition);
 }
 
 SoundManager::EventInstance SoundManager::InstantiateSoundInstance(const std::string &handle, const RectTransform &transform)

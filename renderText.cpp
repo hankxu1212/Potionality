@@ -40,7 +40,7 @@ void TextRenderer::SetupBufferandVAO(GLuint& vao, GLuint& buffer)
 void TextRenderer::LoadText(){
 	// GLuint idtracker = 0;
 	// setting up characters for text
-	std::string fontstr = Files::Path("Alumni_Sans_Pinstripe/AlumniSansPinstripe-Regular.ttf"); //test font for now
+	std::string fontstr = Files::Path("rainyhearts.ttf"); //test font for now
 	const char *fontfile = fontstr.c_str();
 	constexpr int FONT_SIZE =36;
 	{
@@ -103,7 +103,7 @@ void TextRenderer::LoadText(){
 }
 
 // code based on : https://learnopengl.com/In-Practice/Text-Rendering
-void TextRenderer::RenderText(const std::string& text, float xin, float yin, float scale,float rightlimit, uint32_t visibleCharacters)
+void TextRenderer::RenderText(const std::string& text, float xin, float yin, float scale,float rightlimit, int visibleCharacters)
 {
 	assert(visibleCharacters == -1 || visibleCharacters <= text.size());
 

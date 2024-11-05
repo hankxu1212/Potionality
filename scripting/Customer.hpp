@@ -12,7 +12,7 @@ public:
 	void Awake() override;
 	void Shutdown() override;
 	void Update() override;
-	void Interact() override;
+	void Interact(InteractPayload* payload = nullptr) override;
 
 	const char* getClassName() const override { return "Customer"; }
 

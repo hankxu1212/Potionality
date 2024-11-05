@@ -55,6 +55,10 @@
     {
       "src": "../resources/UI/questionmark.png",
       "name": "UI_questionmark"
+    },
+    {
+      "src": "../resources/UI/DialogueBox.png",
+      "name": "DialogueBox"
     }
   ],
   "entities": [
@@ -312,6 +316,31 @@
           "type": "SpriteRenderer",
           "texture": "closet",
           "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "DialogueUI",
+      "translation": [ 20, 700 ],
+      "rotation": 0,
+      "scale": [ 1841, 356 ],
+      "depth": 3,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "DialogueBox",
+          "active": "false"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "DialogueUI",
+          "active": "false"
         }
       ]
     }

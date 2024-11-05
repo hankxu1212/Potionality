@@ -193,6 +193,7 @@ const gameplay_scripts = [
 	maek.CPP('scripting/RecipeManager.cpp'),
 	maek.CPP('scripting/interactables/InteractableObject.cpp'),
 	maek.CPP('scripting/interactables/InteractableManager.cpp'),
+	maek.CPP('scripting/DialogueUI.cpp'),
 ]
 
 //the '[exeFile =] LINK(objFiles, exeFileBase, [, options])' links an array of objects into an executable:
