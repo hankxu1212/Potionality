@@ -9,10 +9,28 @@ void Ingredient::Awake()
 {
 	InteractableObject::Awake(); // need to call baseclass explicitly
     isHoldable = true;
+    ingredient = new Ingredient_T;
+
+    ingredient->executableActions.resize(4);
+    ingredient->executableActions[0] = Action::Smash;
+    ingredient->executableActions[1] = Action::Eat;
+    ingredient->executableActions[2] = Action::Brew;
+    ingredient->executableActions[3] = Action::Cut;
+
+    ActionState smashes;
+    ActionState eats;
+    ActionState brews;
+    ActionState cuts;
+
+    ingredient->actionStates[Action::Smash] = smashes;
+    ingredient->actionStates[Action::Eat] = eats;
+    ingredient->actionStates[Action::Brew] = brews;
+    ingredient->actionStates[Action::Cut] = cuts;
 }
 
 void Ingredient::Shutdown()
 {
+    delete ingredient;
 	InteractableObject::Shutdown(); // need to call baseclass explicitly
 }
 
@@ -43,14 +61,18 @@ void Ingredient::process(Action action) {
             break;
         case Action::Smash:
             LOG_INFO("Smashed ingredient");
+            ingredient->actionStates[Action::Smash].progress++;
             break;
         case Action::Eat:
             LOG_INFO("Ate ingredient");
+            ingredient->actionStates[Action::Eat].progress++;
             break;
         case Action::Brew:
             LOG_INFO("Brewed ingredient");
+            ingredient->actionStates[Action::Brew].progress++;
             break;
         case Action::Cut:
+            ingredient->actionStates[Action::Cut].progress++;
             LOG_INFO("Cut ingredient");
             break;
     }

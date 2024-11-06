@@ -40,7 +40,7 @@ void Player::Update()
 	HandleMessages();
 	
 	HandleAbilityCooldowns();
-	if (m_PlayerState == State::Smash || m_PlayerState == State::Cut || m_PlayerState == State::InDialogue)
+	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::InDialogue)
 		return;
 
 	HandleMovement();
@@ -121,8 +121,8 @@ void Player::OnInteractPressed()
 		return;
 	}
 
-	// if already smashing or interacting with workstation, dont do anything
-	if (m_PlayerState == State::Smash || m_PlayerState == State::Cut)
+	// if already mid-interaction, dont do anything
+	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut)
 		return;
 
 	InteractableObject* obj = InteractableManager::Get()->GetClosestObject();
@@ -150,7 +150,7 @@ void Player::OnInteractPressed()
 			else {
 				m_Held = nullptr;
 			}
-			m_PlayerState = State::Smash;
+			m_PlayerState = State::Pickup;
 		}
 
 		m_InteractCooldown = m_InteractCooldownMax;
@@ -210,7 +210,7 @@ void Player::HandleMovement()
 
 void Player::HandleAbilityCooldowns()
 {
-	if (m_PlayerState == State::Smash || m_PlayerState == State::Cut) 
+	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut) 
 	{
 		if (m_InteractCooldown > 0) {
 			m_InteractCooldown -= Time::DeltaTime;
@@ -230,7 +230,7 @@ void Player::HandleAnimations()
 	{
 		playerSprite->SetLoopRegion(m_MoveDir + 2, 3);
 	}
-	else if (m_PlayerState == State::Smash)
+	else if (m_PlayerState == State::Pickup)
 	{
 		playerSprite->SetLoopRegion(1, 4);
 	}

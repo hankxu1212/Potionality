@@ -45,14 +45,14 @@ private:
 	// State Handling ////////////////////////////////////////////////////////////////////////
 	enum class State
 	{
-		Idle, Walk, Smash, Eat, Deliver, InDialogue, Cut
+		Idle, Walk, Pickup, Smash, Eat, Deliver, InDialogue, Cut
 	};
 	State m_PlayerState;
 	int m_MoveDir;
 	const float PlayerSpeed = 300.0f;
 	void HandleMovement();
 
-	// Smash ////////////////////////////////////////////////////////////////////////
+	// Interact ////////////////////////////////////////////////////////////////////////
 	float m_InteractCooldown;
 	const float m_InteractCooldownMax = 2;
 

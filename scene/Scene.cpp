@@ -6,6 +6,7 @@
 #include "../core/ResourceManager.h"
 #include "../PlayMode.hpp"
 #include "../scripting/Player.hpp"
+#include "../scripting/Ingredient.hpp"
 
 Scene::Scene()
 {
@@ -70,7 +71,8 @@ static void MakeComponents(const Scene::TValueArray& componentObj, Entity* newEn
                     newEntity->AddComponent<Customer>(active);
                 }
                 else if (classname == "Ingredient") {
-                    newEntity->AddComponent<Ingredient>(active);
+                    Ingredient* ingredient = dynamic_cast<Ingredient*>(&newEntity->AddComponent<Ingredient>(active));
+                    ingredient->ingredient->name = newEntity->name();
                 }
                 else if (classname == "CuttingStation") {
                     newEntity->AddComponent<CuttingStation>(active);
