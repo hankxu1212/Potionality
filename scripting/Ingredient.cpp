@@ -65,7 +65,7 @@ void Ingredient::Update()
             ingredient->actionStates[Action::Cut].progress = 0;
 
             entity->RemoveComponent<SpriteRenderer>();
-            entity->AddComponent<SpriteRenderer>(true, "Guy");
+            entity->AddComponent<SpriteRenderer>(true, "mushroom_cut");
         }
     } else if (ingredient->name.compare("PurpleQuartzIngredient") == 0) {
         if (ingredient->actionStates[Action::Smash].progress > 0) {
