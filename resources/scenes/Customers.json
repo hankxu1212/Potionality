@@ -1,27 +1,53 @@
 {
-    "customers":
-    {
-        "type" : "anonymous adventurer",
-        "request" : 
+    "customers" :
+    [
         {
-            "potions" : [
-                "blue_potion"
+            "type" : "anonymous adventurer",
+            "request" : 
+            {
+                "potions" : [
+                    "blue_potion"
+                ],
+                "reward" : 1
+            },
+            "patience" : 4,
+            "ask" : [
+                "Hey potcat, I find myself lacking mana lately. Have you got something for me?",
+                "Do you have something that can replenish my mana?"
             ],
-            "reward" : 1
+            "recieve_success" : [
+                "This is exacly what I needed! Thanks!"
+            ],
+            "recieve_failure" : [
+                "Hmm. Not sure if I need this.",
+                "Are you sure about this? Doesn't seem like the thing I need.",
+                "Dude are you kidding me?",
+                "Wow. Here we go again. Bye!"
+            ]
         },
-        "patience" : 4,
-        "ask" : [
-            "Hey potcat, I find myself lacking mana lately. Have you got something for me?",
-            "Do you have something that can replenish my mana?"
-        ],
-        "recieve_success" : [
-            "This is exacly what I needed! Thanks!"
-        ],
-        "recieve_failure" : [
-            "Hmm. Not sure if I need this.",
-            "Are you sure about this? Doesn't seem like the thing I need.",
-            "Dude are you kidding me?",
-            "Wow. Here we go again. Bye!"
-        ]
-    }
+        {
+            "type" : "warrior",
+            "request" : 
+            {
+                "potions" : [
+                    "red_potion"
+                ],
+                "reward" : 1
+            },
+            "patience" : 4,
+            "ask" : [
+                "Hey potcat, Can I get some health potion?",
+                "Do you have something that can boost regeneration?"
+            ],
+            "recieve_success" : [
+                "Letsgoooo! Thanks!"
+            ],
+            "recieve_failure" : [
+                "Hmm. Not sure if I need this.",
+                "Are you sure about this? Doesn't seem like the thing I need.",
+                "Dude are you kidding me?",
+                "Wow. Here we go again. Bye!"
+            ]
+        }
+    ]
   }

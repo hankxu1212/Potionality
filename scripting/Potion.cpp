@@ -5,6 +5,11 @@
 #include "../PlayMode.hpp"
 #include "PotionShop.hpp"
 
+Potion::Potion(const std::string &name_) :
+    name(name_)
+{
+}
+
 void Potion::Awake()
 {
 	InteractableObject::Awake(); // need to call baseclass explicitly

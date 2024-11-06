@@ -135,6 +135,10 @@ void Player::OnInteractPressed()
 	// you may overload the interaction function!
 	InteractPayload payload;
 	obj->Interact(&payload);
+	if (payload.isDestroyed)
+	{
+		return;
+	}
 
 	// we interacted with a customer!
 	if (payload.isInDialogue)

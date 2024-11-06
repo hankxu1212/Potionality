@@ -7,6 +7,7 @@ class SpritesheetRenderer;
 
 struct InteractPayload {
 	bool isInDialogue = false;
+	bool isDestroyed = false;
 };
 
 class InteractableObject : public Behaviour

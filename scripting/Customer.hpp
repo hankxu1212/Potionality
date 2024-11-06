@@ -3,6 +3,7 @@
 #include "Behaviour.hpp"
 #include "PotionCore.hpp"
 #include "interactables/InteractableObject.h"
+#include "CustomerInfo.hpp"
 
 class SpritesheetRenderer;
 
@@ -16,13 +17,11 @@ public:
 
 	const char* getClassName() const override { return "Customer"; }
 
-	void InstantiateRequests(uint32_t numRequests);
+	void Initialize(CustomerInfo info);
 
 private:
-	std::vector<PotionRequest> requests;
-	[[maybe_unused]] float patience;
+	CustomerInfo m_CustomerInfo;
 
-	// display initial request
 	float m_InitialRequestTimer;
 	const float m_InitialRequestTimerMax = 4;
 
@@ -35,4 +34,6 @@ private:
 	void HandleAnimations();
 
 	SpritesheetRenderer* customerSprite;
+
+	std::string currentInteractionString;
 };
