@@ -63,6 +63,7 @@ void Customer::Interact(InteractPayload* payload)
 				
 				// Drop off item. Destroys it.
 				potion->entity->Destroy();
+				payload->isDestroyed = true;
 
 				assert(m_CustomerInfo.m_MonologueOnRecieveSuccess.size() > 0);
 				currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveSuccess[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveSuccess.size())];

@@ -137,6 +137,7 @@ void Player::OnInteractPressed()
 	obj->Interact(&payload);
 	if (payload.isDestroyed)
 	{
+		m_Held = nullptr;
 		return;
 	}
 
