@@ -87,6 +87,14 @@
     {
       "src": "../resources/UI/DialogueBox.png",
       "name": "DialogueBox"
+    },
+    {
+      "src": "../resources/recipes/red_potion.png",
+      "name": "RedPotionRecipe"
+    },
+    {
+      "src": "../resources/recipes/blue_potion.png",
+      "name": "BluePotionRecipe"
     }
   ],
   "entities": [
@@ -400,6 +408,46 @@
           "type": "Behaviour",
           "classname": "DialogueUI",
           "active": "false"
+        }
+      ]
+    },
+    {
+      "name": "RedPotionRecipe",
+      "translation": [ 1600, -20 ],
+      "rotation": 0,
+      "scale": [ 384, 384 ],
+      "depth": -8,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "RedPotionRecipe",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "BluePotionRecipe",
+      "translation": [ 1300, -20 ],
+      "rotation": 0,
+      "scale": [ 384, 384 ],
+      "depth": -8,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "BluePotionRecipe",
+          "active": "true"
         }
       ]
     }
