@@ -53,6 +53,14 @@
       "name": "table"
     },
     {
+      "src": "../resources/background/CuttingStation.png",
+      "name": "cutting_station"
+    },
+    {
+      "src": "../resources/background/SmashStation.png",
+      "name": "smash_station"
+    },
+    {
       "src": "../resources/background/Cabinet.png",
       "name": "cabinet"
     },
@@ -272,7 +280,7 @@
         },
         {
           "type": "SpriteRenderer",
-          "texture": "table",
+          "texture": "cutting_station",
           "active": "true"
         },
         {
@@ -297,7 +305,7 @@
         },
         {
           "type": "SpriteRenderer",
-          "texture": "table",
+          "texture": "smash_station",
           "active": "true"
         },
         {
