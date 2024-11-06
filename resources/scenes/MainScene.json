@@ -239,7 +239,7 @@
     },
     {
       "name": "CuttingStation",
-      "translation": [ 380, 824 ],
+      "translation": [ 380, 800 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
       "depth": 0,
@@ -264,7 +264,7 @@
     },
     {
       "name": "SmashingStation",
-      "translation": [ 120, 824 ],
+      "translation": [ 120, 800 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
       "depth": 0,
@@ -289,7 +289,7 @@
     },
     {
       "name": "BrewingStation",
-      "translation": [ 800, 900 ],
+      "translation": [ 850, 750 ],
       "rotation": 0,
       "scale": [ 128, 128 ],
       "depth": 0,

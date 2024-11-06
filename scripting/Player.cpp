@@ -40,7 +40,8 @@ void Player::Update()
 	HandleMessages();
 	
 	HandleAbilityCooldowns();
-	if (m_PlayerState == State::InDialogue || m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash)
+	if (m_PlayerState == State::InDialogue || m_PlayerState == State::Pickup || m_PlayerState == State::Cut || 
+		m_PlayerState == State::Smash || m_PlayerState == State::Brew)
 		return;
 
 	HandleMovement();
@@ -122,7 +123,7 @@ void Player::OnInteractPressed()
 	}
 
 	// if already mid-interaction, dont do anything
-	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash)
+	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew)
 		return;
 
 	InteractableObject* obj = InteractableManager::Get()->GetClosestObject();
@@ -210,7 +211,7 @@ void Player::HandleMovement()
 
 void Player::HandleAbilityCooldowns()
 {
-	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash) 
+	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew) 
 	{
 		if (m_InteractCooldown > 0) {
 			m_InteractCooldown -= Time::DeltaTime;
@@ -230,7 +231,7 @@ void Player::HandleAnimations()
 	{
 		playerSprite->SetLoopRegion(m_MoveDir + 2, 3);
 	}
-	else if (m_PlayerState == State::Pickup)
+	else if (m_PlayerState == State::Pickup || m_PlayerState == State::Brew) // PLACEHOLDER, TODO: CHANGE TO UNIQUE ANIMATIONS
 	{
 		playerSprite->SetLoopRegion(1, 4);
 	}

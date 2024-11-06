@@ -24,6 +24,7 @@ public:
     void removeHeldObject() { m_Held = nullptr; }
 	void cut() { m_PlayerState = State::Cut; }
 	void smash() { m_PlayerState = State::Smash; }
+	void brew() { m_PlayerState = State::Brew; }
 
 private:
 	// Debug ////////////////////////////////////////////////////////////////////////
@@ -46,7 +47,7 @@ private:
 	// State Handling ////////////////////////////////////////////////////////////////////////
 	enum class State
 	{
-		Idle, Walk, Pickup, Smash, Eat, Deliver, InDialogue, Cut
+		Idle, Walk, Pickup, Smash, Eat, Deliver, InDialogue, Cut, Brew
 	};
 	State m_PlayerState;
 	int m_MoveDir;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_map>
+
 #include "interactables/InteractableObject.h"
 
 class Ingredient;
@@ -21,5 +23,6 @@ private:
 
     bool isEmpty = true;
     Ingredient* storedIngredient;
+    std::unordered_map<std::string, int> ingredientCounts; // Only used for brewing stations
     StationType stationType;
 };

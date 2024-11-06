@@ -25,6 +25,6 @@ private:
 	InteractableObject* closestInteractableObject = nullptr;
 	InteractableObject* prevInteractableObject = nullptr;
 
-	const float interactionDistance = 100;
+	const float interactionDistance = 200;
 };
 

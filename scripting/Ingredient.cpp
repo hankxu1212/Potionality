@@ -82,7 +82,7 @@ void Ingredient::process(Action action) {
             LOG_INFO("Ate ingredient.");
             ingredient->actionStates[Action::Eat].progress++;
             break;
-        case Action::Brew:
+        case Action::Brew: // Note: Unnecessary?
             LOG_INFO("Brewed ingredient.");
             ingredient->actionStates[Action::Brew].progress++;
             break;

@@ -1,6 +1,7 @@
 #include "WorkStation.hpp"
 
 #include "../scene/Entity.hpp"
+#include "../scene/SceneManager.hpp"
 #include "Player.hpp"
 #include "Ingredient.hpp"
 #include "PotionCore.hpp"
@@ -58,7 +59,7 @@ void WorkStation::Interact(InteractPayload* payload)
     if (Player::Instance) {
         InteractableObject* heldObject = Player::Instance->getHeldObject();
 
-        // If player's hands are empty and table is full, process ingredient
+        // If player's hands are empty and station has ingredients, process ingredient
         if (!isEmpty && heldObject == nullptr) {
             switch (stationType) {
                 case StationType::Cut:
@@ -70,32 +71,58 @@ void WorkStation::Interact(InteractPayload* payload)
                     storedIngredient->process(Action::Smash);
                     break;
                 case StationType::Brew:
-                    storedIngredient->process(Action::Brew);
+                    Player::Instance->brew();
+                    // TODO: If brewing station, check recipes, instantiate potion if done
                     break;
                 default:
-                    LOG_WARN("Station type invalid");
+                    LOG_WARN("Station type invalid.");
                     break;
             }
-        } else if (isEmpty && heldObject != nullptr) {
+        } else if (stationType == StationType::Brew && heldObject != nullptr) { // Brewing station can hold more than one ingredient
             const char* objectName = heldObject->getClassName();
             if (std::strcmp(objectName, "Ingredient") != 0) {
-                LOG_INFO("Can't put potions on table (for now)");
+                LOG_INFO("Can't put potions in pot (for now).");
+            } else {
+                Ingredient* ingredient = dynamic_cast<Ingredient*>(heldObject);
+                assert(ingredient && "held object is asserted to be an ingredient!");
+
+                LOG_INFO("Placed ingredient in pot. Note: Currently impossible to remove ingredient from pot once placed (it's dissolved).");
+                ingredient->SetHeld(false);
+                ingredient->SetStored(true);
+                Player::Instance->removeHeldObject();
+                isEmpty = false;
+
+                // Increment ingredient counts
+                if (ingredientCounts.count(ingredient->ingredient->name) == 0) {
+                    ingredientCounts[ingredient->ingredient->name] = 1;
+                } else {
+                    ingredientCounts[ingredient->ingredient->name]++;
+                }
+
+                // Ingredient is dissolved, destroy it
+                UUID ingredientID = ingredient->GetEntityID();
+                SceneManager::Get()->getScene()->Destroy(ingredientID);
+            }
+        } else if (isEmpty && heldObject != nullptr) { // Place ingredient on table for non-brewing stations
+            const char* objectName = heldObject->getClassName();
+            if (std::strcmp(objectName, "Ingredient") != 0) {
+                LOG_INFO("Can't put potions on table (for now).");
             } else {
                 Ingredient* ingredient = dynamic_cast<Ingredient*>(heldObject);
                 assert(ingredient && "held object is asserted to be an ingredient!");
 
                 this->storedIngredient = ingredient;
-                LOG_INFO("Place ingredient on table");
+                LOG_INFO("Placed ingredient on table.");
                 ingredient->SetHeld(false);
                 ingredient->SetStored(true);
                 Player::Instance->removeHeldObject();
                 storedIngredient->GetTransform()->SetPosition(GetTransform()->position().x + 60, GetTransform()->position().y + 70);
                 isEmpty = false;
             }
-        } else if (!isEmpty) {
-            LOG_INFO("Can only have one ingredient on table");
+        } else if (!isEmpty) { // Non-brewing station already has an ingredient
+            LOG_INFO("Can only have one ingredient on table.");
         } else {
-            LOG_INFO("No item to work with");
+            LOG_INFO("No item to work with.");
         }
     }
 }
