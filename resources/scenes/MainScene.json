@@ -103,6 +103,10 @@
     {
       "src": "../resources/recipes/blue_potion.png",
       "name": "BluePotionRecipe"
+    },
+    {
+      "src": "../resources/recipes/love_potion.png",
+      "name": "LovePotionRecipe"
     }
   ],
   "entities": [
@@ -455,6 +459,26 @@
         {
           "type": "SpriteRenderer",
           "texture": "BluePotionRecipe",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "LovePotionRecipe",
+      "translation": [ 1000, -20 ],
+      "rotation": 0,
+      "scale": [ 384, 384 ],
+      "depth": -8,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "LovePotionRecipe",
           "active": "true"
         }
       ]
