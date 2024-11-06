@@ -74,7 +74,7 @@ void WorkStation::Interact(InteractPayload* payload)
                     Player::Instance->brew();
                     // TODO: Refactor with recipes
                     // Current version is hard coded for testing purposes
-                    if (ingredientCounts["FlowerIngredient"] == 1) {
+                    if (ingredientCounts.count("FlowerIngredient") == 1 && ingredientCounts["FlowerIngredient"] == 1) {
                         ingredientCounts.clear();
                         isEmpty = true;
                         glm::vec2 newPos(GetTransform()->position().x, GetTransform()->position().y - 64);
