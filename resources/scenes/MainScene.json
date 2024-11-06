@@ -257,7 +257,7 @@
         },
         {
           "type": "Behaviour",
-          "classname": "CuttingStation",
+          "classname": "WorkStation",
           "active": "true"
         }
       ]

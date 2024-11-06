@@ -71,11 +71,10 @@ static void MakeComponents(const Scene::TValueArray& componentObj, Entity* newEn
                     newEntity->AddComponent<Customer>(active);
                 }
                 else if (classname == "Ingredient") {
-                    Ingredient* ingredient = dynamic_cast<Ingredient*>(&newEntity->AddComponent<Ingredient>(active));
-                    ingredient->ingredient->name = newEntity->name();
+                    newEntity->AddComponent<Ingredient>(active);
                 }
-                else if (classname == "CuttingStation") {
-                    newEntity->AddComponent<CuttingStation>(active);
+                else if (classname == "WorkStation") {
+                    newEntity->AddComponent<WorkStation>(active);
                 }
                 else if (classname == "Potion") {
                     newEntity->AddComponent<Potion>(active);

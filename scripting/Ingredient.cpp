@@ -11,6 +11,8 @@ void Ingredient::Awake()
     isHoldable = true;
     ingredient = new Ingredient_T;
 
+    ingredient->name = entity->name();
+
     ingredient->executableActions.resize(4);
     ingredient->executableActions[0] = Action::Smash;
     ingredient->executableActions[1] = Action::Eat;

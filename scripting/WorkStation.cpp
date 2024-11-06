@@ -1,4 +1,4 @@
-#include "CuttingStation.hpp"
+#include "WorkStation.hpp"
 
 #include "../scene/Entity.hpp"
 #include "Player.hpp"
@@ -7,18 +7,22 @@
 
 #include <cstring>
 
-void CuttingStation::Awake()
+void WorkStation::Awake()
 {
     InteractableObject::Awake();
     isEmpty = true;
+
+    if (entity->name().compare("CuttingStation") == 0) {
+        stationType = StationType::Cut;
+    };
 }
 
-void CuttingStation::Shutdown()
+void WorkStation::Shutdown()
 {
     InteractableObject::Shutdown(); // need to call baseclass explicitly
 }
 
-void CuttingStation::Update()
+void WorkStation::Update()
 {
     InteractableObject::Update(); // need to call baseclass explicitly
 
@@ -41,7 +45,7 @@ void CuttingStation::Update()
      */
 }
 
-void CuttingStation::Interact(InteractPayload* payload)
+void WorkStation::Interact(InteractPayload* payload)
 {
     LOG_INFO("Interacted with work station!");
     if (Player::Instance) {
@@ -50,7 +54,14 @@ void CuttingStation::Interact(InteractPayload* payload)
         // If player's hands are empty and table is full, process ingredient
         if (!isEmpty && heldObject == nullptr) {
             Player::Instance->cut();
-            storedIngredient->process(Action::Cut);
+            switch (stationType) {
+                case StationType::Cut:
+                    storedIngredient->process(Action::Cut);
+                    break;
+                default:
+                    LOG_INFO("Station type not implemented");
+                    break;
+            }
         } else if (isEmpty && heldObject != nullptr) {
             const char* objectName = heldObject->getClassName();
             if (std::strcmp(objectName, "Ingredient") != 0) {
@@ -75,4 +86,4 @@ void CuttingStation::Interact(InteractPayload* payload)
     }
 }
 
-SETUP_DEFAULT_CALLBACKS(CuttingStation)
+SETUP_DEFAULT_CALLBACKS(WorkStation)
