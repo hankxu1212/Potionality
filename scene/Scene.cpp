@@ -77,7 +77,7 @@ static void MakeComponents(const Scene::TValueArray& componentObj, Entity* newEn
                     newEntity->AddComponent<WorkStation>(active);
                 }
                 else if (classname == "Potion") {
-                    newEntity->AddComponent<Potion>(active, "blue_potion");
+                    newEntity->AddComponent<Potion>(active, "red_potion");
                 }
                 else if (classname == "DialogueUI") {
                     newEntity->AddComponent<DialogueUI>(active);
