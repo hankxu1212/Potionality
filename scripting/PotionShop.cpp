@@ -9,6 +9,7 @@
 
 PotionShop::PotionShop()
 {
+	LoadAllPossibleCustomers();
 }
 
 PotionShop::~PotionShop()
@@ -64,7 +65,25 @@ void PotionShop::SpawnNewCustomer()
 	
 	// add the customer script, instantiate a new request
 	Customer& cust = newCustomer->AddComponent<Customer>(true);
-	cust.InstantiateRequests((uint32_t)Math::RandomInt(1, 2));
+
+	cust.Initialize(AllCustomers["anonymous adventurer"]);
+}
+
+void PotionShop::LoadAllPossibleCustomers()
+{
+	const std::string path = "../resources/scenes/Customers.json";
+	sejp::value loaded = sejp::load(Files::Path(path));
+	auto& map = loaded.as_object().value();
+	const auto& customers = map.at("customers").as_array().value();
+
+	for (const auto& cust : customers)
+	{
+		const auto& customer = cust.as_object().value();
+		CustomerInfo info;
+		info.Deserialize(customer);
+
+		AllCustomers[info.m_Type] = info;
+	}
 }
 
 void PotionShop::Update()
