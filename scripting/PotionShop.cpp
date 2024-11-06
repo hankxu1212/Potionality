@@ -67,6 +67,8 @@ void PotionShop::SpawnNewCustomer()
 	Customer& cust = newCustomer->AddComponent<Customer>(true);
 
 	cust.Initialize(AllCustomers["anonymous adventurer"]);
+
+	LOG_INFO("Spawn new customer succeeded");
 }
 
 void PotionShop::LoadAllPossibleCustomers()

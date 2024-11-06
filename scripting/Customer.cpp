@@ -83,8 +83,8 @@ void Customer::Interact(InteractPayload* payload)
 void Customer::Initialize(CustomerInfo info)
 {
 	m_InitialRequestTimer = m_InitialRequestTimerMax;
-	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
 	this->m_CustomerInfo = info;
+	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
 }
 
 
