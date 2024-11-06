@@ -212,7 +212,7 @@ void Scene::DestroyChildren(size_t uuidOfParent)
     std::vector<Entity*>& children = entities.at(uuidOfParent)->children();
     for (Entity* c : children)
     {
-        c->Destroy();
+        Destroy(c->uuid());
     }
 }
 
