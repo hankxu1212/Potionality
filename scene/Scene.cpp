@@ -148,8 +148,9 @@ void Scene::Update()
     ExecuteDestroyQueue();
     for (auto& ent : entities)
     {
-        if (ent.second->isActive())
+        if (ent.second->isActive()){
             ent.second->Update();
+        }
     }
 }
 
@@ -169,6 +170,7 @@ void Scene::Destroy(Entity* ent)
         if (it->second.get() == ent) 
         {
             m_DestroyQueue.push_back(it->second->uuid());
+            DestroyChildren(it->second->uuid());
             break;
         }
     }
@@ -177,6 +179,7 @@ void Scene::Destroy(Entity* ent)
 void Scene::Destroy(size_t uuid)
 {
     m_DestroyQueue.push_back(uuid);
+    DestroyChildren(uuid);
 }
 
 void Scene::Destroy(const std::string& name)
@@ -186,6 +189,7 @@ void Scene::Destroy(const std::string& name)
         if (strcmp(it->second->name().c_str(), name.c_str()) == 0) 
         {
             m_DestroyQueue.push_back(it->second->uuid());
+            DestroyChildren(it->second->uuid());
             break;
         }
     }
@@ -203,6 +207,14 @@ void Scene::ExecuteDestroyQueue()
     m_DestroyQueue.clear();
 }
 
+void Scene::DestroyChildren(size_t uuidOfParent)
+{
+    std::vector<Entity*>& children = entities.at(uuidOfParent)->children();
+    for (Entity* c : children)
+    {
+        c->Destroy();
+    }
+}
 
 Entity* Scene::Instantiate(const std::string& name, const glm::vec2& pos, const glm::vec2& size, float rotation, float depth)
 {

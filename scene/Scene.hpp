@@ -69,4 +69,6 @@ private:
 
 	// root of the scene file
 	std::filesystem::path sceneRootAbsolutePath;
+
+	void DestroyChildren(size_t uuidOfParent);
 };
