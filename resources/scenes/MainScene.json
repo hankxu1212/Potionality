@@ -29,6 +29,10 @@
       "name": "mushroom"
     },
     {
+      "src": "../resources/ingredients/Mushroom_Cut.png",
+      "name": "mushroom_cut"
+    },
+    {
       "src": "../resources/ingredients/Purple_QuartzDS2.png",
       "name": "purple_quartz"
     },
@@ -47,6 +51,10 @@
     {
       "src": "../resources/background/TableDS4.png",
       "name": "table"
+    },
+    {
+      "src": "../resources/background/Cabinet.png",
+      "name": "cabinet"
     },
     {
       "src": "../resources/background/CounterDS4.png",
@@ -369,6 +377,7 @@
         }
       ]
     },
+    
     {
       "name": "DialogueUI",
       "translation": [ 20, 700 ],
