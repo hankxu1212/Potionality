@@ -56,21 +56,21 @@ void Customer::Interact(InteractPayload* payload)
 		Potion* potion = dynamic_cast<Potion*>(Player::Instance->getHeldObject());
 		if (potion)
 		{
-			auto it = std::find(info.m_Request.potionsToMake.begin(), info.m_Request.potionsToMake.end(), potion->name);
-			if (it != info.m_Request.potionsToMake.end())
+			auto it = std::find(m_CustomerInfo.m_Request.potionsToMake.begin(), m_CustomerInfo.m_Request.potionsToMake.end(), potion->name);
+			if (it != m_CustomerInfo.m_Request.potionsToMake.end())
 			{
 				LOG_DEBUG(potion->name, Logger::CYAN, Logger::BOLD);
 				
 				// Drop off item. Destroys it.
 				potion->entity->Destroy();
 
-				assert(info.m_MonologueOnRecieveSuccess.size() > 0);
-				currentInteractionString = info.m_MonologueOnRecieveSuccess[Math::Random(0, info.m_MonologueOnRecieveSuccess.size())];
+				assert(m_CustomerInfo.m_MonologueOnRecieveSuccess.size() > 0);
+				currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveSuccess[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveSuccess.size())];
 			}
 			else
 			{
-				assert(info.m_MonologueOnRecieveFailure.size() > 0);
-				currentInteractionString = info.m_MonologueOnRecieveFailure[Math::Random(0, info.m_MonologueOnRecieveFailure.size())];
+				assert(m_CustomerInfo.m_MonologueOnRecieveFailure.size() > 0);
+				currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveFailure[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveFailure.size())];
 			}
 		}
 	}
@@ -83,8 +83,8 @@ void Customer::Interact(InteractPayload* payload)
 void Customer::Initialize(CustomerInfo info)
 {
 	m_InitialRequestTimer = m_InitialRequestTimerMax;
-	currentInteractionString = info.m_MonologueOnAsk[0];
-	this->info = info;
+	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
+	this->m_CustomerInfo = info;
 }
 
 

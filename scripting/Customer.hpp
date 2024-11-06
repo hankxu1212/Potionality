@@ -20,7 +20,7 @@ public:
 	void Initialize(CustomerInfo info);
 
 private:
-	CustomerInfo info;
+	CustomerInfo m_CustomerInfo;
 
 	float m_InitialRequestTimer;
 	const float m_InitialRequestTimerMax = 4;
