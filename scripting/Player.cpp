@@ -204,8 +204,8 @@ void Player::HandleMovement()
 	}
 
 	// clamp location
-	GetTransform()->SetPositionX(std::clamp(GetTransform()->position().x, 80.0f, 1730.0f));
-	GetTransform()->SetPositionY(std::clamp(GetTransform()->position().y, 250.0f, 950.0f));
+	GetTransform()->SetPositionX(std::clamp(GetTransform()->position().x, 80.0f, 1660.0f));
+	GetTransform()->SetPositionY(std::clamp(GetTransform()->position().y, 150.0f, 820.0f));
 }
 
 void Player::HandleAbilityCooldowns()

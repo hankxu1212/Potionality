@@ -40,7 +40,7 @@ void Ingredient::Update()
 {
 	InteractableObject::Update(); // need to call baseclass explicitly
     if (isHeld) {
-        GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 20, Player::Instance->GetTransform()->position().y - 25);
+        GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 64, Player::Instance->GetTransform()->position().y);
     }
 }
 
@@ -49,7 +49,7 @@ void Ingredient::Interact(InteractPayload* payload)
 	LOG_INFO("Interacted with this ingredient!");
     if (isHeld) {
         isHeld = false;
-        GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 60, Player::Instance->GetTransform()->position().y + 70);
+        GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 192, Player::Instance->GetTransform()->position().y + 192);
     } else {
         isHeld = true;
         isStored = false;
