@@ -4,6 +4,7 @@
 #include "Player.hpp"
 #include "../PlayMode.hpp"
 #include "PotionShop.hpp"
+#include "../sprites/SpriteRenderer.h"
 
 void Ingredient::Awake()
 {
@@ -45,15 +46,49 @@ void Ingredient::Update()
 
     // If ingredient action states have progressed sufficiently, update ingredient name and action states
     if (ingredient->name.compare("FlowerIngredient") == 0) {
-        //
+        if (ingredient->actionStates[Action::Cut].progress > 0) {
+            ingredient->name = "FlowerCutIngredient";
+            ingredient->actionStates[Action::Smash].progress = 0;
+            ingredient->actionStates[Action::Eat].progress = 0;
+            ingredient->actionStates[Action::Brew].progress = 0;
+            ingredient->actionStates[Action::Cut].progress = 0;
+
+            entity->RemoveComponent<SpriteRenderer>();
+            entity->AddComponent<SpriteRenderer>(true, "Guy");
+        }
     } else if (ingredient->name.compare("MushroomIngredient") == 0) {
-        //
+        if (ingredient->actionStates[Action::Cut].progress > 0) {
+            ingredient->name = "MushroomCutIngredient";
+            ingredient->actionStates[Action::Smash].progress = 0;
+            ingredient->actionStates[Action::Eat].progress = 0;
+            ingredient->actionStates[Action::Brew].progress = 0;
+            ingredient->actionStates[Action::Cut].progress = 0;
+
+            entity->RemoveComponent<SpriteRenderer>();
+            entity->AddComponent<SpriteRenderer>(true, "Guy");
+        }
     } else if (ingredient->name.compare("PurpleQuartzIngredient") == 0) {
-        //
+        if (ingredient->actionStates[Action::Smash].progress > 0) {
+            ingredient->name = "PurpleQuartzSmashedIngredient";
+            ingredient->actionStates[Action::Smash].progress = 0;
+            ingredient->actionStates[Action::Eat].progress = 0;
+            ingredient->actionStates[Action::Brew].progress = 0;
+            ingredient->actionStates[Action::Cut].progress = 0;
+
+            entity->RemoveComponent<SpriteRenderer>();
+            entity->AddComponent<SpriteRenderer>(true, "purple_quartz_smashed");
+        }
     } else if (ingredient->name.compare("WhiteQuartzIngredient") == 0) {
-        //
-    } else {
-        LOG_WARN("Invalid ingredient entity name.");
+        if (ingredient->actionStates[Action::Smash].progress > 0) {
+            ingredient->name = "WhiteQuartzSmashedIngredient";
+            ingredient->actionStates[Action::Smash].progress = 0;
+            ingredient->actionStates[Action::Eat].progress = 0;
+            ingredient->actionStates[Action::Brew].progress = 0;
+            ingredient->actionStates[Action::Cut].progress = 0;
+
+            entity->RemoveComponent<SpriteRenderer>();
+            entity->AddComponent<SpriteRenderer>(true, "white_quartz_smashed");
+        }
     }
 }
 

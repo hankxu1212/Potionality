@@ -72,7 +72,18 @@ void WorkStation::Interact(InteractPayload* payload)
                     break;
                 case StationType::Brew:
                     Player::Instance->brew();
-                    // TODO: If brewing station, check recipes, instantiate potion if done
+                    // TODO: Refactor with recipes
+                    // Current version is hard coded for testing purposes
+                    if (ingredientCounts["FlowerIngredient"] == 1) {
+                        ingredientCounts.clear();
+                        isEmpty = true;
+                        glm::vec2 newPos(GetTransform()->position().x, GetTransform()->position().y - 64);
+                        Entity* newPotion = SceneManager::Get()->getScene()->Instantiate("BluePotion", newPos, glm::vec2{64, 64}, 0, 1);
+                        newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
+                        newPotion->AddComponent<SpriteRenderer>(true, "blue_potion");
+                        newPotion->AddComponent<Potion>(true);
+                    }
+                    LOG_INFO("Brewed potion!");
                     break;
                 default:
                     LOG_WARN("Station type invalid.");

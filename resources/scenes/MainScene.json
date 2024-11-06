@@ -33,8 +33,16 @@
       "name": "purple_quartz"
     },
     {
+      "src": "../resources/ingredients/Purple_Quartz_Smashed.png",
+      "name": "purple_quartz_smashed"
+    },
+    {
       "src": "../resources/ingredients/White_QuartzDS2.png",
       "name": "white_quartz"
+    },
+    {
+      "src": "../resources/ingredients/White_Quartz_Smashed.png",
+      "name": "white_quartz_smashed"
     },
     {
       "src": "../resources/background/TableDS4.png",
@@ -55,6 +63,10 @@
     {
       "src": "../resources/potions/Red_potion.png",
       "name": "red_potion"
+    },
+    {
+      "src": "../resources/potions/Blue_potion.png",
+      "name": "blue_potion"
     },
     {
       "src": "../resources/background/VerybadIngredientClosetPlzReplace.png",
