@@ -90,8 +90,9 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "blue_potion");
                         newPotion->AddComponent<Potion>(true);
+                    } else {
+                        LOG_INFO("Failed to brew potion!");
                     }
-                    LOG_INFO("Brewed potion!");
                     break;
                 default:
                     LOG_WARN("Station type invalid.");
