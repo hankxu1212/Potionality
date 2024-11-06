@@ -23,7 +23,7 @@ public:
 	void Enable();
 	void Disable();
 
-	virtual const char* getClassName() const { return "DialogueUI"; }
+	virtual const char* getClassName() const override { return "DialogueUI"; }
 
 private:
 	SpriteRenderer* spriteRenderer;

@@ -9,6 +9,14 @@
       "name": "Customer1_walk"
     },
     {
+      "src": "../resources/characters/customer2_walk.png",
+      "name": "Customer2_walk"
+    },
+    {
+      "src": "../resources/characters/customer_special.png",
+      "name": "Customer_Special_walk"
+    },
+    {
       "src": "../resources/characters/Guy_flipped.png",
       "name": "Guy"
     },
