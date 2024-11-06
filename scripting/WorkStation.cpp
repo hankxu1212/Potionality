@@ -12,8 +12,15 @@ void WorkStation::Awake()
     InteractableObject::Awake();
     isEmpty = true;
 
+    // Set station type based on entity name specified in scene json
     if (entity->name().compare("CuttingStation") == 0) {
         stationType = StationType::Cut;
+    } else if (entity->name().compare("SmashingStation") == 0) {
+        stationType = StationType::Smash;
+    } else if (entity->name().compare("BrewingStation") == 0) {
+        stationType = StationType::Brew;
+    } else {
+        stationType = StationType::None;
     };
 }
 
@@ -53,13 +60,20 @@ void WorkStation::Interact(InteractPayload* payload)
 
         // If player's hands are empty and table is full, process ingredient
         if (!isEmpty && heldObject == nullptr) {
-            Player::Instance->cut();
             switch (stationType) {
                 case StationType::Cut:
+                    Player::Instance->cut();
                     storedIngredient->process(Action::Cut);
                     break;
+                case StationType::Smash:
+                    Player::Instance->smash();
+                    storedIngredient->process(Action::Smash);
+                    break;
+                case StationType::Brew:
+                    storedIngredient->process(Action::Brew);
+                    break;
                 default:
-                    LOG_INFO("Station type not implemented");
+                    LOG_WARN("Station type invalid");
                     break;
             }
         } else if (isEmpty && heldObject != nullptr) {

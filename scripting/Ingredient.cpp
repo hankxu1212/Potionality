@@ -42,6 +42,19 @@ void Ingredient::Update()
     if (isHeld) {
         GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 64, Player::Instance->GetTransform()->position().y);
     }
+
+    // If ingredient action states have progressed sufficiently, update ingredient name and action states
+    if (ingredient->name.compare("FlowerIngredient") == 0) {
+        //
+    } else if (ingredient->name.compare("MushroomIngredient") == 0) {
+        //
+    } else if (ingredient->name.compare("PurpleQuartzIngredient") == 0) {
+        //
+    } else if (ingredient->name.compare("WhiteQuartzIngredient") == 0) {
+        //
+    } else {
+        LOG_WARN("Invalid ingredient entity name.");
+    }
 }
 
 void Ingredient::Interact(InteractPayload* payload)
@@ -59,23 +72,23 @@ void Ingredient::Interact(InteractPayload* payload)
 void Ingredient::process(Action action) {
     switch (action) {
         case Action::None:
-            LOG_INFO("Invalid ingredient processing action");
+            LOG_INFO("Invalid ingredient processing action.");
             break;
         case Action::Smash:
-            LOG_INFO("Smashed ingredient");
+            LOG_INFO("Smashed ingredient.");
             ingredient->actionStates[Action::Smash].progress++;
             break;
         case Action::Eat:
-            LOG_INFO("Ate ingredient");
+            LOG_INFO("Ate ingredient.");
             ingredient->actionStates[Action::Eat].progress++;
             break;
         case Action::Brew:
-            LOG_INFO("Brewed ingredient");
+            LOG_INFO("Brewed ingredient.");
             ingredient->actionStates[Action::Brew].progress++;
             break;
         case Action::Cut:
             ingredient->actionStates[Action::Cut].progress++;
-            LOG_INFO("Cut ingredient");
+            LOG_INFO("Cut ingredient.");
             break;
     }
 }

@@ -139,7 +139,7 @@
     },
     {
       "name": "FlowerIngredient",
-      "translation": [ 800, 900 ],
+      "translation": [ 160, 236 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -164,7 +164,7 @@
     },
     {
       "name": "MushroomIngredient",
-      "translation": [ 1000, 600 ],
+      "translation": [ 280, 236 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -189,7 +189,7 @@
     },
     {
       "name": "PurpleQuartzIngredient",
-      "translation": [ 200, 400 ],
+      "translation": [ 160, 136 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -214,7 +214,7 @@
     },
     {
       "name": "WhiteQuartzIngredient",
-      "translation": [ 400, 800 ],
+      "translation": [ 280, 136 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -239,7 +239,7 @@
     },
     {
       "name": "CuttingStation",
-      "translation": [ 500, 500 ],
+      "translation": [ 380, 824 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
       "depth": 0,
@@ -253,6 +253,56 @@
         {
           "type": "SpriteRenderer",
           "texture": "table",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "WorkStation",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "SmashingStation",
+      "translation": [ 120, 824 ],
+      "rotation": 0,
+      "scale": [ 256, 256 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "table",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "WorkStation",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStation",
+      "translation": [ 800, 900 ],
+      "rotation": 0,
+      "scale": [ 128, 128 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "cauldron",
           "active": "true"
         },
         {
@@ -288,28 +338,8 @@
       ]
     },
     {
-      "name": "Cauldron",
-      "translation": [ 1000, 500 ],
-      "rotation": 0,
-      "scale": [ 128, 128 ],
-      "depth": 0,
-      "active": "true",
-      "components": [
-        {
-          "type": "SpriteLoader",
-          "shader": "sprtShader",
-          "active": "true"
-        },
-        {
-          "type": "SpriteRenderer",
-          "texture": "cauldron",
-          "active": "true"
-        }
-      ]
-    },
-    {
       "name": "Closet",
-      "translation": [ 10, 400 ],
+      "translation": [ 10, -128 ],
       "rotation": 0,
       "scale": [ 512, 512 ],
       "depth": 0,

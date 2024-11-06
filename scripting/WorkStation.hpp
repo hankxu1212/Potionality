@@ -16,7 +16,7 @@ public:
 private:
     enum class StationType
 	{
-		Cut, Smash, Brew
+		Cut, Smash, Brew, None
 	};
 
     bool isEmpty = true;

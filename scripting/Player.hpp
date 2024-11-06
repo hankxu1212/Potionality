@@ -23,6 +23,7 @@ public:
     InteractableObject* getHeldObject() const { return m_Held; }
     void removeHeldObject() { m_Held = nullptr; }
 	void cut() { m_PlayerState = State::Cut; }
+	void smash() { m_PlayerState = State::Smash; }
 
 private:
 	// Debug ////////////////////////////////////////////////////////////////////////
