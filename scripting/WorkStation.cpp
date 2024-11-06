@@ -81,17 +81,15 @@ void WorkStation::Interact(InteractPayload* payload)
                         Entity* newPotion = SceneManager::Get()->getScene()->Instantiate("RedPotion", newPos, glm::vec2{64, 64}, 0, 1);
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "red_potion");
-                        Potion pot = newPotion->AddComponent<Potion>(true);
-                        pot.name = "RedPotion";
-                    } else if (ingredientCounts.count("FlowerIngredient")) { // Note: Currently ignores other ingredients in potion
+                        newPotion->AddComponent<Potion>(true, "red_potion");
+                    } else if (ingredientCounts.count("FlowerIngredient")) {
                         ingredientCounts.clear();
                         isEmpty = true;
                         glm::vec2 newPos(GetTransform()->position().x, GetTransform()->position().y - 64);
                         Entity* newPotion = SceneManager::Get()->getScene()->Instantiate("BluePotion", newPos, glm::vec2{64, 64}, 0, 1);
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "blue_potion");
-                        Potion pot = newPotion->AddComponent<Potion>(true);
-                        pot.name = "BluePotion";
+                        newPotion->AddComponent<Potion>(true, "blue_potion");
                     } else {
                         LOG_INFO("Failed to brew potion!");
                     }
@@ -122,8 +120,8 @@ void WorkStation::Interact(InteractPayload* payload)
                 }
 
                 // Ingredient is dissolved, destroy it
-                UUID ingredientID = ingredient->GetEntityID();
-                SceneManager::Get()->getScene()->Destroy(ingredientID);
+                SceneManager::Get()->getScene()->Destroy(size_t(ingredient->GetEntityID()));
+                payload->isDestroyed = true;
             }
         } else if (isEmpty && heldObject != nullptr) { // Place ingredient on table for non-brewing stations
             const char* objectName = heldObject->getClassName();

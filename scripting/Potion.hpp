@@ -7,6 +7,7 @@
 class Potion : public InteractableObject
 {
 public:
+	Potion(const std::string& name_);
 	void Awake() override;
 	void Shutdown() override;
 	void Update() override;
@@ -15,5 +16,4 @@ public:
 	const char* getClassName() const override { return "Potion"; }
 
     std::string name;
-
 };

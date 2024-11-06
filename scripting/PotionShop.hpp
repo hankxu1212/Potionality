@@ -2,6 +2,7 @@
 
 #include "PotionCore.hpp"
 #include "../core/Module.hpp"
+#include "CustomerInfo.hpp"
 
 class Customer;
 
@@ -25,6 +26,8 @@ public:
 private:
 	std::unordered_map<size_t, Customer*> m_Customers;
 	[[maybe_unused]] float reputation = 0;
+
+	std::unordered_map<std::string, CustomerInfo> AllCustomers;
 
 	float m_WaitCounter;
 

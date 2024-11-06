@@ -4,6 +4,7 @@
 #include "Player.hpp"
 #include "../PlayMode.hpp"
 #include "PotionShop.hpp"
+#include "../math/Math.hpp"
 
 void Customer::Awake()
 {
@@ -50,14 +51,41 @@ void Customer::HandleAnimations()
 
 void Customer::Interact(InteractPayload* payload)
 {
+	if (Player::Instance->getHeldObject())
+	{
+		Potion* potion = dynamic_cast<Potion*>(Player::Instance->getHeldObject());
+		if (potion)
+		{
+			auto it = std::find(info.m_Request.potionsToMake.begin(), info.m_Request.potionsToMake.end(), potion->name);
+			if (it != info.m_Request.potionsToMake.end())
+			{
+				LOG_DEBUG(potion->name, Logger::CYAN, Logger::BOLD);
+				
+				// Drop off item. Destroys it.
+				potion->entity->Destroy();
+
+				assert(info.m_MonologueOnRecieveSuccess.size() > 0);
+				currentInteractionString = info.m_MonologueOnRecieveSuccess[Math::Random(0, info.m_MonologueOnRecieveSuccess.size())];
+			}
+			else
+			{
+				assert(info.m_MonologueOnRecieveFailure.size() > 0);
+				currentInteractionString = info.m_MonologueOnRecieveFailure[Math::Random(0, info.m_MonologueOnRecieveFailure.size())];
+			}
+		}
+	}
+	
 	payload->isInDialogue = true;
 	DialogueUI::Instance->Enable();
-	DialogueUI::Instance->StartConversation("Hi, can you give me sth?");
+	DialogueUI::Instance->StartConversation(currentInteractionString);
 }
 
-void Customer::InstantiateRequests(uint32_t numRequests)
+void Customer::Initialize(CustomerInfo info)
 {
 	m_InitialRequestTimer = m_InitialRequestTimerMax;
+	currentInteractionString = info.m_MonologueOnAsk[0];
+	this->info = info;
 }
+
 
 SETUP_DEFAULT_CALLBACKS(Customer)
