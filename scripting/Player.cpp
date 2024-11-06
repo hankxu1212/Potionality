@@ -40,7 +40,7 @@ void Player::Update()
 	HandleMessages();
 	
 	HandleAbilityCooldowns();
-	if (m_PlayerState == State::Smash || m_PlayerState == State::InDialogue)
+	if (m_PlayerState == State::Smash || m_PlayerState == State::Cut || m_PlayerState == State::InDialogue)
 		return;
 
 	HandleMovement();
@@ -121,8 +121,8 @@ void Player::OnInteractPressed()
 		return;
 	}
 
-	// if already smashing, dont do anything
-	if (m_PlayerState == State::Smash)
+	// if already smashing or interacting with workstation, dont do anything
+	if (m_PlayerState == State::Smash || m_PlayerState == State::Cut)
 		return;
 
 	InteractableObject* obj = InteractableManager::Get()->GetClosestObject();
@@ -150,10 +150,10 @@ void Player::OnInteractPressed()
 			else {
 				m_Held = nullptr;
 			}
+			m_PlayerState = State::Smash;
 		}
 
-		m_PlayerState = State::Smash;
-		m_SmashCooldown = m_SmashCooldownMax;
+		m_InteractCooldown = m_InteractCooldownMax;
 	}
 }
 
@@ -210,11 +210,11 @@ void Player::HandleMovement()
 
 void Player::HandleAbilityCooldowns()
 {
-	if (m_PlayerState == State::Smash) 
+	if (m_PlayerState == State::Smash || m_PlayerState == State::Cut) 
 	{
-		if (m_SmashCooldown > 0) {
-			m_SmashCooldown -= Time::DeltaTime;
-			if (m_SmashCooldown <= 0)
+		if (m_InteractCooldown > 0) {
+			m_InteractCooldown -= Time::DeltaTime;
+			if (m_InteractCooldown <= 0)
 				m_PlayerState = State::Idle;
 		}
 	}
@@ -233,6 +233,10 @@ void Player::HandleAnimations()
 	else if (m_PlayerState == State::Smash)
 	{
 		playerSprite->SetLoopRegion(1, 4);
+	}
+	else if (m_PlayerState == State::Cut)
+	{
+		playerSprite->SetLoopRegion(12, 6);
 	}
 }
 

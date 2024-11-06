@@ -20,7 +20,9 @@ public:
 
 	bool GetHoldable() { return isHoldable; }
 	bool GetHeld() { return isHeld; }
-    void SetHeld(bool heldstate) { isHeld = heldstate; }
+    void SetHeld(bool heldState) { isHeld = heldState; }
+	bool GetStored() { return isStored; }
+    void SetStored(bool storedState) { isStored = storedState; }
 
 protected:
 	void Awake() override;
@@ -33,5 +35,6 @@ protected:
 	[[maybe_unused]] SpriteRenderer* spritesheetRenderer;
 	bool isHoldable = false;
 	bool isHeld = false;
+	bool isStored = false;
 };
 

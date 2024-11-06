@@ -12,6 +12,8 @@ public:
 	void Update() override;
 	void Interact(InteractPayload* payload = nullptr) override;
 
+	void process(Action action);
+
 	const char* getClassName() const override { return "Ingredient"; }
 
     Ingredient_T* ingredient;

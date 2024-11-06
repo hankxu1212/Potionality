@@ -32,6 +32,27 @@ void Ingredient::Interact(InteractPayload* payload)
         GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 60, Player::Instance->GetTransform()->position().y + 70);
     } else {
         isHeld = true;
+        isStored = false;
+    }
+}
+
+void Ingredient::process(Action action) {
+    switch (action) {
+        case Action::None:
+            LOG_INFO("Invalid ingredient processing action");
+            break;
+        case Action::Smash:
+            LOG_INFO("Smashed ingredient");
+            break;
+        case Action::Eat:
+            LOG_INFO("Ate ingredient");
+            break;
+        case Action::Brew:
+            LOG_INFO("Brewed ingredient");
+            break;
+        case Action::Cut:
+            LOG_INFO("Cut ingredient");
+            break;
     }
 }
 

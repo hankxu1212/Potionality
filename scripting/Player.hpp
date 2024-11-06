@@ -21,7 +21,8 @@ public:
 
 	const char* getClassName() const override { return "Player"; }
     InteractableObject* getHeldObject() const { return m_Held; }
-    void removeHeldObject(){ m_Held = nullptr;}
+    void removeHeldObject() { m_Held = nullptr; }
+	void cut() { m_PlayerState = State::Cut; }
 
 private:
 	// Debug ////////////////////////////////////////////////////////////////////////
@@ -44,7 +45,7 @@ private:
 	// State Handling ////////////////////////////////////////////////////////////////////////
 	enum class State
 	{
-		Idle, Walk, Smash, Eat, Deliver, InDialogue
+		Idle, Walk, Smash, Eat, Deliver, InDialogue, Cut
 	};
 	State m_PlayerState;
 	int m_MoveDir;
@@ -52,8 +53,8 @@ private:
 	void HandleMovement();
 
 	// Smash ////////////////////////////////////////////////////////////////////////
-	float m_SmashCooldown;
-	const float m_SmashCooldownMax = 2;
+	float m_InteractCooldown;
+	const float m_InteractCooldownMax = 2;
 
 	// Message Display //////////////////////////////////////////////////////////////
 	float m_MessageTimer;
@@ -63,7 +64,7 @@ private:
 
 	// Inventory ////////////////////////////////////////////////////////////////////////
 	// Note: Can only hold one ingredient or potion at a time
-	InteractableObject* m_Held;
+	InteractableObject* m_Held = nullptr;
 
 
 	// Handling Functions ////////////////////////////////////////////////////////////////////////
