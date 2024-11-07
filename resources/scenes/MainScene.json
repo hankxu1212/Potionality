@@ -21,11 +21,11 @@
       "name": "Guy"
     },
     {
-      "src": "../resources/ingredients/FlowerDS2.png",
+      "src": "../resources/ingredients/Flower.png",
       "name": "flower"
     },
     {
-      "src": "../resources/ingredients/MushroomDS2.png",
+      "src": "../resources/ingredients/Mushroom.png",
       "name": "mushroom"
     },
     {
@@ -33,7 +33,7 @@
       "name": "mushroom_cut"
     },
     {
-      "src": "../resources/ingredients/Purple_QuartzDS2.png",
+      "src": "../resources/ingredients/Purple_Quartz.png",
       "name": "purple_quartz"
     },
     {
@@ -41,7 +41,7 @@
       "name": "purple_quartz_smashed"
     },
     {
-      "src": "../resources/ingredients/White_QuartzDS2.png",
+      "src": "../resources/ingredients/White_Quartz.png",
       "name": "white_quartz"
     },
     {
@@ -49,8 +49,16 @@
       "name": "white_quartz_smashed"
     },
     {
-      "src": "../resources/background/TableDS4.png",
+      "src": "../resources/background/Table.png",
       "name": "table"
+    },
+    {
+      "src": "../resources/background/Plant.png",
+      "name": "plant"
+    },
+    {
+      "src": "../resources/background/Candle.png",
+      "name": "candle"
     },
     {
       "src": "../resources/background/CuttingStation.png",
@@ -65,15 +73,15 @@
       "name": "cabinet"
     },
     {
-      "src": "../resources/background/CounterDS4.png",
+      "src": "../resources/background/Counter.png",
       "name": "counter"
     },
     {
-      "src": "../resources/background/BackgroundDS5.png",
+      "src": "../resources/background/Background.png",
       "name": "background"
     },
     {
-      "src": "../resources/background/CauldronDS7.png",
+      "src": "../resources/background/Cauldron.png",
       "name": "cauldron"
     },
     {
@@ -177,6 +185,47 @@
         {
           "type": "SpriteRenderer",
           "texture": "counter",
+          "active": "true"
+        }
+      ]
+    },
+    
+    {
+      "name": "Candle",
+      "translation": [ 1400, 800 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "candle",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Plant",
+      "translation": [ 400, 270 ],
+      "rotation": 0,
+      "scale": [ 128, 128 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "plant",
           "active": "true"
         }
       ]
