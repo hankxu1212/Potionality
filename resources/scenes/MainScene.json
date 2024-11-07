@@ -57,6 +57,10 @@
       "name": "plant"
     },
     {
+      "src": "../resources/background/Carpet.png",
+      "name": "carpet"
+    },
+    {
       "src": "../resources/background/Candle.png",
       "name": "candle"
     },
@@ -212,9 +216,9 @@
     },
     {
       "name": "Plant",
-      "translation": [ 400, 270 ],
+      "translation": [ 350, 150 ],
       "rotation": 0,
-      "scale": [ 128, 128 ],
+      "scale": [ 256, 256 ],
       "depth": 0,
       "active": "true",
       "components": [
@@ -226,6 +230,26 @@
         {
           "type": "SpriteRenderer",
           "texture": "plant",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Carpet",
+      "translation": [ 100, 370 ],
+      "rotation": 0,
+      "scale": [ 512, 512 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "carpet",
           "active": "true"
         }
       ]
