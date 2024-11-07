@@ -28,9 +28,11 @@ private:
 	[[maybe_unused]] float reputation = 0;
 
 	std::unordered_map<std::string, CustomerInfo> AllCustomers;
+	std::vector<std::string> AllCustomerTypes;
 
 	float m_WaitCounter;
-
+	const uint32_t MaxCustomers = 5;
+	uint32_t m_CurrentNumCustomers = 0;
 	void LoadAllPossibleCustomers();
 };
 

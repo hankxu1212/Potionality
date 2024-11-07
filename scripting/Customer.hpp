@@ -22,8 +22,10 @@ public:
 private:
 	CustomerInfo m_CustomerInfo;
 
-	float m_InitialRequestTimer;
-	const float m_InitialRequestTimerMax = 4;
+	float m_MovementTimer;
+	int walkDir = -1;
+	float walkSpeedPerSecond = 100;
+	bool destroyAfterMove = false;
 
 	enum class State
 	{

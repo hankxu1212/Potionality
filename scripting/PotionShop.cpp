@@ -25,6 +25,7 @@ void PotionShop::Add(Customer* customer)
 	}
 
 	m_Customers[customer->entity->uuid()] = customer;
+	m_CurrentNumCustomers++;
 }
 
 void PotionShop::Remove(Customer* customer)
@@ -36,12 +37,11 @@ void PotionShop::Remove(Customer* customer)
 	}
 
 	m_Customers.erase(customer->entity->uuid());
+	m_CurrentNumCustomers--;
 }
 
 void PotionShop::SpawnNewCustomer()
 {
-	LOG_INFO("Spawning new customer...");
-
 	// spawns randomly on the right
 	glm::vec2 randPos(1800, Math::RandomInt(300, 700));
 
@@ -49,7 +49,7 @@ void PotionShop::SpawnNewCustomer()
 	glm::vec2 randScale(Math::Random(100, 200), Math::Random(100, 200));
 
 	Scene* scene = SceneManager::Get()->getScene();
-	Entity* newCustomer = scene->Instantiate("customer", randPos, randScale, 0, 2);
+	Entity* newCustomer = scene->Instantiate("CustomerInstance", randPos, randScale, 0, 2);
 
 	// add some sprite stuff
 	newCustomer->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,1);
@@ -64,11 +64,11 @@ void PotionShop::SpawnNewCustomer()
 	}
 	
 	// add the customer script, instantiate a new request
+	int customerType = Math::RandomInt(0, (int)AllCustomerTypes.size() - 1);
 	Customer& cust = newCustomer->AddComponent<Customer>(true);
+	cust.Initialize(AllCustomers[AllCustomerTypes[customerType]]);
 
-	cust.Initialize(AllCustomers["anonymous adventurer"]);
-
-	LOG_INFO("Spawn new customer succeeded");
+	LOG_INFO_F("Spawned new customer:{}", AllCustomerTypes[customerType]);
 }
 
 void PotionShop::LoadAllPossibleCustomers()
@@ -85,7 +85,10 @@ void PotionShop::LoadAllPossibleCustomers()
 		info.Deserialize(customer);
 
 		AllCustomers[info.m_Type] = info;
+
+		AllCustomerTypes.emplace_back(info.m_Type);
 	}
+	LOG_INFO_F("Loaded {} customer types", AllCustomerTypes.size());
 }
 
 void PotionShop::Update()
@@ -93,7 +96,9 @@ void PotionShop::Update()
 	m_WaitCounter -= Time::DeltaTime;
 	if (m_WaitCounter <= 0)
 	{
-		m_WaitCounter = Math::Random(5, 10); // TODO: change this
-		SpawnNewCustomer();
+		m_WaitCounter = Math::Random(15, 20);
+		if (m_CurrentNumCustomers < MaxCustomers) {
+			SpawnNewCustomer();
+		}
 	}
 }

@@ -24,16 +24,22 @@ void Customer::Shutdown()
 void Customer::Update()
 {
 	InteractableObject::Update(); // need to call baseclass explicitly
-	if (m_InitialRequestTimer >= 0) {
-		// display text
-		//TextRenderer::Get()->RenderText("Can you help me make a potion?", GetTransform()->position().x, 1080 - GetTransform()->position().y);
-
+	if (m_MovementTimer >= 0) {
 		// walk towards middle
-		GetTransform()->SetPositionX(GetTransform()->position().x - Time::DeltaTime * 100);
+		GetTransform()->SetPositionX(GetTransform()->position().x + walkDir * Time::DeltaTime * walkSpeedPerSecond);
 
-		m_InitialRequestTimer -= Time::DeltaTime;
+		m_MovementTimer -= Time::DeltaTime;
 		
-	} else { m_CustomerState = State::Idle; }
+	} else 
+	{ 
+		if (destroyAfterMove) {
+			entity->Destroy();
+			return;
+		}
+		m_CustomerState = State::Idle; 
+	}
+
+
 	Customer::HandleAnimations();
 }
 
@@ -67,6 +73,10 @@ void Customer::Interact(InteractPayload* payload)
 
 				assert(m_CustomerInfo.m_MonologueOnRecieveSuccess.size() > 0);
 				currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveSuccess[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveSuccess.size())];
+
+				// walk back!
+				m_MovementTimer = 6;
+				walkDir = 1;
 			}
 			else
 			{
@@ -83,7 +93,7 @@ void Customer::Interact(InteractPayload* payload)
 
 void Customer::Initialize(CustomerInfo info)
 {
-	m_InitialRequestTimer = m_InitialRequestTimerMax;
+	m_MovementTimer = 4;
 	this->m_CustomerInfo = info;
 	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
 }
