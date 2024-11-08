@@ -236,7 +236,7 @@ void Player::HandleAnimations()
 	{
 		playerSprite->SetLoopRegion(m_MoveDir + 2, 3);
 	}
-	else if (m_PlayerState == State::Pickup || m_PlayerState == State::Brew) // PLACEHOLDER, TODO: CHANGE TO UNIQUE ANIMATIONS
+	else if (m_PlayerState == State::Pickup)
 	{
 		playerSprite->SetLoopRegion(1, 4);
 	}
@@ -247,6 +247,10 @@ void Player::HandleAnimations()
 	else if (m_PlayerState == State::Smash)
 	{
 		playerSprite->SetLoopRegion(11, 6);
+	}
+	else if (m_PlayerState == State::Brew)
+	{
+		playerSprite->SetLoopRegion(13, 4);
 	}
 }
 
