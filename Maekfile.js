@@ -135,6 +135,8 @@ const game_objs = [
 	maek.CPP('sound/load_opus.cpp'),
 	maek.CPP('sound/load_wav.cpp'),
 	maek.CPP('sound/SoundManager.cpp'),
+	maek.CPP('physics/BoxCollider.cpp'),
+	maek.CPP('physics/ColliderManager.cpp')
 ];
 
 const core_objs = [

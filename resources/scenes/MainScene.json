@@ -170,6 +170,12 @@
           "type": "Behaviour",
           "classname": "Player",
           "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 0, 0 ],
+          "scale": [ 192, 256 ],
+          "active": "true"
         }
       ]
     },
@@ -420,6 +426,12 @@
         {
           "type": "SpriteRenderer",
           "texture": "cauldron",
+          "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 0, 0 ],
+          "scale": [ 128, 128 ],
           "active": "true"
         },
         {

@@ -13,6 +13,7 @@
 #include "../sprites/SpriteRenderer.h"
 #include "../sprites/SpritesheetRenderer.h"
 #include "../sprites/SpritesheetLoader.h"
+#include "../physics/BoxCollider.hpp"
 
 template<typename... C> struct ComponentGroup { };
 
@@ -22,5 +23,6 @@ using AllComponents = ComponentGroup
 	SpriteLoader,
 	SpriteRenderer,
 	SpritesheetRenderer,
-	SpritesheetLoader
+	SpritesheetLoader,
+	BoxCollider
 >;

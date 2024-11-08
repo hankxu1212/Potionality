@@ -6,6 +6,7 @@
 #include "interactables/InteractableObject.h"
 
 class SpriteLoader;
+class BoxCollider;
 
 class Player : public Behaviour
 {
@@ -72,4 +73,7 @@ private:
 	// Handling Functions ////////////////////////////////////////////////////////////////////////
 	void HandleAnimations();
 	void HandleAbilityCooldowns();
+
+	// Physics ////////////////////////////////////////////////////////////////////////
+	BoxCollider* playerCollider;
 };

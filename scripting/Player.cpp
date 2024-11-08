@@ -5,6 +5,7 @@
 #include "Customer.hpp"
 #include "../sound/SoundManager.hpp"
 #include "interactables/InteractableManager.h"
+#include "../physics/ColliderManager.hpp"
 
 #include <array>
 #include <string>
@@ -23,6 +24,8 @@ void Player::Awake()
 	Player::Instance = this;
 
 	playerSprite = entity->GetComponent<SpritesheetRenderer>();
+	playerCollider = entity->GetComponent<BoxCollider>();
+	// assert(playerCollider);
 
 	SoundManager::Get()->SetFollowListener(GetTransform());
 }

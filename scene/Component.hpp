@@ -21,3 +21,13 @@ struct Component
 	Entity* entity;
 	bool isActive = true;
 };
+
+#define SETUP_EMPTY_CALLBACKS(T)																\
+template<>																				\
+void Scene::OnComponentAdded<T>(Entity& entity, T& component)				\
+{																						\
+}																						\
+template<>																				\
+void Scene::OnComponentRemoved<T>(Entity& entity, T& component)			\
+{																						\
+}

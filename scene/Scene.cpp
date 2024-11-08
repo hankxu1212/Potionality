@@ -61,6 +61,12 @@ static void MakeComponents(const Scene::TValueArray& componentObj, Entity* newEn
                 const std::string& texture = val.at("texture").as_string().value();
                 newEntity->AddComponent<SpritesheetRenderer>(active, texture);
             }
+            else if (type == "BoxCollider")
+            {
+                glm::vec2 translation = val.at("translation").as_vec2();
+                glm::vec2 scale = val.at("scale").as_vec2();
+                newEntity->AddComponent<BoxCollider>(active, translation, scale);
+            }
             else if (type == "Behaviour") 
             {
                 const std::string& classname = val.at("classname").as_string().value();
