@@ -167,14 +167,14 @@
           "active": "true"
         },
         {
-          "type": "Behaviour",
-          "classname": "Player",
-          "active": "true"
-        },
-        {
           "type": "BoxCollider",
           "translation": [ 0, 0 ],
           "scale": [ 192, 256 ],
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Player",
           "active": "true"
         }
       ]

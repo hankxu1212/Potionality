@@ -11,7 +11,9 @@ public:
 	void Update() override;
 
 	bool Intersects(const BoxCollider& other) const;
+
 private:
+	friend class ColliderManager;
 	glm::vec2 offset;
 	glm::vec2 position;
 	float width, height;

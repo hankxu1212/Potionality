@@ -15,10 +15,13 @@ public:
     // check if the collider is in collision with anything else
     bool CheckCollision(BoxCollider* collider);
 
+	// checks if the collider will be in collision given a next step positional offset
+	bool CheckCollisionFuture(BoxCollider* collider, glm::vec2 positionalOffset);
+
 	void Add(BoxCollider*);
 
 	void Remove(BoxCollider*);
 
 private:
-    std::unordered_map<size_t, BoxCollider*> m_AllColliders;
+	std::vector<BoxCollider*> m_AllColliders;
 };

@@ -25,7 +25,7 @@ void Player::Awake()
 
 	playerSprite = entity->GetComponent<SpritesheetRenderer>();
 	playerCollider = entity->GetComponent<BoxCollider>();
-	// assert(playerCollider);
+	assert(playerCollider);
 
 	SoundManager::Get()->SetFollowListener(GetTransform());
 }
@@ -204,8 +204,12 @@ void Player::HandleMovement()
 	// move dir
 	if (m_MoveDir != -1)
 	{
-		m_PlayerState = State::Walk;
-		GetTransform()->Translate(PlayerSpeed * Time::DeltaTime * DIRECTIONS[m_MoveDir]);
+		glm::vec2 offset = PlayerSpeed * Time::DeltaTime * DIRECTIONS[m_MoveDir];
+		if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
+		{
+			m_PlayerState = State::Walk;
+			GetTransform()->Translate(offset);
+		}
 	}
 	else
 	{
@@ -231,30 +235,37 @@ void Player::HandleAbilityCooldowns()
 
 void Player::HandleAnimations()
 {
-	if (m_PlayerState == State::Idle)
+	switch (m_PlayerState)
 	{
+	case State::Idle:
 		playerSprite->SetLoopRegion(0, 3);
-	}
-	else if (m_PlayerState == State::Walk)
-	{
+		break;
+
+	case State::Walk:
 		playerSprite->SetLoopRegion(m_MoveDir + 2, 3);
-	}
-	else if (m_PlayerState == State::Pickup)
-	{
+		break;
+
+	case State::Pickup:
 		playerSprite->SetLoopRegion(1, 4);
-	}
-	else if (m_PlayerState == State::Cut)
-	{
+		break;
+
+	case State::Cut:
 		playerSprite->SetLoopRegion(12, 6);
-	}
-	else if (m_PlayerState == State::Smash)
-	{
+		break;
+
+	case State::Smash:
 		playerSprite->SetLoopRegion(11, 6);
-	}
-	else if (m_PlayerState == State::Brew)
-	{
+		break;
+
+	case State::Brew:
 		playerSprite->SetLoopRegion(13, 4);
+		break;
+
+	default:
+		// Handle unexpected states if necessary
+		break;
 	}
+
 }
 
 void Player::HandleMessages()

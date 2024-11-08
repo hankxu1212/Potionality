@@ -15,32 +15,48 @@ void ColliderManager::Update()
 
 bool ColliderManager::CheckCollision(BoxCollider *collider)
 {
-	for (auto [uid, c] : m_AllColliders)
+	for (BoxCollider* c : m_AllColliders)
 	{
+		if (c->GetEntityID() == collider->GetEntityID())
+			continue;
+
 		if (collider->Intersects(*c))
 			return true;
 	}
 	return false;
 }
 
+bool ColliderManager::CheckCollisionFuture(BoxCollider* collider, glm::vec2 positionalOffset)
+{
+	collider->position += positionalOffset;
+
+	bool res = CheckCollision(collider);
+
+	collider->position -= positionalOffset;
+
+	return res;
+}
+
 void ColliderManager::Add(BoxCollider *collider)
 {
-    auto it = m_AllColliders.find(collider->entity->uuid());
+	assert(collider);
+    auto it = std::find(m_AllColliders.begin(), m_AllColliders.end(), collider);
 	if (it != m_AllColliders.end()) {
 		LOG_WARN("Added a collider multiple times. This should never happen.");
 		return;
 	}
 
-	m_AllColliders[collider->entity->uuid()] = collider;
+	m_AllColliders.emplace_back(collider);
 }
 
 void ColliderManager::Remove(BoxCollider * collider)
 {
-    auto it = m_AllColliders.find(collider->entity->uuid());
-	if (it != m_AllColliders.end()) {
+	assert(collider);
+	auto it = std::find(m_AllColliders.begin(), m_AllColliders.end(), collider);
+	if (it == m_AllColliders.end()) {
 		LOG_WARN("Tried to remove a collider that doesnt exist in all colliders list.");
 		return;
 	}
 
-    m_AllColliders.erase(collider->entity->uuid());
+	m_AllColliders.erase(it);
 }
