@@ -151,7 +151,7 @@
       "translation": [ 200, 200 ],
       "rotation": 1,
       "scale": [ 192, 256 ],
-      "depth": 1,
+      "depth": 2,
       "active": "true",
       "components": [
         {

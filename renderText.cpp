@@ -142,10 +142,7 @@ void TextRenderer::RenderText(const std::string& text, float xin, float yin, flo
 		}
 
 		float w = ch.Size.x * scale;
-		float h = ch.Size.y * scale;
-		// float w =  20*scale;
-		// float h = 20*scale;
-		// printf("huh %d %d %c\n",ch.TextureID,tex->tex,*c);
+		float h = ch.Size.y * scale; 
 
 		// render
 		{
@@ -153,7 +150,7 @@ void TextRenderer::RenderText(const std::string& text, float xin, float yin, flo
 			glm::mat4 toClip = glm::mat4(1.0f); // Start with the identity matrix
 
 			// Translate to the desired position
-			toClip = glm::translate(toClip, glm::vec3(xpos, ypos, 0));
+			toClip = glm::translate(toClip, glm::vec3(xpos, ypos, -0.10f));
 
 			// Scale to the specified width (w) and height (-h, flipped vertically)
 			toClip = glm::scale(toClip, glm::vec3(w, -1.0f * h, 1.0f));
