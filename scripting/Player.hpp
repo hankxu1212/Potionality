@@ -4,6 +4,7 @@
 
 #include "Behaviour.hpp"
 #include "interactables/InteractableObject.h"
+#include "../scene/SceneManager.hpp"
 
 class SpriteLoader;
 class BoxCollider;
@@ -43,7 +44,9 @@ private:
 	void HandleInputReset();
 
 	SDL_Keycode interactKey = SDLK_SPACE;
+	SDL_Keycode eatKey = SDLK_e;
 	void OnInteractPressed();
+	void OnEatPressed();
 
 	// State Handling ////////////////////////////////////////////////////////////////////////
 	enum class State
@@ -52,7 +55,7 @@ private:
 	};
 	State m_PlayerState;
 	int m_MoveDir;
-	const float PlayerSpeed = 300.0f;
+	float PlayerSpeed = 300.0f;
 	void HandleMovement();
 
 	// Interact ////////////////////////////////////////////////////////////////////////

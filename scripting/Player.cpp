@@ -44,7 +44,7 @@ void Player::Update()
 	
 	HandleAbilityCooldowns();
 	if (m_PlayerState == State::InDialogue || m_PlayerState == State::Pickup || m_PlayerState == State::Cut || 
-		m_PlayerState == State::Smash || m_PlayerState == State::Brew)
+		m_PlayerState == State::Smash || m_PlayerState == State::Brew || m_PlayerState == State::Eat)
 		return;
 
 	HandleMovement();
@@ -59,38 +59,41 @@ void Player::Shutdown()
 bool Player::HandleEvent(const SDL_Event &evt)
 {
 	if (evt.type == SDL_KEYDOWN) {
-		if (evt.key.keysym.sym == SDLK_LEFT) {
+		if (evt.key.keysym.sym == SDLK_LEFT || evt.key.keysym.sym == SDLK_a) {
 			negX.downs += 1;
 			negX.pressed = true;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_RIGHT) {
+		} else if (evt.key.keysym.sym == SDLK_RIGHT || evt.key.keysym.sym == SDLK_d) {
 			posX.downs += 1;
 			posX.pressed = true;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_UP) {
+		} else if (evt.key.keysym.sym == SDLK_UP || evt.key.keysym.sym == SDLK_w) {
 			negY.downs += 1;
 			negY.pressed = true;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_DOWN) {
+		} else if (evt.key.keysym.sym == SDLK_DOWN || evt.key.keysym.sym == SDLK_s) {
 			posY.downs += 1;
 			posY.pressed = true;
 			return true;
-		}else if (evt.key.keysym.sym == interactKey) {
+		} else if (evt.key.keysym.sym == interactKey) {
 			OnInteractPressed();
+			return true;
+		} else if (evt.key.keysym.sym == eatKey) {
+			OnEatPressed();
 			return true;
 		}
 	} else if (evt.type == SDL_KEYUP) {
-		if (evt.key.keysym.sym == SDLK_LEFT) {
+		if (evt.key.keysym.sym == SDLK_LEFT || evt.key.keysym.sym == SDLK_a) {
 			negX.pressed = false;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_RIGHT) {
+		} else if (evt.key.keysym.sym == SDLK_RIGHT || evt.key.keysym.sym == SDLK_d) {
 			posX.pressed = false;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_UP) {
+		} else if (evt.key.keysym.sym == SDLK_UP || evt.key.keysym.sym == SDLK_w) {
 			negY.pressed = false;
 			return true;
 		}
-		else if (evt.key.keysym.sym == SDLK_DOWN) {
+		else if (evt.key.keysym.sym == SDLK_DOWN || evt.key.keysym.sym == SDLK_s) {
 			posY.pressed = false;
 			return true;
 		}
@@ -126,7 +129,8 @@ void Player::OnInteractPressed()
 	}
 
 	// if already mid-interaction, dont do anything
-	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew)
+	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew ||
+		m_PlayerState == State::Eat)
 		return;
 
 	InteractableObject* obj = InteractableManager::Get()->GetClosestObject();
@@ -163,6 +167,44 @@ void Player::OnInteractPressed()
 		}
 
 		m_InteractCooldown = m_InteractCooldownMax;
+	}
+}
+
+void Player::OnEatPressed() {
+	// if in dialogue, continue conversation
+	if (m_PlayerState == State::InDialogue) {
+		// if cannot continue, end conversation
+		if (!DialogueUI::Instance->CanContinue()) 
+		{
+			DialogueUI::Instance->Disable();
+			m_PlayerState = State::Idle;
+			return;
+		}
+
+		// other wise, continue conversation
+		DialogueUI::Instance->ContinueConversation();
+		return;
+	}
+
+	// if already mid-interaction, dont do anything
+	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew || 
+		m_PlayerState == State::Eat)
+		return;
+	
+	if (m_Held != nullptr) {
+		const char* objectName = m_Held->getClassName();
+		if (std::strcmp(objectName, "Potion") == 0) {
+			SceneManager::Get()->getScene()->Destroy(size_t(m_Held->GetEntityID()));
+			m_Held = nullptr;
+			m_PlayerState = State::Eat;
+			PlayerSpeed = 3000.0f;
+			m_InteractCooldown = m_InteractCooldownMax;
+			// TODO: Change effects based on specific potion, and make effects temporary
+		} else {
+			LOG_INFO("Held item is not consumable!");
+		}
+	} else {
+		LOG_INFO("No item to consume!");
 	}
 }
 
@@ -223,7 +265,8 @@ void Player::HandleMovement()
 
 void Player::HandleAbilityCooldowns()
 {
-	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew) 
+	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew || 
+		m_PlayerState == State::Eat) 
 	{
 		if (m_InteractCooldown > 0) {
 			m_InteractCooldown -= Time::DeltaTime;
@@ -246,6 +289,10 @@ void Player::HandleAnimations()
 		break;
 
 	case State::Pickup:
+		playerSprite->SetLoopRegion(1, 4);
+		break;
+	
+	case State::Eat:
 		playerSprite->SetLoopRegion(1, 4);
 		break;
 
