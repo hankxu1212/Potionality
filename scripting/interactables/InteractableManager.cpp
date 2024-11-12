@@ -20,7 +20,9 @@ void InteractableManager::Update()
 	InteractableObject* heldObj = nullptr;
 	for (auto& [id, obj] : m_Interactables)
 	{
-		float d = glm::distance(Player::Instance->GetTransform()->position(), obj->GetTransform()->position());
+		glm::vec2 playerCenter = Player::Instance->GetTransform()->position() + (Player::Instance->GetTransform()->size() / 2.0f);
+		glm::vec2 objCenter = obj->GetTransform()->position() + (obj->GetTransform()->size() / 2.0f);
+		float d = glm::distance(playerCenter, objCenter);
 		if (d < closestDistance && d < interactionDistance && !obj->GetHeld())
 		{
 			closestDistance = d;
