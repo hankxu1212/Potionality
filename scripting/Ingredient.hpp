@@ -18,4 +18,7 @@ public:
 
     Ingredient_T* ingredient;
 
+private:
+	void duplicateIngredient();
+
 };

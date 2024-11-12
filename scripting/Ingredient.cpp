@@ -92,6 +92,14 @@ void Ingredient::Update()
     }
 }
 
+void Ingredient::duplicateIngredient() {
+    glm::vec2 newPos(GetTransform()->position().x, GetTransform()->position().y);
+    Entity* newIngredient = SceneManager::Get()->getScene()->Instantiate(ingredient->name, newPos, glm::vec2{64, 64}, 0, 1);
+    newIngredient->AddComponent<SpriteLoader>(true, "sprtShader");
+    newIngredient->AddComponent<SpriteRenderer>(true, entity->GetComponent<SpriteRenderer>()->spriteToDraw);
+    newIngredient->AddComponent<Ingredient>(true);
+}
+
 void Ingredient::Interact(InteractPayload* payload)
 {
 	LOG_INFO("Interacted with this ingredient!");
@@ -101,6 +109,19 @@ void Ingredient::Interact(InteractPayload* payload)
     } else {
         isHeld = true;
         isStored = false;
+
+        // If ingredient is still in starting position, duplicate
+        bool flowerOnShelf = ingredient->name.compare("FlowerIngredient") == 0 && 
+            GetTransform()->position().x == 160 && GetTransform()->position().y == 236;
+        bool mushroomOnShelf = ingredient->name.compare("MushroomIngredient") == 0 && 
+            GetTransform()->position().x == 280 && GetTransform()->position().y == 236;
+        bool purpleQuartzOnShelf = ingredient->name.compare("PurpleQuartzIngredient") == 0 && 
+            GetTransform()->position().x == 160 && GetTransform()->position().y == 136;
+        bool whiteQuartzOnShelf = ingredient->name.compare("WhiteQuartzIngredient") == 0 && 
+            GetTransform()->position().x == 280 && GetTransform()->position().y == 136;
+        if (flowerOnShelf || mushroomOnShelf || purpleQuartzOnShelf || whiteQuartzOnShelf) {
+            duplicateIngredient();
+        }
     }
 }
 
