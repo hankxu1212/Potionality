@@ -157,7 +157,7 @@ void Player::OnInteractPressed()
 	else 
 	{
 		if (obj->GetHoldable()) { // Potions and ingredients should be holdable
-			if (obj->GetHeld()) { // TODO: Currently interact always drops held item, fix for workstation/cauldron
+			if (obj->GetHeld()) {
 				m_Held = obj;
 			}
 			else {
@@ -197,7 +197,7 @@ void Player::OnEatPressed() {
 			SceneManager::Get()->getScene()->Destroy(size_t(m_Held->GetEntityID()));
 			m_Held = nullptr;
 			m_PlayerState = State::Eat;
-			PlayerSpeed = 3000.0f;
+			PlayerSpeed = 1000.0f;
 			m_InteractCooldown = m_InteractCooldownMax;
 			m_PotionEffectTime = m_PotionEffectTimeMax;
 			// TODO: Change effects based on specific potion
