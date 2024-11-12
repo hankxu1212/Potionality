@@ -62,6 +62,10 @@ private:
 	float m_InteractCooldown;
 	const float m_InteractCooldownMax = 2;
 
+	// Consume //////////////////////////////////////////////////////////////////////
+	float m_PotionEffectTime;
+	const float m_PotionEffectTimeMax = 10;
+
 	// Message Display //////////////////////////////////////////////////////////////
 	float m_MessageTimer;
 	[[maybe_unused]] const float m_MessageTimerMax = 2;

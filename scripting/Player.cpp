@@ -199,7 +199,8 @@ void Player::OnEatPressed() {
 			m_PlayerState = State::Eat;
 			PlayerSpeed = 3000.0f;
 			m_InteractCooldown = m_InteractCooldownMax;
-			// TODO: Change effects based on specific potion, and make effects temporary
+			m_PotionEffectTime = m_PotionEffectTimeMax;
+			// TODO: Change effects based on specific potion
 		} else {
 			LOG_INFO("Held item is not consumable!");
 		}
@@ -273,6 +274,11 @@ void Player::HandleAbilityCooldowns()
 			if (m_InteractCooldown <= 0)
 				m_PlayerState = State::Idle;
 		}
+	}
+
+	if (m_PotionEffectTime > 0) {
+		m_PotionEffectTime -= Time::DeltaTime;
+		if (m_PotionEffectTime <= 0) PlayerSpeed = 300.0f;
 	}
 }
 
