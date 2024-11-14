@@ -13,6 +13,11 @@ SoundManager::SoundManager()
     LoadSample("../resources/sound/Type.wav", "TypeSFX");
     LoadSample("../resources/sound/InteractDisappear.wav", "InteractDisappearSFX");
     LoadSample("../resources/sound/InteractAppear.wav", "InteractAppearSFX");
+    LoadSample("../resources/sound/BookTurn.wav", "BookTurnSFX");
+    LoadSample("../resources/sound/BookTurn2.wav", "BookTurn2SFX");
+    LoadSample("../resources/sound/OST.wav", "OST");
+
+    SoundManager::Loop("OST", 5);
 }
 
 SoundManager::~SoundManager()
@@ -77,6 +82,17 @@ void SoundManager::PlayOneShot(const std::string &handle, const RectTransform &t
 
     glm::vec3 listenPosition(transform.position().x, transform.position().y, 0);
     Sound::play_3D(*it->second.get(), volume, listenPosition);
+}
+
+void SoundManager::Loop(const std::string& handle, float volume)
+{
+    auto it = m_SoundSamples.find(handle);
+    if (it == m_SoundSamples.end()) {
+        LOG_INFO_F("Could not find sound file handle: {}", handle);
+        return;
+    }
+
+    Sound::loop(*it->second.get(), volume);
 }
 
 SoundManager::EventInstance SoundManager::InstantiateSoundInstance(const std::string &handle, const RectTransform &transform)

@@ -47,6 +47,12 @@ void RectTransform::SetPosition(float x, float y)
 	isDirty = true;
 }
 
+void RectTransform::SetSize(glm::vec2 newSize)
+{
+	m_Size = newSize;
+	isDirty = true;
+}
+
 glm::mat4& RectTransform::GetModel()
 {
 	if (isDirty) {

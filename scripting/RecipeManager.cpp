@@ -1,15 +1,58 @@
 #include "RecipeManager.h"
+
 #include "../core/Files.hpp"
 #include "../core/utils/sejp/sejp.hpp"
 #include "../core/utils/Logger.hpp"
+
+#include "../scene/Scene.hpp"
+#include "../scene/Entity.hpp"
+
+#include "../sprites/SpriteRendererList.hpp"
+#include "../PlayMode.hpp"
+
+#include "../sound/SoundManager.hpp"
 
 RecipeManager::RecipeManager()
 {
     LoadRecipes("../resources/scenes/Recipes.json");
 }
 
-RecipeManager::~RecipeManager()
+void RecipeManager::Awake()
 {
+    InteractableObject::Awake();
+
+    recipeRendererEntity = entity->AddChild("recipe list", {-128,-128}, {300, 300}, 0, 5);
+    recipeRendererEntity->AddComponent<SpriteLoader>(SPRITE_SHADER);
+    recipeRendererList = &recipeRendererEntity->AddComponent<SpriteRendererList>(true);
+    recipeRendererList->AppendSprite("LovePotionRecipe");
+    recipeRendererList->AppendSprite("RedPotionRecipe");
+    recipeRendererList->AppendSprite("BluePotionRecipe");
+
+
+    mainBookSpriteRenderer = entity->GetComponent<SpriteRenderer>();
+    
+    assert(mainBookSpriteRenderer && recipeRendererList && "Need a sprite renderer list and a main book sprite renderer!");
+
+    originalScale = recipeRendererEntity->transform()->size();
+    upScaled = originalScale * scaleChange;
+}
+
+void RecipeManager::Update()
+{
+    InteractableObject::Update(); // need to call baseclass explicitly
+
+    if (!isCurrentInteractable) 
+    {
+        recipeRendererList->currentSpriteIndex = -1;
+        mainBookSpriteRenderer->isActive = true;
+    }
+
+    HandleAnimations();
+}
+
+void RecipeManager::Shutdown()
+{
+    InteractableObject::Shutdown();
 }
 
 static Action StringToAction(const std::string& actionString)
@@ -86,3 +129,65 @@ void RecipeManager::LoadRecipes(const std::string& path)
         LOG_ERROR_F("Failed to deserialize a scene with path: [{}]. Error: {}", std::move(path), e.what());
     }
 }
+
+bool RecipeManager::HandleEvent(const SDL_Event& evt)
+{
+    if (evt.type == SDL_KEYDOWN) {
+        if (evt.key.keysym.sym == leftKey) {
+            OnLeftClicked();
+            return true;
+        }else if (evt.key.keysym.sym == rightKey) {
+            OnRightClicked();
+            return true;
+        }
+    }
+    return false;
+}
+
+void RecipeManager::OnLeftClicked()
+{
+    if (recipeRendererList->currentSpriteIndex == -1)
+        return;
+
+    recipeRendererList->currentSpriteIndex--;
+    if (recipeRendererList->currentSpriteIndex < 0)
+        recipeRendererList->currentSpriteIndex += (int)recipeRendererList->sprites.size();
+
+    recipeRendererList->currentSpriteIndex %= recipeRendererList->sprites.size();
+
+    SoundManager::Get()->PlayOneShot("BookTurn2SFX", 1);
+}
+
+void RecipeManager::OnRightClicked()
+{
+    if (recipeRendererList->currentSpriteIndex == -1)
+        return;
+
+    recipeRendererList->currentSpriteIndex++;
+    recipeRendererList->currentSpriteIndex %= recipeRendererList->sprites.size();
+
+    SoundManager::Get()->PlayOneShot("BookTurnSFX", 1);
+}
+
+void RecipeManager::HandleAnimations()
+{
+    if (scaleAnimationTimer <= 0)
+        return;
+
+    scaleAnimationTimer -= Time::DeltaTime;
+    float t = 1 - scaleAnimationTimer / scaleAnimationMaxTime;
+
+    recipeRendererEntity->transform()->SetSize(glm::mix(originalScale, upScaled, t));
+}
+
+void RecipeManager::Interact(InteractPayload* payload)
+{
+    SoundManager::Get()->PlayOneShot("BookTurnSFX", 1);
+
+    recipeRendererList->currentSpriteIndex = 0;
+    mainBookSpriteRenderer->isActive = false;
+
+    scaleAnimationTimer = scaleAnimationMaxTime;
+}
+
+SETUP_DEFAULT_CALLBACKS(RecipeManager)

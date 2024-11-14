@@ -27,7 +27,7 @@ public:
 
 protected:
 	void Awake() override;
-	void Shutdown() override;
+	void Shutdown() override; 
 	void Update() override;
 
 	bool isCurrentInteractable = false;

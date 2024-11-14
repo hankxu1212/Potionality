@@ -160,6 +160,7 @@ const core_objs = [
 	maek.CPP('sprites/SpriteRenderer.cpp'),
 	maek.CPP('sprites/SpritesheetLoader.cpp'),
 	maek.CPP('sprites/SpritesheetRenderer.cpp'),
+	maek.CPP('sprites/SpriteRendererList.cpp'),
 ]
 
 if (maek.OS === "windows")

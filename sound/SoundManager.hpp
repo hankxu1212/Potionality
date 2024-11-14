@@ -27,6 +27,8 @@ public:
 
     void PlayOneShot(const std::string& handle, const RectTransform& transform, float volume=5);
 
+    void Loop(const std::string& handle, float volume);
+
     EventInstance InstantiateSoundInstance(const std::string& handle, const RectTransform& transform);
 
     void StopInstance(EventInstance instance);

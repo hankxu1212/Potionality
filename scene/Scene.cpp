@@ -61,6 +61,16 @@ static void MakeComponents(const Scene::TValueArray& componentObj, Entity* newEn
                 const std::string& texture = val.at("texture").as_string().value();
                 newEntity->AddComponent<SpritesheetRenderer>(active, texture);
             }
+            else if (type == "SpriteRendererList")
+            {
+                auto& spriteList = newEntity->AddComponent<SpriteRendererList>(active);
+
+                const auto& textures = val.at("textures").as_array().value();
+                for (const auto& tex : textures)
+                {
+                    spriteList.AppendSprite(tex.as_string().value());
+                }
+            }
             else if (type == "BoxCollider")
             {
                 glm::vec2 translation = val.at("translation").as_vec2();
@@ -87,6 +97,9 @@ static void MakeComponents(const Scene::TValueArray& componentObj, Entity* newEn
                 }
                 else if (classname == "DialogueUI") {
                     newEntity->AddComponent<DialogueUI>(active);
+                }
+                else if (classname == "RecipeManager") {
+                    newEntity->AddComponent<RecipeManager>(active);
                 }
             }
         }

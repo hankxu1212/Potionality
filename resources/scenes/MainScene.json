@@ -123,6 +123,10 @@
     {
       "src": "../resources/recipes/love_potion.png",
       "name": "LovePotionRecipe"
+    },
+    {
+      "src": "../resources/recipes/RecipeBook.png",
+      "name": "RecipeBook"
     }
   ],
   "entities": [
@@ -513,10 +517,10 @@
       ]
     },
     {
-      "name": "RedPotionRecipe",
-      "translation": [ 1600, -20 ],
+      "name": "Recipe Counter",
+      "translation": [ 1300, 400 ],
       "rotation": 0,
-      "scale": [ 384, 384 ],
+      "scale": [ 128, 128 ],
       "depth": -8,
       "active": "true",
       "components": [
@@ -527,47 +531,18 @@
         },
         {
           "type": "SpriteRenderer",
-          "texture": "RedPotionRecipe",
-          "active": "true"
-        }
-      ]
-    },
-    {
-      "name": "BluePotionRecipe",
-      "translation": [ 1300, -20 ],
-      "rotation": 0,
-      "scale": [ 384, 384 ],
-      "depth": -8,
-      "active": "true",
-      "components": [
-        {
-          "type": "SpriteLoader",
-          "shader": "sprtShader",
+          "texture": "RecipeBook",
           "active": "true"
         },
         {
-          "type": "SpriteRenderer",
-          "texture": "BluePotionRecipe",
-          "active": "true"
-        }
-      ]
-    },
-    {
-      "name": "LovePotionRecipe",
-      "translation": [ 1000, -20 ],
-      "rotation": 0,
-      "scale": [ 384, 384 ],
-      "depth": -8,
-      "active": "true",
-      "components": [
-        {
-          "type": "SpriteLoader",
-          "shader": "sprtShader",
+          "type": "Behaviour",
+          "classname": "RecipeManager",
           "active": "true"
         },
         {
-          "type": "SpriteRenderer",
-          "texture": "LovePotionRecipe",
+          "type": "BoxCollider",
+          "translation": [ 0, 0 ],
+          "scale": [ 32, 32 ],
           "active": "true"
         }
       ]
