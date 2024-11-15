@@ -158,6 +158,7 @@ void Player::OnInteractPressed()
 	{
 		if (obj->GetHoldable()) { // Potions and ingredients should be holdable
 			if (obj->GetHeld()) {
+                std::cout << m_Held;
 				m_Held = obj;
 			}
 			else {
