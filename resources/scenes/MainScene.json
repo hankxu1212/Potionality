@@ -438,8 +438,8 @@
         },
         {
           "type": "BoxCollider",
-          "translation": [ 0, 0 ],
-          "scale": [ 256, 256 ],
+          "translation": [ 28, 56 ],
+          "scale": [ 200, 200 ],
           "active": "true"
         },
         {

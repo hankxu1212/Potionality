@@ -200,7 +200,7 @@ void Player::OnEatPressed() {
 			if (potion->name == "red_potion") {
 				x_min = 20.0f;
 				x_max = 1480.0f;
-				y_min = -80.0f;
+				y_min = -100.0f;
 				y_max = 570.0f;
 				BoxCollider* boxCollider = entity->GetComponent<BoxCollider>();
 				boxCollider->setOffset(glm::vec2{142, 312});
