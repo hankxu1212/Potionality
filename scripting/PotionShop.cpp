@@ -70,12 +70,14 @@ void PotionShop::SpawnNewCustomer()
 
 	// add some sprite stuff
 	newCustomer->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,1);
-	int customer = (uint32_t)Math::RandomInt(0, 3);
+	int customer = (uint32_t)Math::RandomInt(0, 4);
 	if (customer == 0){
 		newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer1_walk");
 	}
 	else if (customer == 1){
 		newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer2_walk");
+	}else if (customer == 2){
+		newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer3_walk");
 	}else {
 		newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer_Special_walk");
 	}
