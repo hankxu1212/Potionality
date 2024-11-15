@@ -68,7 +68,8 @@ private:
 
 	// Consume //////////////////////////////////////////////////////////////////////
 	float m_PotionEffectTime;
-	const float m_PotionEffectTimeMax = 15;
+	const float m_PotionEffectTimeMax = 45;
+	int m_Growth = 0;
 
 	// Message Display //////////////////////////////////////////////////////////////
 	float m_MessageTimer;

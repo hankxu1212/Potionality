@@ -3,6 +3,7 @@
 #include "PotionCore.hpp"
 #include "../core/Module.hpp"
 #include "CustomerInfo.hpp"
+#include <array>
 
 class Customer;
 
