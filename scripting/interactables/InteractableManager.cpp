@@ -16,6 +16,7 @@ void InteractableManager::Update()
 	prevInteractableObject = closestInteractableObject;
 
 	float closestDistance = FLT_MAX;
+	float storedDistance = FLT_MAX;
 	InteractableObject* closestObj = nullptr;
 	InteractableObject* storedObj = nullptr;
 	InteractableObject* heldObj = nullptr;
@@ -29,11 +30,15 @@ void InteractableManager::Update()
 			closestDistance = d;
 			closestObj = obj;
 		}
-		if (obj->GetStored()) storedObj = obj;
+		if (obj->GetStored())
+		{
+			storedObj = obj;
+			storedDistance = d;
+		}
 		if (obj->GetHeld()) heldObj = obj;
 	}
 	if (closestObj != nullptr) closestInteractableObject = closestObj;
-	else if (storedObj != nullptr) closestInteractableObject = storedObj;
+	else if (storedObj != nullptr && storedDistance < interactionDistance + 100) closestInteractableObject = storedObj;
 	else closestInteractableObject = heldObj;
 
 	if (closestInteractableObject != prevInteractableObject)
