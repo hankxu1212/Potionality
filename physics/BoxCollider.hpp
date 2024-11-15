@@ -12,6 +12,10 @@ public:
 
 	bool Intersects(const BoxCollider& other) const;
 
+	void setOffset(glm::vec2 newOffset) { offset = newOffset; }
+	void setWidth(float w) { width = w; }
+	void setHeight(float h) { height = h; }
+
 private:
 	friend class ColliderManager;
 	glm::vec2 offset;

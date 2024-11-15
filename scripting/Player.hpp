@@ -56,6 +56,10 @@ private:
 	State m_PlayerState;
 	int m_MoveDir;
 	float PlayerSpeed = 300.0f;
+	float x_min = 80.0f;
+	float x_max = 1660.0f;
+	float y_min = 150.0f;
+	float y_max = 820.0f;
 	void HandleMovement();
 
 	// Interact ////////////////////////////////////////////////////////////////////////
@@ -64,7 +68,7 @@ private:
 
 	// Consume //////////////////////////////////////////////////////////////////////
 	float m_PotionEffectTime;
-	const float m_PotionEffectTimeMax = 10;
+	const float m_PotionEffectTimeMax = 15;
 
 	// Message Display //////////////////////////////////////////////////////////////
 	float m_MessageTimer;

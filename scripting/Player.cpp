@@ -160,11 +160,12 @@ void Player::OnInteractPressed()
 			if (obj->GetHeld()) {
                 std::cout << m_Held;
 				m_Held = obj;
+				m_PlayerState = State::Pickup;
 			}
 			else if (m_Held != nullptr && obj->GetEntityID() == m_Held->GetEntityID()) {
 				m_Held = nullptr;
+				m_PlayerState = State::Pickup;
 			}
-			m_PlayerState = State::Pickup;
 		}
 
 		m_InteractCooldown = m_InteractCooldownMax;
@@ -195,10 +196,26 @@ void Player::OnEatPressed() {
 	if (m_Held != nullptr) {
 		const char* objectName = m_Held->getClassName();
 		if (std::strcmp(objectName, "Potion") == 0) {
+			Potion* potion = dynamic_cast<Potion*>(m_Held);
+			if (potion->name == "red_potion") {
+				entity->transform()->SetSize(glm::vec2{384, 512});
+				x_min = 60.0f;
+				x_max = 1480.0f;
+				y_min = -80.0f;
+				y_max = 570.0f;
+				BoxCollider* boxCollider = entity->GetComponent<BoxCollider>();
+				boxCollider->setOffset(glm::vec2{117, 262});
+				boxCollider->setWidth(150);
+				boxCollider->setHeight(250);
+				GetTransform()->Translate(glm::vec2{-96, -256}); // TODO: TEST MORE EXTENSIVELY FOR COLLISION BUGS
+			} else if (potion->name == "blue_potion") {
+				PlayerSpeed = 1000.0f;
+			} else if (potion->name == "love_potion") {
+				// TODO: EFFECT
+			}
 			SceneManager::Get()->getScene()->Destroy(size_t(m_Held->GetEntityID()));
 			m_Held = nullptr;
 			m_PlayerState = State::Eat;
-			PlayerSpeed = 1000.0f;
 			m_InteractCooldown = m_InteractCooldownMax;
 			m_PotionEffectTime = m_PotionEffectTimeMax;
 			// TODO: Change effects based on specific potion
@@ -261,8 +278,8 @@ void Player::HandleMovement()
 	}
 
 	// clamp location
-	GetTransform()->SetPositionX(std::clamp(GetTransform()->position().x, 80.0f, 1660.0f));
-	GetTransform()->SetPositionY(std::clamp(GetTransform()->position().y, 150.0f, 820.0f));
+	GetTransform()->SetPositionX(std::clamp(GetTransform()->position().x, x_min, x_max));
+	GetTransform()->SetPositionY(std::clamp(GetTransform()->position().y, y_min, y_max));
 }
 
 void Player::HandleAbilityCooldowns()
@@ -279,7 +296,18 @@ void Player::HandleAbilityCooldowns()
 
 	if (m_PotionEffectTime > 0) {
 		m_PotionEffectTime -= Time::DeltaTime;
-		if (m_PotionEffectTime <= 0) PlayerSpeed = 300.0f;
+		if (m_PotionEffectTime <= 0) {
+			PlayerSpeed = 300.0f;
+			entity->transform()->SetSize(glm::vec2{192, 256});
+			x_min = 80.0f;
+			x_max = 1660.0f;
+			y_min = 150.0f;
+			y_max = 820.0f;
+			BoxCollider* boxCollider = entity->GetComponent<BoxCollider>();
+			boxCollider->setOffset(glm::vec2{46, 56});
+			boxCollider->setWidth(100);
+			boxCollider->setHeight(200);
+		}
 	}
 }
 
