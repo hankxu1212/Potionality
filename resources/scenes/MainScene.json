@@ -93,6 +93,10 @@
       "name": "cauldron"
     },
     {
+      "src": "../resources/icons/Coin.png",
+      "name": "coin"
+    },
+    {
       "src": "../resources/potions/Red_potion.png",
       "name": "red_potion"
     },
@@ -445,6 +449,26 @@
         {
           "type": "Behaviour",
           "classname": "WorkStation",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Coin",
+      "translation": [ 1600, 40 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "coin",
           "active": "true"
         }
       ]
