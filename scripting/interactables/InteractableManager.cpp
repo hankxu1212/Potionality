@@ -17,20 +17,23 @@ void InteractableManager::Update()
 
 	float closestDistance = FLT_MAX;
 	InteractableObject* closestObj = nullptr;
+	InteractableObject* storedObj = nullptr;
 	InteractableObject* heldObj = nullptr;
 	for (auto& [id, obj] : m_Interactables)
 	{
 		glm::vec2 playerCenter = Player::Instance->GetTransform()->position() + (Player::Instance->GetTransform()->size() / 2.0f);
 		glm::vec2 objCenter = obj->GetTransform()->position() + (obj->GetTransform()->size() / 2.0f);
 		float d = glm::distance(playerCenter, objCenter);
-		if (d < closestDistance && d < interactionDistance && !obj->GetHeld())
+		if (d < closestDistance && d < interactionDistance && !obj->GetHeld() && !obj->GetStored())
 		{
 			closestDistance = d;
 			closestObj = obj;
 		}
+		if (obj->GetStored()) storedObj = obj;
 		if (obj->GetHeld()) heldObj = obj;
 	}
 	if (closestObj != nullptr) closestInteractableObject = closestObj;
+	else if (storedObj != nullptr) closestInteractableObject = storedObj;
 	else closestInteractableObject = heldObj;
 
 	if (closestInteractableObject != prevInteractableObject)
