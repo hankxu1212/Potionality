@@ -522,9 +522,9 @@
     },
     {
       "name": "Recipe Counter",
-      "translation": [ 1300, 400 ],
+      "translation": [ 650, 800 ],
       "rotation": 0,
-      "scale": [ 128, 128 ],
+      "scale": [ 256, 256 ],
       "depth": -8,
       "active": "true",
       "components": [
@@ -546,7 +546,7 @@
         {
           "type": "BoxCollider",
           "translation": [ 0, 0 ],
-          "scale": [ 32, 32 ],
+          "scale": [ 100, 100 ],
           "active": "true"
         }
       ]
