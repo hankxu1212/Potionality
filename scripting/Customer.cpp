@@ -77,6 +77,7 @@ void Customer::Interact(InteractPayload* payload)
 				// walk back!
 				m_MovementTimer = 6;
 				walkDir = 1;
+				destroyAfterMove = true;
 			}
 			else
 			{
@@ -104,6 +105,5 @@ void Customer::Initialize(CustomerInfo info)
 	this->m_CustomerInfo = info;
 	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
 }
-
 
 SETUP_DEFAULT_CALLBACKS(Customer)

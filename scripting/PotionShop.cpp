@@ -66,7 +66,7 @@ void PotionShop::SpawnNewCustomer()
 	glm::vec2 randScale(scale, scale);
 
 	Scene* scene = SceneManager::Get()->getScene();
-	Entity* newCustomer = scene->Instantiate("CustomerInstance", randPos, randScale, 2 + availableSlot, 2);
+	Entity* newCustomer = scene->Instantiate("CustomerInstance", randPos, randScale, 2, 2 + availableSlot);
 
 	// add some sprite stuff
 	newCustomer->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,1);
