@@ -127,6 +127,6 @@ void PotionShop::Update()
 		}
 	}
 
-	std::string repStr = "Reputation: " + std::to_string(reputation);
-	TextRenderer::Get()->RenderText(repStr, 1000, 1000, 0.005);
+	std::string repStr = ": " + std::to_string(reputation);
+	TextRenderer::Get()->RenderText(repStr, 1680, 1000, 0.002);
 }
