@@ -36,6 +36,8 @@ void PotionShop::Remove(Customer* customer)
 		return;
 	}
 
+	m_AvailableSlots[customer->slot] = true;
+
 	m_Customers.erase(customer->entity->uuid());
 	m_CurrentNumCustomers--;
 }
@@ -43,13 +45,28 @@ void PotionShop::Remove(Customer* customer)
 void PotionShop::SpawnNewCustomer()
 {
 	// spawns randomly on the right
-	glm::vec2 randPos(1800, Math::RandomInt(300, 700));
+	int availableSlot = -1;
+	for (int i=0;i<MAX_CUSTOMERS;++i)
+	{
+		if (m_AvailableSlots[i])
+		{
+			availableSlot = i;
+			m_AvailableSlots[i] = false;
+			break;
+		}
+	}
+	if (availableSlot == -1){
+		LOG_WARN("no available slots!");
+		return;
+	}
 
-	// change this lmao
-	glm::vec2 randScale(Math::Random(100, 200), Math::Random(100, 200));
+	glm::vec2 randPos(Math::Random(1800, 2000), m_CustomerSlots[availableSlot]);
+
+	float scale = Math::Random(100, 200);
+	glm::vec2 randScale(scale, scale);
 
 	Scene* scene = SceneManager::Get()->getScene();
-	Entity* newCustomer = scene->Instantiate("CustomerInstance", randPos, randScale, 0, 2);
+	Entity* newCustomer = scene->Instantiate("CustomerInstance", randPos, randScale, 2 + availableSlot, 2);
 
 	// add some sprite stuff
 	newCustomer->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,1);
@@ -67,8 +84,9 @@ void PotionShop::SpawnNewCustomer()
 	int customerType = Math::RandomInt(0, (int)AllCustomerTypes.size() - 1);
 	Customer& cust = newCustomer->AddComponent<Customer>(true);
 	cust.Initialize(AllCustomers[AllCustomerTypes[customerType]]);
+	cust.slot = (uint32_t)availableSlot;
 
-	LOG_INFO_F("Spawned new customer:{}", AllCustomerTypes[customerType]);
+	LOG_INFO_F("Spawned new customer:{}, slot {}", AllCustomerTypes[customerType], cust.slot);
 }
 
 void PotionShop::LoadAllPossibleCustomers()
@@ -96,8 +114,8 @@ void PotionShop::Update()
 	m_WaitCounter -= Time::DeltaTime;
 	if (m_WaitCounter <= 0)
 	{
-		m_WaitCounter = Math::Random(15, 20);
-		if (m_CurrentNumCustomers < MaxCustomers) {
+		m_WaitCounter = Math::Random(1, 2);
+		if (m_CurrentNumCustomers < MAX_CUSTOMERS) {
 			SpawnNewCustomer();
 		}
 	}

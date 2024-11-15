@@ -19,6 +19,8 @@ public:
 
 	void Initialize(CustomerInfo info);
 
+	uint32_t slot;
+
 private:
 	CustomerInfo m_CustomerInfo;
 
