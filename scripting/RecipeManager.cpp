@@ -21,7 +21,7 @@ void RecipeManager::Awake()
 {
     InteractableObject::Awake();
 
-    recipeRendererEntity = entity->AddChild("recipe list", {-128,-128}, {300, 300}, 0, 5);
+    recipeRendererEntity = entity->AddChild("recipe list", {0,-512}, {300, 300}, 0, 5);
     recipeRendererEntity->AddComponent<SpriteLoader>(SPRITE_SHADER);
     recipeRendererList = &recipeRendererEntity->AddComponent<SpriteRendererList>(true);
     recipeRendererList->AppendSprite("LovePotionRecipe");
