@@ -35,7 +35,7 @@ void Potion::Interact(InteractPayload* payload)
     if (isHeld) {
         isHeld = false;
         GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 60, Player::Instance->GetTransform()->position().y + 70);
-    } else {
+    } else if (Player::Instance->getHeldObject() == nullptr) {
         isHeld = true;
     }
 }

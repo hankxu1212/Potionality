@@ -161,7 +161,7 @@ void Player::OnInteractPressed()
                 std::cout << m_Held;
 				m_Held = obj;
 			}
-			else {
+			else if (m_Held != nullptr && obj->GetEntityID() == m_Held->GetEntityID()) {
 				m_Held = nullptr;
 			}
 			m_PlayerState = State::Pickup;

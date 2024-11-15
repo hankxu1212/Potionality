@@ -106,7 +106,7 @@ void Ingredient::Interact(InteractPayload* payload)
     if (isHeld) {
         isHeld = false;
         GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 192, Player::Instance->GetTransform()->position().y + 192);
-    } else {
+    } else if (Player::Instance->getHeldObject() == nullptr) {
         isHeld = true;
         isStored = false;
 
