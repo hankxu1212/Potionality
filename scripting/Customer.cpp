@@ -78,6 +78,8 @@ void Customer::Interact(InteractPayload* payload)
 				m_MovementTimer = 6;
 				walkDir = 1;
 				destroyAfterMove = true;
+
+				PotionShop::Get()->reputation++;
 			}
 			else
 			{

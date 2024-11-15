@@ -111,6 +111,11 @@ void PotionShop::LoadAllPossibleCustomers()
 	LOG_INFO_F("Loaded {} customer types", AllCustomerTypes.size());
 }
 
+void PotionShop::SpawnUI()
+{
+	
+}
+
 void PotionShop::Update()
 {
 	m_WaitCounter -= Time::DeltaTime;
@@ -121,4 +126,7 @@ void PotionShop::Update()
 			SpawnNewCustomer();
 		}
 	}
+
+	std::string repStr = "Reputation: " + std::to_string(reputation);
+	TextRenderer::Get()->RenderText(repStr, 1000, 1000, 0.005);
 }
