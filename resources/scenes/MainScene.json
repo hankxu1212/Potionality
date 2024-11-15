@@ -173,7 +173,7 @@
         {
           "type": "BoxCollider",
           "translation": [ 0, 0 ],
-          "scale": [ 192, 256 ],
+          "scale": [ 100, 200 ],
           "active": "true"
         },
         {

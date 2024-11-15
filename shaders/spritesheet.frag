@@ -12,7 +12,7 @@ void main()
 {
     vec2 uv = uv_step * (TexCoords + uv_offset);
     vec4 texColor = texture(image, uv);
-    if (texColor.a <= 0.3)
+    if (texColor.a <= 0.1)
         discard;
 
     vec3 finalColor = texColor.rgb;
