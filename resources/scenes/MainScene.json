@@ -418,7 +418,7 @@
       "name": "BrewingStation",
       "translation": [ 850, 750 ],
       "rotation": 0,
-      "scale": [ 128, 128 ],
+      "scale": [ 256, 256 ],
       "depth": 0,
       "active": "true",
       "components": [
@@ -435,7 +435,7 @@
         {
           "type": "BoxCollider",
           "translation": [ 0, 0 ],
-          "scale": [ 128, 128 ],
+          "scale": [ 256, 256 ],
           "active": "true"
         },
         {
