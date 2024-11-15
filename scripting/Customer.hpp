@@ -26,6 +26,7 @@ private:
 	int walkDir = -1;
 	float walkSpeedPerSecond = 100;
 	bool destroyAfterMove = false;
+	int patience;
 
 	enum class State
 	{

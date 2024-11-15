@@ -82,6 +82,12 @@ void Customer::Interact(InteractPayload* payload)
 			{
 				assert(m_CustomerInfo.m_MonologueOnRecieveFailure.size() > 0);
 				currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveFailure[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveFailure.size())];
+				patience --;
+				if (patience==0){
+					// walk back!
+					m_MovementTimer = 6;
+					walkDir = 1;
+				}
 			}
 		}
 	}
@@ -94,6 +100,7 @@ void Customer::Interact(InteractPayload* payload)
 void Customer::Initialize(CustomerInfo info)
 {
 	m_MovementTimer = 4;
+	patience = this->m_CustomerInfo.m_Patience;
 	this->m_CustomerInfo = info;
 	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
 }
