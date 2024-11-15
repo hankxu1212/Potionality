@@ -88,6 +88,7 @@ void Customer::Interact(InteractPayload* payload)
 				patience --;
 				if (patience==0){
 					// walk back!
+					PotionShop::Get()->reputation--;
 					m_MovementTimer = 6;
 					walkDir = 1;
 				}

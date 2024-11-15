@@ -33,6 +33,14 @@
       "name": "mushroom"
     },
     {
+      "src": "../resources/ingredients/Rose.png",
+      "name": "rose"
+    },
+    {
+      "src": "../resources/ingredients/Leaf.png",
+      "name": "leaf"
+    },
+    {
       "src": "../resources/ingredients/Mushroom_Cut.png",
       "name": "mushroom_cut"
     },
@@ -101,6 +109,10 @@
       "name": "red_potion"
     },
     {
+      "src": "../resources/potions/Green_potion.png",
+      "name": "green_potion"
+    },
+    {
       "src": "../resources/potions/Love_potion.png",
       "name": "love_potion"
     },
@@ -127,6 +139,10 @@
     {
       "src": "../resources/recipes/blue_potion.png",
       "name": "BluePotionRecipe"
+    },
+    {
+      "src": "../resources/recipes/green_potion.png",
+      "name": "GreenPotionRecipe"
     },
     {
       "src": "../resources/recipes/love_potion.png",
@@ -313,6 +329,56 @@
         {
           "type": "SpriteRenderer",
           "texture": "mushroom",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Ingredient",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "RoseIngredient",
+      "translation": [ 160, 186 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "rose",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Ingredient",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "LeafIngredient",
+      "translation": [ 280, 186 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "leaf",
           "active": "true"
         },
         {

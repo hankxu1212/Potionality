@@ -56,6 +56,30 @@ void Ingredient::Update()
             entity->RemoveComponent<SpriteRenderer>();
             entity->AddComponent<SpriteRenderer>(true, "Guy");
         }
+    } else if (ingredient->name.compare("RoseIngredient") == 0) {
+        if (ingredient->actionStates[Action::Cut].progress > 0) {
+            ingredient->name = "RoseCutIngredient";
+            ingredient->actionStates[Action::Smash].progress = 0;
+            ingredient->actionStates[Action::Eat].progress = 0;
+            ingredient->actionStates[Action::Brew].progress = 0;
+            ingredient->actionStates[Action::Cut].progress = 0;
+
+            entity->RemoveComponent<SpriteRenderer>();
+            entity->AddComponent<SpriteRenderer>(true, "Guy");
+            // TODO update when rose cut sprite is finished
+        }
+    } else if (ingredient->name.compare("LeafIngredient") == 0) {
+        if (ingredient->actionStates[Action::Cut].progress > 0) {
+            ingredient->name = "LeafCutIngredient";
+            ingredient->actionStates[Action::Smash].progress = 0;
+            ingredient->actionStates[Action::Eat].progress = 0;
+            ingredient->actionStates[Action::Brew].progress = 0;
+            ingredient->actionStates[Action::Cut].progress = 0;
+
+            entity->RemoveComponent<SpriteRenderer>();
+            entity->AddComponent<SpriteRenderer>(true, "Guy");
+            // TODO update when leaf cut sprite  -- if any is finished
+        }
     } else if (ingredient->name.compare("MushroomIngredient") == 0) {
         if (ingredient->actionStates[Action::Cut].progress > 0) {
             ingredient->name = "MushroomCutIngredient";
@@ -115,11 +139,15 @@ void Ingredient::Interact(InteractPayload* payload)
             GetTransform()->position().x == 160 && GetTransform()->position().y == 236;
         bool mushroomOnShelf = ingredient->name.compare("MushroomIngredient") == 0 && 
             GetTransform()->position().x == 280 && GetTransform()->position().y == 236;
+        bool roseOnShelf = ingredient->name.compare("RoseIngredient") == 0 && 
+            GetTransform()->position().x == 160 && GetTransform()->position().y == 186;
+        bool leafOnShelf = ingredient->name.compare("LeafIngredient") == 0 && 
+            GetTransform()->position().x == 280 && GetTransform()->position().y == 186;
         bool purpleQuartzOnShelf = ingredient->name.compare("PurpleQuartzIngredient") == 0 && 
             GetTransform()->position().x == 160 && GetTransform()->position().y == 136;
         bool whiteQuartzOnShelf = ingredient->name.compare("WhiteQuartzIngredient") == 0 && 
             GetTransform()->position().x == 280 && GetTransform()->position().y == 136;
-        if (flowerOnShelf || mushroomOnShelf || purpleQuartzOnShelf || whiteQuartzOnShelf) {
+        if (flowerOnShelf || mushroomOnShelf || purpleQuartzOnShelf || whiteQuartzOnShelf || roseOnShelf || leafOnShelf) {
             duplicateIngredient();
         }
     }

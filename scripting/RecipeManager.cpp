@@ -27,6 +27,7 @@ void RecipeManager::Awake()
     recipeRendererList->AppendSprite("LovePotionRecipe");
     recipeRendererList->AppendSprite("RedPotionRecipe");
     recipeRendererList->AppendSprite("BluePotionRecipe");
+    recipeRendererList->AppendSprite("GreenPotionRecipe");
 
 
     mainBookSpriteRenderer = entity->GetComponent<SpriteRenderer>();
