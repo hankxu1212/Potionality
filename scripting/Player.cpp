@@ -212,6 +212,8 @@ void Player::OnEatPressed() {
 			} else if (potion->name == "love_potion") {
 				// TODO: EFFECT
 			}
+			potion->SetHeld(false);
+			potion->SetStored(true);
 			SceneManager::Get()->getScene()->Destroy(size_t(m_Held->GetEntityID()));
 			m_Held = nullptr;
 			m_PlayerState = State::Eat;
