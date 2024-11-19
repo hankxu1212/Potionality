@@ -209,6 +209,7 @@ void Player::OnEatPressed() {
 				glm::vec2 offset = glm::vec2{-24, -64};
 				if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
 					GetTransform()->Translate(offset);
+				m_AdditionalInteractionDistance = 100.0f;
 			} else if (potion->name == "blue_potion") {
 				PlayerSpeed = 1000.0f;
 			} else if (potion->name == "love_potion") {
@@ -315,6 +316,7 @@ void Player::HandleAbilityCooldowns()
 			y_max = 820.0f;
 			BoxCollider* boxCollider = entity->GetComponent<BoxCollider>();
 			boxCollider->setOffset(glm::vec2{46, 56});
+			m_AdditionalInteractionDistance = 0.0f;
 		}
 	} else if (m_Growth < 0) {
 		m_Growth++;

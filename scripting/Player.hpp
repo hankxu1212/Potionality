@@ -27,6 +27,7 @@ public:
 	void cut() { m_PlayerState = State::Cut; }
 	void smash() { m_PlayerState = State::Smash; }
 	void brew() { m_PlayerState = State::Brew; }
+	float getInteractionDistance() { return m_AdditionalInteractionDistance; }
 
 private:
 	// Debug ////////////////////////////////////////////////////////////////////////
@@ -70,6 +71,7 @@ private:
 	float m_PotionEffectTime;
 	const float m_PotionEffectTimeMax = 45;
 	int m_Growth = 0;
+	float m_AdditionalInteractionDistance = 0.0f; // Used for big cat
 
 	// Message Display //////////////////////////////////////////////////////////////
 	float m_MessageTimer;
