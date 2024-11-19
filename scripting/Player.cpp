@@ -206,7 +206,9 @@ void Player::OnEatPressed() {
 				boxCollider->setOffset(glm::vec2{142, 312});
 				m_Growth = 1;
 				entity->transform()->SetSize(glm::vec2{240, 320});
-				GetTransform()->Translate(glm::vec2{-24, -64});
+				glm::vec2 offset = glm::vec2{-24, -64};
+				if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
+					GetTransform()->Translate(offset);
 			} else if (potion->name == "blue_potion") {
 				PlayerSpeed = 1000.0f;
 			} else if (potion->name == "love_potion") {
@@ -300,12 +302,13 @@ void Player::HandleAbilityCooldowns()
 		if (m_Growth > 0 && m_Growth < 5) {
 			m_Growth++;
 			entity->transform()->SetSize(entity->transform()->size() + glm::vec2{48, 64});
-			GetTransform()->Translate(glm::vec2{-24, -64});
+			glm::vec2 offset = glm::vec2{-24, -64};
+			if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
+				GetTransform()->Translate(offset);
 		}
 		if (m_PotionEffectTime <= 0) {
 			PlayerSpeed = 300.0f;
-			m_Growth = 0;
-			entity->transform()->SetSize(glm::vec2{192, 256});
+			m_Growth = -4;
 			x_min = 80.0f;
 			x_max = 1660.0f;
 			y_min = 150.0f;
@@ -313,6 +316,12 @@ void Player::HandleAbilityCooldowns()
 			BoxCollider* boxCollider = entity->GetComponent<BoxCollider>();
 			boxCollider->setOffset(glm::vec2{46, 56});
 		}
+	} else if (m_Growth < 0) {
+		m_Growth++;
+		entity->transform()->SetSize(entity->transform()->size() - glm::vec2{48, 64});
+		glm::vec2 offset = glm::vec2{24, 64};
+		if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
+			GetTransform()->Translate(offset);
 	}
 }
 
