@@ -293,7 +293,7 @@
       "translation": [ 160, 236 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 1,
+      "depth": 4,
       "active": "true",
       "components": [
         {
@@ -318,7 +318,7 @@
       "translation": [ 280, 236 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 1,
+      "depth": 4,
       "active": "true",
       "components": [
         {
@@ -343,7 +343,7 @@
       "translation": [ 160, 186 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 1,
+      "depth": 4,
       "active": "true",
       "components": [
         {
@@ -368,7 +368,7 @@
       "translation": [ 280, 186 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 1,
+      "depth": 4,
       "active": "true",
       "components": [
         {
@@ -393,7 +393,7 @@
       "translation": [ 160, 136 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 1,
+      "depth": 4,
       "active": "true",
       "components": [
         {
@@ -418,7 +418,7 @@
       "translation": [ 280, 136 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 1,
+      "depth": 4,
       "active": "true",
       "components": [
         {
@@ -443,7 +443,7 @@
       "translation": [ 380, 800 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
-      "depth": 0,
+      "depth": 3,
       "active": "true",
       "components": [
         {
@@ -468,7 +468,7 @@
       "translation": [ 120, 800 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
-      "depth": 0,
+      "depth": 3,
       "active": "true",
       "components": [
         {
@@ -493,7 +493,7 @@
       "translation": [ 900, 750 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
-      "depth": 0,
+      "depth": 3,
       "active": "true",
       "components": [
         {
@@ -590,7 +590,7 @@
       "translation": [ 20, 700 ],
       "rotation": 0,
       "scale": [ 1841, 356 ],
-      "depth": 3,
+      "depth": 5,
       "active": "true",
       "components": [
         {
@@ -615,7 +615,7 @@
       "translation": [ 650, 800 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
-      "depth": -8,
+      "depth": 3,
       "active": "true",
       "components": [
         {
