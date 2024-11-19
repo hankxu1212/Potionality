@@ -308,7 +308,7 @@ void Player::HandleAbilityCooldowns()
 		}
 		if (m_PotionEffectTime <= 0) {
 			PlayerSpeed = 300.0f;
-			m_Growth = -4;
+			m_Growth = -5;
 			x_min = 80.0f;
 			x_max = 1660.0f;
 			y_min = 150.0f;
