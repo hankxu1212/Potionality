@@ -490,7 +490,7 @@
     },
     {
       "name": "BrewingStation",
-      "translation": [ 850, 750 ],
+      "translation": [ 900, 750 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
       "depth": 0,
@@ -635,7 +635,7 @@
         },
         {
           "type": "BoxCollider",
-          "translation": [ 0, 0 ],
+          "translation": [ 78, 78 ],
           "scale": [ 100, 100 ],
           "active": "true"
         }
