@@ -70,7 +70,7 @@ void Ingredient::Update()
             ingredient->actionStates[Action::Cut].progress = 0;
 
             entity->RemoveComponent<SpriteRenderer>();
-            entity->AddComponent<SpriteRenderer>(true, "Guy");
+            entity->AddComponent<SpriteRenderer>(true, "rose_cut");
             // TODO update when rose cut sprite is finished
         }
     } else if (ingredient->name.compare("LeafIngredient") == 0) {
