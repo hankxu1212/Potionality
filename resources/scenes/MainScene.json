@@ -151,6 +151,10 @@
     {
       "src": "../resources/recipes/RecipeBook.png",
       "name": "RecipeBook"
+    },
+    {
+      "src": "../resources/UI/Circle.png",
+      "name": "UI_Circle"
     }
   ],
   "entities": [
@@ -590,7 +594,7 @@
       "translation": [ 20, 700 ],
       "rotation": 0,
       "scale": [ 1841, 356 ],
-      "depth": 5,
+      "depth": 9.5,
       "active": "true",
       "components": [
         {

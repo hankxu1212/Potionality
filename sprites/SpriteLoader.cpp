@@ -41,6 +41,25 @@ void SpriteLoader::DrawSprite(const std::string& name)
     glBindVertexArray(0);
 }
 
+void SpriteLoader::DrawSprite(const std::string& name, glm::vec2 position, glm::vec2 size)
+{
+    // prepare transformations
+    shader.Use();
+
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(position, 1));  // first translate (transformations are: scale happens first, then rotation, and then final translation happens; reversed order)
+    model = glm::scale(model, glm::vec3(size, 1.0f)); // last scale
+
+    shader.SetMatrix4("model", model);
+    shader.SetVector2f("textureDims", size);
+
+    glActiveTexture(GL_TEXTURE0);
+    ResourceManager::GetTexture(name).Bind();
+
+    glBindVertexArray(this->quadVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
+}
+
 static float vertices[] = {
     // pos      // tex
     0.0f, 1.0f, 0.0f, 1.0f,

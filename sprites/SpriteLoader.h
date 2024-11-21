@@ -19,6 +19,8 @@ public:
     // Renders a defined quad textured with given sprite
     void DrawSprite(const std::string& name);
 
+    void DrawSprite(const std::string& name, glm::vec2 position, glm::vec2 size);
+
 private:
     Shader       shader;
     unsigned int quadVAO;

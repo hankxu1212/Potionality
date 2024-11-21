@@ -16,6 +16,7 @@ SoundManager::SoundManager()
     LoadSample("../resources/sound/BookTurn.wav", "BookTurnSFX");
     LoadSample("../resources/sound/BookTurn2.wav", "BookTurn2SFX");
     LoadSample("../resources/sound/OST.wav", "OST");
+    LoadSample("../resources/sound/LightSwitch.wav", "LightSwitchSFX");
 
     SoundManager::Loop("OST", 5);
 }
