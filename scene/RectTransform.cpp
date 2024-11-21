@@ -47,6 +47,11 @@ void RectTransform::SetPosition(float x, float y)
 	isDirty = true;
 }
 
+void RectTransform::SetDepth(float depth)
+{
+	m_Depth = depth;
+}
+
 void RectTransform::SetSize(glm::vec2 newSize)
 {
 	m_Size = newSize;

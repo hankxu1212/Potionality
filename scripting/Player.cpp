@@ -214,6 +214,8 @@ void Player::OnEatPressed() {
 				PlayerSpeed = 1000.0f;
 			} else if (potion->name == "love_potion") {
 				// TODO: EFFECT
+			} else if (potion->name == "green_potion") {
+				// TODO: EFFECT
 			}
 			potion->SetHeld(false);
 			potion->SetStored(true);

@@ -20,6 +20,7 @@ public:
     void SetPositionY(float y);
     void SetPosition(float x, float y);
     void SetSize(glm::vec2 newSize);
+    void SetDepth(float depth);
     // TODO: add more setters here as you wish, but DO NOT move the private variables to public, or caching breaks
 
     glm::mat4& GetModel();
