@@ -28,7 +28,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			OnDownPressed();
 			return true;
 		}
-		else if (evt.key.keysym.sym == SDLK_SPACE || evt.key.keysym.sym == SDLK_s) {
+		else if (evt.key.keysym.sym == SDLK_SPACE) {
 			OnSpacePressed();
 			return true;
 		}
