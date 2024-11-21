@@ -28,6 +28,8 @@ public:
 
 	SpriteRendererList* recipeRendererList;
 	Entity* recipeRendererEntity;
+	SpriteRendererList* blankRecipeRendererList;
+	Entity* blankRecipeRendererEntity;
 	SpriteRenderer* mainBookSpriteRenderer;
 
 	const float scaleAnimationMaxTime = 0.5f;

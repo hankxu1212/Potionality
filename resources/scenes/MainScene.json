@@ -149,6 +149,14 @@
       "name": "LovePotionRecipe"
     },
     {
+      "src": "../resources/recipes/poison_potion.png",
+      "name": "PoisonPotionRecipe"
+    },
+    {
+      "src": "../resources/recipes/blank_page.png",
+      "name": "BlankPageRecipe"
+    },
+    {
       "src": "../resources/recipes/RecipeBook.png",
       "name": "RecipeBook"
     }

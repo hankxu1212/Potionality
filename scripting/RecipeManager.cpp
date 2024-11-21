@@ -28,6 +28,14 @@ void RecipeManager::Awake()
     recipeRendererList->AppendSprite("RedPotionRecipe");
     recipeRendererList->AppendSprite("BluePotionRecipe");
     recipeRendererList->AppendSprite("GreenPotionRecipe");
+    recipeRendererList->AppendSprite("PoisonPotionRecipe");
+
+    // will adjust, so it looks better
+    blankRecipeRendererEntity = entity->AddChild("recipe blankpg", {-400,-512}, {300, 300}, 0, 4);
+    blankRecipeRendererEntity->AddComponent<SpriteLoader>(SPRITE_SHADER);
+    blankRecipeRendererList = &blankRecipeRendererEntity->AddComponent<SpriteRendererList>(true);
+    blankRecipeRendererList->AppendSprite("BlankPageRecipe");
+    
 
 
     mainBookSpriteRenderer = entity->GetComponent<SpriteRenderer>();
@@ -45,6 +53,7 @@ void RecipeManager::Update()
     if (!isCurrentInteractable) 
     {
         recipeRendererList->currentSpriteIndex = -1;
+        blankRecipeRendererList->currentSpriteIndex = -1;
         mainBookSpriteRenderer->isActive = true;
     }
 
@@ -150,6 +159,7 @@ void RecipeManager::OnLeftClicked()
     if (recipeRendererList->currentSpriteIndex == -1)
         return;
 
+    blankRecipeRendererList->currentSpriteIndex=0;
     recipeRendererList->currentSpriteIndex--;
     if (recipeRendererList->currentSpriteIndex < 0)
         recipeRendererList->currentSpriteIndex += (int)recipeRendererList->sprites.size();
@@ -164,6 +174,7 @@ void RecipeManager::OnRightClicked()
     if (recipeRendererList->currentSpriteIndex == -1)
         return;
 
+    blankRecipeRendererList->currentSpriteIndex=0;
     recipeRendererList->currentSpriteIndex++;
     recipeRendererList->currentSpriteIndex %= recipeRendererList->sprites.size();
 
@@ -179,6 +190,7 @@ void RecipeManager::HandleAnimations()
     float t = 1 - scaleAnimationTimer / scaleAnimationMaxTime;
 
     recipeRendererEntity->transform()->SetSize(glm::mix(originalScale, upScaled, t));
+    blankRecipeRendererEntity->transform()->SetSize(glm::mix(originalScale, upScaled, t));
 }
 
 void RecipeManager::Interact(InteractPayload* payload)
@@ -186,6 +198,7 @@ void RecipeManager::Interact(InteractPayload* payload)
     SoundManager::Get()->PlayOneShot("BookTurnSFX", 1);
 
     recipeRendererList->currentSpriteIndex = 0;
+    blankRecipeRendererList->currentSpriteIndex=0;
     mainBookSpriteRenderer->isActive = false;
 
     scaleAnimationTimer = scaleAnimationMaxTime;
