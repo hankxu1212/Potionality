@@ -45,9 +45,8 @@ void Ingredient::Update()
         GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 64, Player::Instance->GetTransform()->position().y);
     }
     if (isStored){ // if on workstation, it should be on top of it
-        GetTransform()->SetDepth(4.0) ;//GetComponent<SpriteRenderer>();
+        GetTransform()->SetDepth(4.0) ;
     }
-    //  else {} //set depth to 1 again }
 
     // If ingredient action states have progressed sufficiently, update ingredient name and action states
     if (ingredient->name.compare("FlowerIngredient") == 0) {
@@ -58,8 +57,8 @@ void Ingredient::Update()
             ingredient->actionStates[Action::Brew].progress = 0;
             ingredient->actionStates[Action::Cut].progress = 0;
 
-            entity->RemoveComponent<SpriteRenderer>();
-            entity->AddComponent<SpriteRenderer>(true, "Guy");
+            // entity->RemoveComponent<SpriteRenderer>();
+            // entity->AddComponent<SpriteRenderer>(true, "Guy");
         }
     } else if (ingredient->name.compare("RoseIngredient") == 0) {
         if (ingredient->actionStates[Action::Cut].progress > 0) {
@@ -81,8 +80,8 @@ void Ingredient::Update()
             ingredient->actionStates[Action::Brew].progress = 0;
             ingredient->actionStates[Action::Cut].progress = 0;
 
-            entity->RemoveComponent<SpriteRenderer>();
-            entity->AddComponent<SpriteRenderer>(true, "Guy");
+            // entity->RemoveComponent<SpriteRenderer>();
+            // entity->AddComponent<SpriteRenderer>(true, "Guy");
             // TODO update when leaf cut sprite  -- if any is finished
         }
     } else if (ingredient->name.compare("MushroomIngredient") == 0) {
