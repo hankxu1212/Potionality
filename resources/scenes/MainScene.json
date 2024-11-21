@@ -53,6 +53,10 @@
       "name": "purple_quartz_smashed"
     },
     {
+      "src": "../resources/ingredients/Rose_Cut.png",
+      "name": "rose_cut"
+    },
+    {
       "src": "../resources/ingredients/White_Quartz.png",
       "name": "white_quartz"
     },
