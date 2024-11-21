@@ -50,6 +50,7 @@ void RectTransform::SetPosition(float x, float y)
 void RectTransform::SetDepth(float depth)
 {
 	m_Depth = depth;
+	isDirty = true;
 }
 
 void RectTransform::SetSize(glm::vec2 newSize)

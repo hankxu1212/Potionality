@@ -41,8 +41,13 @@ void Ingredient::Update()
 {
 	InteractableObject::Update(); // need to call baseclass explicitly
     if (isHeld) {
+        GetTransform()->SetDepth(1.0);
         GetTransform()->SetPosition(Player::Instance->GetTransform()->position().x + 64, Player::Instance->GetTransform()->position().y);
     }
+    if (isStored){ // if on workstation, it should be on top of it
+        GetTransform()->SetDepth(4.0) ;//GetComponent<SpriteRenderer>();
+    }
+    //  else {} //set depth to 1 again }
 
     // If ingredient action states have progressed sufficiently, update ingredient name and action states
     if (ingredient->name.compare("FlowerIngredient") == 0) {
@@ -65,7 +70,7 @@ void Ingredient::Update()
             ingredient->actionStates[Action::Cut].progress = 0;
 
             entity->RemoveComponent<SpriteRenderer>();
-            entity->AddComponent<SpriteRenderer>(true, "rose_cut");
+            entity->AddComponent<SpriteRenderer>(true, "Guy");
             // TODO update when rose cut sprite is finished
         }
     } else if (ingredient->name.compare("LeafIngredient") == 0) {
