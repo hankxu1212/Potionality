@@ -98,7 +98,15 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "green_potion");
                         newPotion->AddComponent<Potion>(true, "green_potion");
-                    } else if (ingredientCounts.count("FlowerIngredient")) {
+                    } else if (ingredientCounts.count("MushroomIngredient") && ingredientCounts.count("LeafIngredient") && ingredientCounts.count("PurpleQuartzSmashedIngredient")) {
+                        ingredientCounts.clear();
+                        isEmpty = true;
+                        glm::vec2 newPos(GetTransform()->position().x, GetTransform()->position().y - 64);
+                        Entity* newPotion = SceneManager::Get()->getScene()->Instantiate("RedPotion", newPos, glm::vec2{64, 64}, 0, 1);
+                        newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
+                        newPotion->AddComponent<SpriteRenderer>(true, "poison_potion");
+                        newPotion->AddComponent<Potion>(true, "poison_potion");
+                    }else if (ingredientCounts.count("FlowerIngredient")) {
                         ingredientCounts.clear();
                         isEmpty = true;
                         glm::vec2 newPos(GetTransform()->position().x, GetTransform()->position().y - 64);

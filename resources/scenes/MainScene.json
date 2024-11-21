@@ -121,6 +121,10 @@
       "name": "blue_potion"
     },
     {
+      "src": "../resources/potions/Poison_potion.png",
+      "name": "poison_potion"
+    },
+    {
       "src": "../resources/background/VerybadIngredientClosetPlzReplace.png",
       "name": "closet"
     },
@@ -305,7 +309,7 @@
       "translation": [ 160, 236 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 4,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -330,7 +334,7 @@
       "translation": [ 280, 236 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 4,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -355,7 +359,7 @@
       "translation": [ 160, 186 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 4,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -380,7 +384,7 @@
       "translation": [ 280, 186 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 4,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -405,7 +409,7 @@
       "translation": [ 160, 136 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 4,
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -430,7 +434,7 @@
       "translation": [ 280, 136 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
-      "depth": 4,
+      "depth": 1,
       "active": "true",
       "components": [
         {
