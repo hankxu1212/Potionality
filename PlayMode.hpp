@@ -38,4 +38,7 @@ struct PlayMode : Mode {
 	void DestroyModule(TypeId id, Module::DestroyStage stage);
 	void UpdateStage(Module::UpdateStage stage);
 	void DestroyStage(Module::DestroyStage stage);
+
+	bool inMenuMode = true;
+	void OnEscapePressed();
 };

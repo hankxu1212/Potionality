@@ -13,9 +13,21 @@
 #include "core/Time.hpp"
 #include "scripting/ScriptingEngine.hpp"
 #include "core/ResourceManager.h"
+#include "MenuMode.hpp"
+#include "sound/SoundManager.hpp"
+
+MenuMode* mm;
 
 void PlayMode::Init()
 {
+	// depth testing
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+
+	// blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -10.0f, 10.0f);
 
 	// configure static sprite shader
@@ -49,9 +61,15 @@ void PlayMode::Init()
 
 	// for each component, call Start
 	PushLayer(engine);
+
+	mm = new MenuMode();
+	mm->Init();
 }
 
-PlayMode::~PlayMode() {
+PlayMode::~PlayMode() 
+{
+	delete mm;
+
 	DestroyStage(Module::DestroyStage::Pre);
 
 	m_LayerStack.Detach();
@@ -66,6 +84,16 @@ PlayMode::~PlayMode() {
 // each layerstack handles events
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) 
 {
+	if (inMenuMode)
+		return mm->handle_event(evt, window_size);
+
+	if (evt.type == SDL_KEYUP) {
+		if (evt.key.keysym.sym == SDLK_ESCAPE || evt.key.keysym.sym == SDLK_s) {
+			OnEscapePressed();
+			return true;
+		}
+	}
+
 	for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 	{
 		if ((*it)->OnEvent(evt))
@@ -78,6 +106,11 @@ void PlayMode::update(float elapsed)
 {
 	Time::Now += elapsed;
 	Time::DeltaTime = elapsed;
+
+	if (inMenuMode) {
+		mm->update(elapsed);
+		return;
+	}
 
 	UpdateStage(Module::UpdateStage::Pre);
 
@@ -143,4 +176,10 @@ void PlayMode::DestroyStage(Module::DestroyStage stage)
 {
 	for (auto& moduleId : m_ModuleDestroyStages[stage])
 		DestroyModule(moduleId, stage);
+}
+
+void PlayMode::OnEscapePressed()
+{
+	SoundManager::Get()->PlayOneShot("LightSwitchSFX", 0.2f);
+	inMenuMode = !inMenuMode;
 }
