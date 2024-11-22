@@ -225,9 +225,9 @@
     },
     {
       "name": "Counter",
-      "translation": [ 1200, 600 ],
+      "translation": [ 1100, 300 ],
       "rotation": 0,
-      "scale": [ 512, 512 ],
+      "scale": [ 720, 720 ],
       "depth": 0,
       "active": "true",
       "components": [
