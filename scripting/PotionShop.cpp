@@ -62,24 +62,31 @@ void PotionShop::SpawnNewCustomer()
 
 	glm::vec2 randPos(Math::Random(1800, 2000), m_CustomerSlots[availableSlot]);
 
-	float scale = Math::Random(100, 200);
+	float scale = Math::Random(200, 256);
 	glm::vec2 randScale(scale, scale);
 
 	Scene* scene = SceneManager::Get()->getScene();
-	Entity* newCustomer = scene->Instantiate("CustomerInstance", randPos, randScale, 2, 2 + availableSlot);
+	Entity* newCustomer = scene->Instantiate("CustomerInstance", randPos, randScale, 0.0, 2+ .1*availableSlot);
 
 	// add some sprite stuff
-	newCustomer->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,1);
-	int customer = (uint32_t)Math::RandomInt(0, 4);
+	Entity * offsetSprite = newCustomer->AddChild("sprite", {100,0}, randScale, 0.0f ,2+ .1*availableSlot);
+    // offsetSprite->AddComponent<SpriteLoader>(SPRITE_SHADER);
+
+	// newCustomer->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,3);
+	offsetSprite->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,3);
+	int customer = (uint32_t)Math::RandomInt(0, 3);
 	if (customer == 0){
-		newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer1_walk");
+		offsetSprite->AddComponent<SpritesheetRenderer>(true, "Customer1_walk");
+		// newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer1_walk");
 	}
 	else if (customer == 1){
-		newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer2_walk");
-	}else if (customer == 2){
-		newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer3_walk");
+		offsetSprite->AddComponent<SpritesheetRenderer>(true, "Customer2_walk");
+		// newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer2_walk");
+	// }else if (customer == 2){
+	// 	newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer3_walk");
 	}else {
-		newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer_Special_walk");
+		offsetSprite->AddComponent<SpritesheetRenderer>(true, "Customer_Special_walk");
+		// newCustomer->AddComponent<SpritesheetRenderer>(true, "Customer_Special_walk");
 	}
 	
 	// add the customer script, instantiate a new request

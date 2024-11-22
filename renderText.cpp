@@ -150,7 +150,7 @@ void TextRenderer::RenderText(const std::string& text, float xin, float yin, flo
 			glm::mat4 toClip = glm::mat4(1.0f); // Start with the identity matrix
 
 			// Translate to the desired position
-			toClip = glm::translate(toClip, glm::vec3(xpos, ypos, -0.10f));
+			toClip = glm::translate(toClip, glm::vec3(xpos, ypos, -1.0f));
 
 			// Scale to the specified width (w) and height (-h, flipped vertically)
 			toClip = glm::scale(toClip, glm::vec3(w, -1.0f * h, 1.0f));

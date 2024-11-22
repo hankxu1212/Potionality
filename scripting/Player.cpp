@@ -394,6 +394,7 @@ void Player::HandleAnimations()
 	
 	case State::Poisoned:
 		// TODO: Poisoned animation
+		playerSprite->SetLoopRegion(14, 4);
 		break;
 
 	default:

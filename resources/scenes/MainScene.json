@@ -13,10 +13,6 @@
       "name": "Customer2_walk"
     },
     {
-      "src": "../resources/characters/customer3_walk.png",
-      "name": "Customer3_walk"
-    },
-    {
       "src": "../resources/characters/customer_special.png",
       "name": "Customer_Special_walk"
     },
@@ -210,7 +206,7 @@
           "type": "SpritesheetLoader",
           "shader": "sprtshtShader",
           "width": 7,
-          "height": 14,
+          "height": 15,
           "active": "true"
         },
         {
@@ -233,10 +229,10 @@
     },
     {
       "name": "Counter",
-      "translation": [ 1200, 600 ],
+      "translation": [ 1100, 300 ],
       "rotation": 0,
-      "scale": [ 512, 512 ],
-      "depth": 0,
+      "scale": [ 720, 720 ],
+      "depth": 1,
       "active": "true",
       "components": [
         {
@@ -247,6 +243,12 @@
         {
           "type": "SpriteRenderer",
           "texture": "counter",
+          "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 300, 0 ],
+          "scale": [ 100, 700 ],
           "active": "true"
         }
       ]
@@ -484,6 +486,12 @@
           "type": "Behaviour",
           "classname": "WorkStation",
           "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 50, 100 ],
+          "scale": [ 300, 200 ],
+          "active": "true"
         }
       ]
     },
@@ -509,6 +517,12 @@
           "type": "Behaviour",
           "classname": "WorkStation",
           "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 50, 100 ],
+          "scale": [ 300, 200 ],
+          "active": "true"
         }
       ]
     },
@@ -532,8 +546,8 @@
         },
         {
           "type": "BoxCollider",
-          "translation": [ 28, 106 ],
-          "scale": [ 200, 150 ],
+          "translation": [ 28, 80 ],
+          "scale": [ 200, 200 ],
           "active": "true"
         },
         {

@@ -11,8 +11,8 @@ void Customer::Awake()
 	InteractableObject::Awake(); // need to call baseclass explicitly
 	PotionShop::Get()->Add(this);
 
-	customerSprite = entity->GetComponent<SpritesheetRenderer>();
-	m_CustomerState = State::Walk;
+	customerSprite = entity->children()[0]->GetComponent<SpritesheetRenderer>();
+	m_CustomerState = State::WalkForward;
 }
 
 void Customer::Shutdown()
@@ -47,11 +47,14 @@ void Customer::HandleAnimations()
 {
 	 if (m_CustomerState == State::Idle)
 	 {
-	 	customerSprite->SetLoopRegion(0, 0);
+	 	customerSprite->SetLoopRegion(2, 3);
 	 }
-	 else if (m_CustomerState == State::Walk)
+	 else if (m_CustomerState == State::WalkForward)
 	 {
 	 	customerSprite->SetLoopRegion(0, 3);
+	 }
+	 else{
+		customerSprite->SetLoopRegion(1, 3);
 	 }
 }
 
@@ -78,6 +81,7 @@ void Customer::Interact(InteractPayload* payload)
 				m_MovementTimer = 6;
 				walkDir = 1;
 				destroyAfterMove = true;
+				m_CustomerState = State::WalkBackward;
 
 				PotionShop::Get()->reputation++;
 			}
@@ -91,6 +95,7 @@ void Customer::Interact(InteractPayload* payload)
 					PotionShop::Get()->reputation--;
 					m_MovementTimer = 6;
 					walkDir = 1;
+					m_CustomerState = State::WalkBackward;
 				}
 			}
 		}
@@ -103,7 +108,7 @@ void Customer::Interact(InteractPayload* payload)
 
 void Customer::Initialize(CustomerInfo info)
 {
-	m_MovementTimer = 4;
+	m_MovementTimer = 5;
 	patience = this->m_CustomerInfo.m_Patience;
 	this->m_CustomerInfo = info;
 	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
