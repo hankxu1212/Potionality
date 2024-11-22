@@ -393,7 +393,6 @@ void Player::HandleAnimations()
 		break;
 	
 	case State::Poisoned:
-		// TODO: Poisoned animation
 		playerSprite->SetLoopRegion(14, 4);
 		break;
 
