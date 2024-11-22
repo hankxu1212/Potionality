@@ -11,7 +11,7 @@ void Customer::Awake()
 	InteractableObject::Awake(); // need to call baseclass explicitly
 	PotionShop::Get()->Add(this);
 
-	customerSprite = entity->GetComponent<SpritesheetRenderer>();
+	customerSprite = entity->children()[0]->GetComponent<SpritesheetRenderer>();
 	m_CustomerState = State::WalkForward;
 }
 
@@ -108,7 +108,7 @@ void Customer::Interact(InteractPayload* payload)
 
 void Customer::Initialize(CustomerInfo info)
 {
-	m_MovementTimer = 4;
+	m_MovementTimer = 5;
 	patience = this->m_CustomerInfo.m_Patience;
 	this->m_CustomerInfo = info;
 	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];

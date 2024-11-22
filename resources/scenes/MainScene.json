@@ -228,7 +228,7 @@
       "translation": [ 1100, 300 ],
       "rotation": 0,
       "scale": [ 720, 720 ],
-      "depth": 0,
+      "depth": 1,
       "active": "true",
       "components": [
         {
