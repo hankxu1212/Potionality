@@ -17,7 +17,5 @@ public:
 
 	SpriteLoader* spriteLoader = nullptr;
 
-private:
-	bool active = true;
 };
 

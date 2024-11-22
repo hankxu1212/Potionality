@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "../scene/Scene.hpp"
+#include "../scene/SceneManager.hpp"
 #include "../scene/Entity.hpp"
 #include "../renderText.hpp"
 #include "Customer.hpp"
@@ -26,6 +27,12 @@ void Player::Awake()
 	playerSprite = entity->GetComponent<SpritesheetRenderer>();
 	playerCollider = entity->GetComponent<BoxCollider>();
 	assert(playerCollider);
+
+	Entity* hearts = SceneManager::Get()->getScene()->Instantiate("Hearts", GetTransform()->position(), glm::vec2{32, 32}, 0, 1);
+	hearts->AddComponent<SpriteLoader>(true, "sprtShader");
+	hearts->AddComponent<SpriteRenderer>(false, "hearts");
+	hearts->AddComponent<Hearts>(true);
+	m_Hearts = hearts->GetComponent<Hearts>();
 
 	SoundManager::Get()->SetFollowListener(GetTransform());
 }
@@ -210,13 +217,16 @@ void Player::OnEatPressed() {
 				if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
 					GetTransform()->Translate(offset);
 				m_AdditionalInteractionDistance = 100.0f;
+				m_Hearts->setPlayerBig(true);
 			} else if (potion->name == "blue_potion") {
 				PlayerSpeed = 1000.0f;
 			} else if (potion->name == "green_potion") {
 				SpritesheetRenderer* spritesheetRenderer = entity->GetComponent<SpritesheetRenderer>();
 				spritesheetRenderer->SetActive(false);
 			} else if (potion->name == "love_potion") {
-				// TODO: EFFECT
+				SpriteRenderer* heartRenderer = m_Hearts->entity->GetComponent<SpriteRenderer>();
+				heartRenderer->SetActive(true);
+				// TODO: Double customer payment/reputation
 			} else if (potion->name == "poison_potion") {
 				PlayerSpeed = 0.0f;
 				m_PoisonEffectTime = m_PoisonEffectTimeMax;
@@ -228,7 +238,6 @@ void Player::OnEatPressed() {
 			m_PlayerState = State::Eat;
 			m_InteractCooldown = m_InteractCooldownMax;
 			m_PotionEffectTime = m_PotionEffectTimeMax;
-			// TODO: Change effects based on specific potion
 		} else {
 			LOG_INFO("Held item is not consumable!");
 		}
@@ -337,6 +346,10 @@ void Player::HandleAbilityCooldowns()
 
 			SpritesheetRenderer* spritesheetRenderer = entity->GetComponent<SpritesheetRenderer>();
 			spritesheetRenderer->SetActive(true);
+
+			SpriteRenderer* heartRenderer = m_Hearts->entity->GetComponent<SpriteRenderer>();
+			heartRenderer->SetActive(false);
+			m_Hearts->setPlayerBig(false);
 		}
 	} else if (m_Growth < 0) {
 		m_Growth++;

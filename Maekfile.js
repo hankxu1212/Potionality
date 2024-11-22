@@ -195,6 +195,7 @@ const gameplay_scripts = [
 	maek.CPP('scripting/Potion.cpp'),
 	maek.CPP('scripting/PotionShop.cpp'),
 	maek.CPP('scripting/RecipeManager.cpp'),
+	maek.CPP('scripting/Hearts.cpp'),
 	maek.CPP('scripting/interactables/InteractableObject.cpp'),
 	maek.CPP('scripting/interactables/InteractableManager.cpp'),
 	maek.CPP('scripting/DialogueUI.cpp'),

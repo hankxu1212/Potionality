@@ -10,7 +10,7 @@ SpriteRenderer::SpriteRenderer(const std::string& spriteToDraw_) :
 
 void SpriteRenderer::Update()
 {
-	if (active) {
+	if (isActive) {
 		assert(spriteLoader);
 		spriteLoader->DrawSprite(spriteToDraw);
 	}

@@ -3,6 +3,7 @@
 #include <map>
 
 #include "Behaviour.hpp"
+#include "Hearts.hpp"
 #include "interactables/InteractableObject.h"
 #include "../scene/SceneManager.hpp"
 
@@ -85,6 +86,7 @@ private:
 	// Note: Can only hold one ingredient or potion at a time
 	InteractableObject* m_Held = nullptr;
 
+	Hearts* m_Hearts;
 
 	// Handling Functions ////////////////////////////////////////////////////////////////////////
 	void HandleAnimations();

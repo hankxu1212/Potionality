@@ -6,6 +6,7 @@
 #include "../scripting/Ingredient.hpp"
 #include "../scripting/WorkStation.hpp"
 #include "../scripting/Potion.hpp"
+#include "../scripting/Hearts.hpp"
 #include "../scripting/DialogueUI.h"
 #include "../scripting/RecipeManager.h"
 

@@ -16,8 +16,6 @@ public:
 	// Note: loop regions are constrained in single rows only, you may not extend your animation onto multiple rows
 	void SetLoopRegion(float row_y, float col_x);
 
-	void SetActive(bool active) { isActive = active;}
-
 	SpritesheetLoader* spritesheetLoader = nullptr;
 	float size_x, size_y;
 

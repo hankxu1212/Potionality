@@ -17,6 +17,8 @@ struct Component
 	RectTransform* GetTransform();
 	Scene* GetScene();
 	UUID GetEntityID();
+	
+	void SetActive(bool active) { isActive = active; }
 
 	Entity* entity;
 	bool isActive = true;

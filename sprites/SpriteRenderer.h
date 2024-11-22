@@ -13,7 +13,5 @@ public:
 	const std::string spriteToDraw;
 	SpriteLoader* spriteLoader = nullptr;
 
-private:
-	bool active = true;
 };
 

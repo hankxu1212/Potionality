@@ -5,7 +5,7 @@
 
 void SpriteRendererList::Update()
 {
-	if (active && currentSpriteIndex != -1) 
+	if (isActive && currentSpriteIndex != -1) 
 	{
 		assert(spriteLoader && currentSpriteIndex < sprites.size());
 		spriteLoader->DrawSprite(sprites[currentSpriteIndex]);

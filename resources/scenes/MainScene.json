@@ -109,6 +109,10 @@
       "name": "coin"
     },
     {
+      "src": "../resources/icons/heats.png",
+      "name": "hearts"
+    },
+    {
       "src": "../resources/potions/Red_potion.png",
       "name": "red_potion"
     },
