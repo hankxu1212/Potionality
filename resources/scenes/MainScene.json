@@ -240,6 +240,12 @@
           "type": "SpriteRenderer",
           "texture": "counter",
           "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 300, 0 ],
+          "scale": [ 100, 700 ],
+          "active": "true"
         }
       ]
     },
@@ -476,6 +482,12 @@
           "type": "Behaviour",
           "classname": "WorkStation",
           "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 50, 100 ],
+          "scale": [ 300, 200 ],
+          "active": "true"
         }
       ]
     },
@@ -501,6 +513,12 @@
           "type": "Behaviour",
           "classname": "WorkStation",
           "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 50, 100 ],
+          "scale": [ 300, 200 ],
+          "active": "true"
         }
       ]
     },
@@ -524,8 +542,8 @@
         },
         {
           "type": "BoxCollider",
-          "translation": [ 28, 106 ],
-          "scale": [ 200, 150 ],
+          "translation": [ 28, 80 ],
+          "scale": [ 200, 200 ],
           "active": "true"
         },
         {
