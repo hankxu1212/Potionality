@@ -52,7 +52,7 @@ private:
 	// State Handling ////////////////////////////////////////////////////////////////////////
 	enum class State
 	{
-		Idle, Walk, Pickup, Smash, Eat, Deliver, InDialogue, Cut, Brew
+		Idle, Walk, Pickup, Smash, Eat, Deliver, InDialogue, Cut, Brew, Poisoned
 	};
 	State m_PlayerState;
 	int m_MoveDir;
@@ -72,6 +72,8 @@ private:
 	const float m_PotionEffectTimeMax = 45;
 	int m_Growth = 0;
 	float m_AdditionalInteractionDistance = 0.0f; // Used for big cat
+	float m_PoisonEffectTime;
+	const float m_PoisonEffectTimeMax = 5;
 
 	// Message Display //////////////////////////////////////////////////////////////
 	float m_MessageTimer;
