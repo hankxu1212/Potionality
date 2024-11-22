@@ -32,7 +32,7 @@ private:
 
 	enum class State
 	{
-		Idle, Walk
+		Idle, WalkForward, WalkBackward
 	};
 	State m_CustomerState;
 

@@ -12,7 +12,7 @@ void Customer::Awake()
 	PotionShop::Get()->Add(this);
 
 	customerSprite = entity->GetComponent<SpritesheetRenderer>();
-	m_CustomerState = State::Walk;
+	m_CustomerState = State::WalkForward;
 }
 
 void Customer::Shutdown()
@@ -47,11 +47,14 @@ void Customer::HandleAnimations()
 {
 	 if (m_CustomerState == State::Idle)
 	 {
-	 	customerSprite->SetLoopRegion(0, 0);
+	 	customerSprite->SetLoopRegion(2, 3);
 	 }
-	 else if (m_CustomerState == State::Walk)
+	 else if (m_CustomerState == State::WalkForward)
 	 {
 	 	customerSprite->SetLoopRegion(0, 3);
+	 }
+	 else{
+		customerSprite->SetLoopRegion(1, 3);
 	 }
 }
 
@@ -78,6 +81,7 @@ void Customer::Interact(InteractPayload* payload)
 				m_MovementTimer = 6;
 				walkDir = 1;
 				destroyAfterMove = true;
+				m_CustomerState = State::WalkBackward;
 
 				PotionShop::Get()->reputation++;
 			}
@@ -91,6 +95,7 @@ void Customer::Interact(InteractPayload* payload)
 					PotionShop::Get()->reputation--;
 					m_MovementTimer = 6;
 					walkDir = 1;
+					m_CustomerState = State::WalkBackward;
 				}
 			}
 		}

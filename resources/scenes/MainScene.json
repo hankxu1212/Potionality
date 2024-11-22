@@ -13,10 +13,6 @@
       "name": "Customer2_walk"
     },
     {
-      "src": "../resources/characters/customer3_walk.png",
-      "name": "Customer3_walk"
-    },
-    {
       "src": "../resources/characters/customer_special.png",
       "name": "Customer_Special_walk"
     },
