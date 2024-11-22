@@ -212,9 +212,12 @@ void Player::OnEatPressed() {
 				m_AdditionalInteractionDistance = 100.0f;
 			} else if (potion->name == "blue_potion") {
 				PlayerSpeed = 1000.0f;
+			} else if (potion->name == "green_potion") {
+				SpritesheetRenderer* spritesheetRenderer = entity->GetComponent<SpritesheetRenderer>();
+				spritesheetRenderer->SetActive(false);
 			} else if (potion->name == "love_potion") {
 				// TODO: EFFECT
-			} else if (potion->name == "green_potion") {
+			} else if (potion->name == "poison_potion") {
 				// TODO: EFFECT
 			}
 			potion->SetHeld(false);
@@ -311,6 +314,7 @@ void Player::HandleAbilityCooldowns()
 		}
 		if (m_PotionEffectTime <= 0) {
 			PlayerSpeed = 300.0f;
+			
 			m_Growth = -5;
 			x_min = 80.0f;
 			x_max = 1660.0f;
@@ -319,6 +323,9 @@ void Player::HandleAbilityCooldowns()
 			BoxCollider* boxCollider = entity->GetComponent<BoxCollider>();
 			boxCollider->setOffset(glm::vec2{46, 56});
 			m_AdditionalInteractionDistance = 0.0f;
+
+			SpritesheetRenderer* spritesheetRenderer = entity->GetComponent<SpritesheetRenderer>();
+			spritesheetRenderer->SetActive(true);
 		}
 	} else if (m_Growth < 0) {
 		m_Growth++;
