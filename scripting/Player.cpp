@@ -44,7 +44,7 @@ void Player::Update()
 	
 	HandleAbilityCooldowns();
 	if (m_PlayerState == State::InDialogue || m_PlayerState == State::Pickup || m_PlayerState == State::Cut || 
-		m_PlayerState == State::Smash || m_PlayerState == State::Brew || m_PlayerState == State::Eat)
+		m_PlayerState == State::Smash || m_PlayerState == State::Brew || m_PlayerState == State::Eat || m_PlayerState == State::Poisoned)
 		return;
 
 	HandleMovement();
@@ -130,7 +130,7 @@ void Player::OnInteractPressed()
 
 	// if already mid-interaction, dont do anything
 	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew ||
-		m_PlayerState == State::Eat)
+		m_PlayerState == State::Eat || m_PlayerState == State::Poisoned)
 		return;
 
 	InteractableObject* obj = InteractableManager::Get()->GetClosestObject();
@@ -190,7 +190,7 @@ void Player::OnEatPressed() {
 
 	// if already mid-interaction, dont do anything
 	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew || 
-		m_PlayerState == State::Eat)
+		m_PlayerState == State::Eat || m_PlayerState == State::Poisoned)
 		return;
 	
 	if (m_Held != nullptr) {
@@ -218,7 +218,8 @@ void Player::OnEatPressed() {
 			} else if (potion->name == "love_potion") {
 				// TODO: EFFECT
 			} else if (potion->name == "poison_potion") {
-				// TODO: EFFECT
+				PlayerSpeed = 0.0f;
+				m_PoisonEffectTime = m_PoisonEffectTimeMax;
 			}
 			potion->SetHeld(false);
 			potion->SetStored(true);
@@ -294,12 +295,19 @@ void Player::HandleMovement()
 void Player::HandleAbilityCooldowns()
 {
 	if (m_PlayerState == State::Pickup || m_PlayerState == State::Cut || m_PlayerState == State::Smash || m_PlayerState == State::Brew || 
-		m_PlayerState == State::Eat) 
-	{
+		m_PlayerState == State::Eat) {
 		if (m_InteractCooldown > 0) {
 			m_InteractCooldown -= Time::DeltaTime;
 			if (m_InteractCooldown <= 0)
 				m_PlayerState = State::Idle;
+		}
+	} else if (m_PlayerState == State::Poisoned) {
+		if (m_PoisonEffectTime > 0) {
+			m_PoisonEffectTime -= Time::DeltaTime;
+			if (m_PoisonEffectTime <= 0) {
+				m_PlayerState = State::Idle;
+				PlayerSpeed = 300.0f;
+			}
 		}
 	}
 
@@ -311,6 +319,9 @@ void Player::HandleAbilityCooldowns()
 			glm::vec2 offset = glm::vec2{-24, -64};
 			if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
 				GetTransform()->Translate(offset);
+		}
+		if (PlayerSpeed == 0.0f && m_PlayerState == State::Idle) { // Only set player to poisoned after "eat" animation finishes
+			m_PlayerState = State::Poisoned;
 		}
 		if (m_PotionEffectTime <= 0) {
 			PlayerSpeed = 300.0f;
@@ -366,6 +377,10 @@ void Player::HandleAnimations()
 
 	case State::Brew:
 		playerSprite->SetLoopRegion(13, 4);
+		break;
+	
+	case State::Poisoned:
+		// TODO: Poisoned animation
 		break;
 
 	default:
