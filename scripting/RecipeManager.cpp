@@ -14,7 +14,7 @@
 
 RecipeManager::RecipeManager()
 {
-    LoadRecipes("../resources/scenes/Recipes.json");
+    LoadRecipes("resources/scenes/Recipes.json");
 }
 
 void RecipeManager::Awake()

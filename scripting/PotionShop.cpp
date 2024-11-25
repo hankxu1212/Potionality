@@ -100,7 +100,7 @@ void PotionShop::SpawnNewCustomer()
 
 void PotionShop::LoadAllPossibleCustomers()
 {
-	const std::string path = "../resources/scenes/Customers.json";
+	const std::string path = "resources/scenes/Customers.json";
 	sejp::value loaded = sejp::load(Files::Path(path));
 	auto& map = loaded.as_object().value();
 	const auto& customers = map.at("customers").as_array().value();

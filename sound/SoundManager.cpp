@@ -7,16 +7,16 @@ SoundManager::SoundManager()
 {
     Sound::init();
 
-    LoadSample("../resources/sound/CartoonBite.wav", "BiteSFX");
-    LoadSample("../resources/sound/Congratulations.wav", "SuccessSFX");
-    LoadSample("../resources/sound/Negative.wav", "FailSFX");
-    LoadSample("../resources/sound/Type.wav", "TypeSFX");
-    LoadSample("../resources/sound/InteractDisappear.wav", "InteractDisappearSFX");
-    LoadSample("../resources/sound/InteractAppear.wav", "InteractAppearSFX");
-    LoadSample("../resources/sound/BookTurn.wav", "BookTurnSFX");
-    LoadSample("../resources/sound/BookTurn2.wav", "BookTurn2SFX");
-    LoadSample("../resources/sound/OST.wav", "OST");
-    LoadSample("../resources/sound/LightSwitch.wav", "LightSwitchSFX");
+    LoadSample("resources/sound/CartoonBite.wav", "BiteSFX");
+    LoadSample("resources/sound/Congratulations.wav", "SuccessSFX");
+    LoadSample("resources/sound/Negative.wav", "FailSFX");
+    LoadSample("resources/sound/Type.wav", "TypeSFX");
+    LoadSample("resources/sound/InteractDisappear.wav", "InteractDisappearSFX");
+    LoadSample("resources/sound/InteractAppear.wav", "InteractAppearSFX");
+    LoadSample("resources/sound/BookTurn.wav", "BookTurnSFX");
+    LoadSample("resources/sound/BookTurn2.wav", "BookTurn2SFX");
+    LoadSample("resources/sound/OST.wav", "OST");
+    LoadSample("resources/sound/LightSwitch.wav", "LightSwitchSFX");
 
     SoundManager::Loop("OST", 5);
 }
