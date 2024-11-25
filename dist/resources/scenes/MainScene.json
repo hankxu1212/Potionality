@@ -1,0 +1,683 @@
+{
+  "textures": [
+    {
+      "src": "resources/characters/Full.png",
+      "name": "player_idle"
+    },
+    {
+      "src": "resources/characters/customer1_walk.png",
+      "name": "Customer1_walk"
+    },
+    {
+      "src": "resources/characters/customer2_walk.png",
+      "name": "Customer2_walk"
+    },
+    {
+      "src": "resources/characters/customer_special.png",
+      "name": "Customer_Special_walk"
+    },
+    {
+      "src": "resources/characters/Guy_flipped.png",
+      "name": "Guy"
+    },
+    {
+      "src": "resources/ingredients/Flower.png",
+      "name": "flower"
+    },
+    {
+      "src": "resources/ingredients/Mushroom.png",
+      "name": "mushroom"
+    },
+    {
+      "src": "resources/ingredients/Rose.png",
+      "name": "rose"
+    },
+    {
+      "src": "resources/ingredients/Leaf.png",
+      "name": "leaf"
+    },
+    {
+      "src": "resources/ingredients/Mushroom_Cut.png",
+      "name": "mushroom_cut"
+    },
+    {
+      "src": "resources/ingredients/Purple_Quartz.png",
+      "name": "purple_quartz"
+    },
+    {
+      "src": "resources/ingredients/Purple_Quartz_Smashed.png",
+      "name": "purple_quartz_smashed"
+    },
+    {
+      "src": "resources/ingredients/Rose_Cut.png",
+      "name": "rose_cut"
+    },
+    {
+      "src": "resources/ingredients/White_Quartz.png",
+      "name": "white_quartz"
+    },
+    {
+      "src": "resources/ingredients/White_Quartz_Smashed.png",
+      "name": "white_quartz_smashed"
+    },
+    {
+      "src": "resources/background/Table.png",
+      "name": "table"
+    },
+    {
+      "src": "resources/background/Plant.png",
+      "name": "plant"
+    },
+    {
+      "src": "resources/background/Carpet.png",
+      "name": "carpet"
+    },
+    {
+      "src": "resources/background/Candle.png",
+      "name": "candle"
+    },
+    {
+      "src": "resources/background/CuttingStation.png",
+      "name": "cutting_station"
+    },
+    {
+      "src": "resources/background/SmashStation.png",
+      "name": "smash_station"
+    },
+    {
+      "src": "resources/background/Cabinet.png",
+      "name": "cabinet"
+    },
+    {
+      "src": "resources/background/Counter.png",
+      "name": "counter"
+    },
+    {
+      "src": "resources/background/Background.png",
+      "name": "background"
+    },
+    {
+      "src": "resources/background/Cauldron.png",
+      "name": "cauldron"
+    },
+    {
+      "src": "resources/icons/Coin.png",
+      "name": "coin"
+    },
+    {
+      "src": "resources/icons/heats.png",
+      "name": "hearts"
+    },
+    {
+      "src": "resources/potions/Red_potion.png",
+      "name": "red_potion"
+    },
+    {
+      "src": "resources/potions/Green_potion.png",
+      "name": "green_potion"
+    },
+    {
+      "src": "resources/potions/Love_potion.png",
+      "name": "love_potion"
+    },
+    {
+      "src": "resources/potions/Blue_potion.png",
+      "name": "blue_potion"
+    },
+    {
+      "src": "resources/potions/Poison_potion.png",
+      "name": "poison_potion"
+    },
+    {
+      "src": "resources/background/VerybadIngredientClosetPlzReplace.png",
+      "name": "closet"
+    },
+    {
+      "src": "resources/UI/questionmark.png",
+      "name": "UI_questionmark"
+    },
+    {
+      "src": "resources/UI/DialogueBox.png",
+      "name": "DialogueBox"
+    },
+    {
+      "src": "resources/recipes/red_potion.png",
+      "name": "RedPotionRecipe"
+    },
+    {
+      "src": "resources/recipes/blue_potion.png",
+      "name": "BluePotionRecipe"
+    },
+    {
+      "src": "resources/recipes/green_potion.png",
+      "name": "GreenPotionRecipe"
+    },
+    {
+      "src": "resources/recipes/love_potion.png",
+      "name": "LovePotionRecipe"
+    },
+    {
+      "src": "resources/recipes/poison_potion.png",
+      "name": "PoisonPotionRecipe"
+    },
+    {
+      "src": "resources/recipes/blank_page.png",
+      "name": "BlankPageRecipe"
+    },
+    {
+      "src": "resources/recipes/RecipeBook.png",
+      "name": "RecipeBook"
+    },
+    {
+      "src": "resources/UI/Circle.png",
+      "name": "UI_Circle"
+    }
+  ],
+  "entities": [
+    {
+      "name": "Background",
+      "translation": [ 0, 0 ],
+      "rotation": 0,
+      "scale": [ 1920, 1080 ],
+      "depth": -9,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "background",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Player",
+      "translation": [ 200, 200 ],
+      "rotation": 1,
+      "scale": [ 192, 256 ],
+      "depth": 2,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpritesheetLoader",
+          "shader": "sprtshtShader",
+          "width": 7,
+          "height": 15,
+          "active": "true"
+        },
+        {
+          "type": "SpritesheetRenderer",
+          "texture": "player_idle",
+          "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 46, 56 ],
+          "scale": [ 100, 200 ],
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Player",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Counter",
+      "translation": [ 1100, 300 ],
+      "rotation": 0,
+      "scale": [ 720, 720 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "counter",
+          "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 300, 0 ],
+          "scale": [ 100, 700 ],
+          "active": "true"
+        }
+      ]
+    },
+    
+    {
+      "name": "Candle",
+      "translation": [ 1400, 800 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "candle",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Plant",
+      "translation": [ 350, 150 ],
+      "rotation": 0,
+      "scale": [ 256, 256 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "plant",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Carpet",
+      "translation": [ 100, 370 ],
+      "rotation": 0,
+      "scale": [ 512, 512 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "carpet",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "FlowerIngredient",
+      "translation": [ 160, 236 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "flower",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Ingredient",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "MushroomIngredient",
+      "translation": [ 280, 236 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "mushroom",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Ingredient",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "RoseIngredient",
+      "translation": [ 160, 186 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "rose",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Ingredient",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "LeafIngredient",
+      "translation": [ 280, 186 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "leaf",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Ingredient",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "PurpleQuartzIngredient",
+      "translation": [ 160, 136 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "purple_quartz",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Ingredient",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "WhiteQuartzIngredient",
+      "translation": [ 280, 136 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "white_quartz",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Ingredient",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "CuttingStation",
+      "translation": [ 380, 800 ],
+      "rotation": 0,
+      "scale": [ 256, 256 ],
+      "depth": 3,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "cutting_station",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "WorkStation",
+          "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 50, 100 ],
+          "scale": [ 300, 200 ],
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "SmashingStation",
+      "translation": [ 120, 800 ],
+      "rotation": 0,
+      "scale": [ 256, 256 ],
+      "depth": 3,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "smash_station",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "WorkStation",
+          "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 50, 100 ],
+          "scale": [ 300, 200 ],
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "BrewingStation",
+      "translation": [ 900, 750 ],
+      "rotation": 0,
+      "scale": [ 256, 256 ],
+      "depth": 3,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "cauldron",
+          "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 28, 80 ],
+          "scale": [ 200, 200 ],
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "WorkStation",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Coin",
+      "translation": [ 1600, 40 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "coin",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "RedPotion",
+      "translation": [ 600, 375 ],
+      "rotation": 0,
+      "scale": [ 64, 64 ],
+      "depth": 1,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "red_potion",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "Potion",
+          "active": "true"
+        }
+      ]
+    },
+    {
+      "name": "Closet",
+      "translation": [ 10, -128 ],
+      "rotation": 0,
+      "scale": [ 512, 512 ],
+      "depth": 0,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "closet",
+          "active": "true"
+        }
+      ]
+    },
+    
+    {
+      "name": "DialogueUI",
+      "translation": [ 20, 700 ],
+      "rotation": 0,
+      "scale": [ 1841, 356 ],
+      "depth": 9.5,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "DialogueBox",
+          "active": "false"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "DialogueUI",
+          "active": "false"
+        }
+      ]
+    },
+    {
+      "name": "Recipe Counter",
+      "translation": [ 650, 800 ],
+      "rotation": 0,
+      "scale": [ 256, 256 ],
+      "depth": 3,
+      "active": "true",
+      "components": [
+        {
+          "type": "SpriteLoader",
+          "shader": "sprtShader",
+          "active": "true"
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture": "RecipeBook",
+          "active": "true"
+        },
+        {
+          "type": "Behaviour",
+          "classname": "RecipeManager",
+          "active": "true"
+        },
+        {
+          "type": "BoxCollider",
+          "translation": [ 78, 78 ],
+          "scale": [ 100, 100 ],
+          "active": "true"
+        }
+      ]
+    }
+  ]
+}

@@ -31,17 +31,17 @@ void PlayMode::Init()
 	glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f, -10.0f, 10.0f);
 
 	// configure static sprite shader
-	ResourceManager::LoadShader(Files::Path("../shaders/sprite.vert").c_str(), Files::Path("../shaders/sprite.frag").c_str(), nullptr, SPRITE_SHADER);
+	ResourceManager::LoadShader(Files::Path("shaders/sprite.vert").c_str(), Files::Path("shaders/sprite.frag").c_str(), nullptr, SPRITE_SHADER);
 	ResourceManager::GetShader(SPRITE_SHADER).Use().SetInteger("image", 0);
 	ResourceManager::GetShader(SPRITE_SHADER).SetMatrix4("projection", projection);
 
 	// configure dynamic spritesheet shader
-	ResourceManager::LoadShader(Files::Path("../shaders/spritesheet.vert").c_str(), Files::Path("../shaders/spritesheet.frag").c_str(), nullptr, SPRITESHEET_SHADER);
+	ResourceManager::LoadShader(Files::Path("shaders/spritesheet.vert").c_str(), Files::Path("shaders/spritesheet.frag").c_str(), nullptr, SPRITESHEET_SHADER);
 	ResourceManager::GetShader(SPRITESHEET_SHADER).Use().SetInteger("image", 0);
 	ResourceManager::GetShader(SPRITESHEET_SHADER).SetMatrix4("projection", projection);
 
 	// configure font rendering shader
-	ResourceManager::LoadShader(Files::Path("../shaders/font.vert").c_str(), Files::Path("../shaders/font.frag").c_str(), nullptr, FONT_SHADER);
+	ResourceManager::LoadShader(Files::Path("shaders/font.vert").c_str(), Files::Path("shaders/font.frag").c_str(), nullptr, FONT_SHADER);
 	ResourceManager::GetShader(FONT_SHADER).Use().SetInteger("image", 0);
 
 	// create all modules
