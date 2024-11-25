@@ -75,7 +75,7 @@ jobs:
           ls
           node Maekfile.js -q && cp README.md dist
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.BASE_NAME }}-linux
           path: dist
@@ -117,7 +117,7 @@ jobs:
           ls
           node Maekfile.js -q && cp README.md dist
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.BASE_NAME }}-macos
           path: dist
