@@ -31,7 +31,7 @@ jobs:
           #call "C:\Program Files (x86)\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           node Maekfile.js -q && copy README.md dist
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.BASE_NAME }}-windows
           path: dist
