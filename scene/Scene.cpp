@@ -19,7 +19,7 @@ Scene::~Scene()
 
 void Scene::Load()
 {
-    Deserialize("../resources/scenes/MainScene.json");
+    Deserialize("resources/scenes/MainScene.json");
 }
 
 void Scene::Unload()
