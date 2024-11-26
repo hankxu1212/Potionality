@@ -68,6 +68,7 @@ void Customer::Interact(InteractPayload* payload)
 		if (potion)
 		{
 			auto it = std::find(m_CustomerInfo.m_Request.potionsToMake.begin(), m_CustomerInfo.m_Request.potionsToMake.end(), potion->name);
+			bool doubleReputation = Player::Instance->getDoubleReputation();
 			if (it != m_CustomerInfo.m_Request.potionsToMake.end())
 			{
 				// Drop off item. Destroys it.
@@ -75,11 +76,11 @@ void Customer::Interact(InteractPayload* payload)
 				payload->isDestroyed = true;
 
 				// walk back!
-				HandleCorrectInteract();
+				HandleCorrectInteract(doubleReputation);
 			}
 			else
 			{
-				HandleIncorrectInteract();
+				HandleIncorrectInteract(doubleReputation);
 			}
 		}
 		else
@@ -96,7 +97,7 @@ void Customer::Interact(InteractPayload* payload)
 	DialogueUI::Instance->StartConversation(currentInteractionString);
 }
 
-void Customer::HandleCorrectInteract()
+void Customer::HandleCorrectInteract(bool doubleReputation)
 {
 	assert(m_CustomerInfo.m_MonologueOnRecieveSuccess.size() > 0);
 	currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveSuccess[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveSuccess.size())];
@@ -106,10 +107,11 @@ void Customer::HandleCorrectInteract()
 	destroyAfterMove = true;
 	m_CustomerState = State::WalkBackward;
 
-	PotionShop::Get()->reputation++;
+	if (doubleReputation) PotionShop::Get()->reputation += 2;
+	else PotionShop::Get()->reputation++;
 }
 
-void Customer::HandleIncorrectInteract()
+void Customer::HandleIncorrectInteract(bool doubleReputation)
 {
 	currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveFailure[m_CustomerInfo.m_MonologueOnRecieveFailure.size() - patience];
 	patience--;
@@ -117,7 +119,8 @@ void Customer::HandleIncorrectInteract()
 	if (patience==0)
 	{
 		// walk back!
-		PotionShop::Get()->reputation--;
+		if (doubleReputation) PotionShop::Get()->reputation -= 2;
+		else PotionShop::Get()->reputation--;
 		m_MovementTimer = 6;
 		walkDir = 1;
 		destroyAfterMove = true;

@@ -29,6 +29,7 @@ public:
 	void smash() { m_PlayerState = State::Smash; }
 	void brew() { m_PlayerState = State::Brew; }
 	float getInteractionDistance() { return m_AdditionalInteractionDistance; }
+	bool getDoubleReputation() { return m_DoubleReputation; }
 
 private:
 	// Debug ////////////////////////////////////////////////////////////////////////
@@ -75,6 +76,7 @@ private:
 	float m_AdditionalInteractionDistance = 0.0f; // Used for big cat
 	float m_PoisonEffectTime;
 	const float m_PoisonEffectTimeMax = 5;
+	bool m_DoubleReputation = false; // Used for love potion
 
 	// Message Display //////////////////////////////////////////////////////////////
 	float m_MessageTimer;

@@ -226,7 +226,7 @@ void Player::OnEatPressed() {
 			} else if (potion->name == "love_potion") {
 				SpriteRenderer* heartRenderer = m_Hearts->entity->GetComponent<SpriteRenderer>();
 				heartRenderer->SetActive(true);
-				// TODO: Double customer payment/reputation
+				m_DoubleReputation = true;
 			} else if (potion->name == "poison_potion") {
 				PlayerSpeed = 0.0f;
 				m_PoisonEffectTime = m_PoisonEffectTimeMax;
@@ -350,6 +350,7 @@ void Player::HandleAbilityCooldowns()
 			SpriteRenderer* heartRenderer = m_Hearts->entity->GetComponent<SpriteRenderer>();
 			heartRenderer->SetActive(false);
 			m_Hearts->setPlayerBig(false);
+			m_DoubleReputation = false;
 		}
 	} else if (m_Growth < 0) {
 		m_Growth++;

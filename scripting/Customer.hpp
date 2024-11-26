@@ -15,8 +15,8 @@ public:
 	void Update() override;
 	void Interact(InteractPayload* payload = nullptr) override;
 
-	void HandleCorrectInteract();
-	void HandleIncorrectInteract();
+	void HandleCorrectInteract(bool doubleReputation);
+	void HandleIncorrectInteract(bool doubleReputation);
 
 	const char* getClassName() const override { return "Customer"; }
 
