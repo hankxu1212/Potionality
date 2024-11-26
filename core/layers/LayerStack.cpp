@@ -1,4 +1,5 @@
 #include "LayerStack.hpp"
+#include <algorithm>
 
 void LayerStack::PushLayer(Layer* layer)
 {
