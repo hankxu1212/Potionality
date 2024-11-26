@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+#include <cstdio>
 
 #ifndef __APPLE__
 	#ifndef __STDC_LIB_EXT1__
