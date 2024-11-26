@@ -204,7 +204,7 @@ void Player::OnEatPressed() {
 		const char* objectName = m_Held->getClassName();
 		if (std::strcmp(objectName, "Potion") == 0) {
 			Potion* potion = dynamic_cast<Potion*>(m_Held);
-			if (potion->name == "red_potion") {
+			if (potion->name == "red_potion" && m_Growth == 0) {
 				x_min = 20.0f;
 				x_max = 1480.0f;
 				y_min = -100.0f;
