@@ -60,7 +60,7 @@ void PotionShop::SpawnNewCustomer()
 		return;
 	}
 
-	glm::vec2 randPos(Math::Random(1800, 2000), m_CustomerSlots[availableSlot]);
+	glm::vec2 randPos(1900, m_CustomerSlots[availableSlot]);
 
 	float scale = Math::Random(200, 256);
 	glm::vec2 randScale(scale, scale);

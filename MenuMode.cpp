@@ -20,11 +20,11 @@ void MenuMode::Init()
 bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 {
 	if (evt.type == SDL_KEYUP) {
-		if (evt.key.keysym.sym == SDLK_UP || evt.key.keysym.sym == SDLK_w) {
+		if (evt.key.keysym.sym == SDLK_UP) {
 			OnUpPressed();
 			return true;
 		}
-		else if (evt.key.keysym.sym == SDLK_DOWN || evt.key.keysym.sym == SDLK_s) {
+		else if (evt.key.keysym.sym == SDLK_DOWN) {
 			OnDownPressed();
 			return true;
 		}

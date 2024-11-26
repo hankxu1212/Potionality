@@ -60,6 +60,8 @@ void Customer::HandleAnimations()
 
 void Customer::Interact(InteractPayload* payload)
 {
+	bool setAsk = false;
+
 	if (Player::Instance->getHeldObject())
 	{
 		Potion* potion = dynamic_cast<Potion*>(Player::Instance->getHeldObject());
@@ -80,7 +82,14 @@ void Customer::Interact(InteractPayload* payload)
 				HandleIncorrectInteract();
 			}
 		}
+		else
+			setAsk = true;
 	}
+	else
+		setAsk = true;
+
+	if (setAsk)
+		currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[Math::Random(0, m_CustomerInfo.m_MonologueOnAsk.size())];
 	
 	payload->isInDialogue = true;
 	DialogueUI::Instance->Enable();
@@ -121,7 +130,6 @@ void Customer::Initialize(CustomerInfo& info)
 	m_MovementTimer = 5;
 	patience = info.m_Patience;
 	this->m_CustomerInfo = info;
-	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
 }
 
 SETUP_DEFAULT_CALLBACKS(Customer)
