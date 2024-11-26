@@ -37,8 +37,10 @@ public:
 
 	void HandleAnimations();
 	glm::vec2 originalScale;
+	glm::vec2 blankOriginalScale;
 	float scaleChange = 2;
 	glm::vec2 upScaled;
+	glm::vec2 blankUpScaled;
 
 private:
 	std::unordered_map<std::string, Recipe> m_Recipes;

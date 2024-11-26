@@ -21,7 +21,7 @@ void RecipeManager::Awake()
 {
     InteractableObject::Awake();
 
-    recipeRendererEntity = entity->AddChild("recipe list", {0,-512}, {300, 300}, 0, 5);
+    recipeRendererEntity = entity->AddChild("recipe list", {0,-512}, {256, 256}, 0, 5);
     recipeRendererEntity->AddComponent<SpriteLoader>(SPRITE_SHADER);
     recipeRendererList = &recipeRendererEntity->AddComponent<SpriteRendererList>(true);
     recipeRendererList->AppendSprite("LovePotionRecipe");
@@ -31,7 +31,7 @@ void RecipeManager::Awake()
     recipeRendererList->AppendSprite("PoisonPotionRecipe");
 
     // will adjust, so it looks better
-    blankRecipeRendererEntity = entity->AddChild("recipe blankpg", {-400,-512}, {300, 300}, 0, 4);
+    blankRecipeRendererEntity = entity->AddChild("recipe blankpg", {-460,-512}, {512, 256}, 0, 4);
     blankRecipeRendererEntity->AddComponent<SpriteLoader>(SPRITE_SHADER);
     blankRecipeRendererList = &blankRecipeRendererEntity->AddComponent<SpriteRendererList>(true);
     blankRecipeRendererList->AppendSprite("BlankPageRecipe");
@@ -41,7 +41,8 @@ void RecipeManager::Awake()
     mainBookSpriteRenderer = entity->GetComponent<SpriteRenderer>();
     
     assert(mainBookSpriteRenderer && recipeRendererList && "Need a sprite renderer list and a main book sprite renderer!");
-
+    blankOriginalScale = blankRecipeRendererEntity->transform()->size();
+    blankUpScaled = blankOriginalScale * scaleChange;
     originalScale = recipeRendererEntity->transform()->size();
     upScaled = originalScale * scaleChange;
 }
@@ -190,7 +191,7 @@ void RecipeManager::HandleAnimations()
     float t = 1 - scaleAnimationTimer / scaleAnimationMaxTime;
 
     recipeRendererEntity->transform()->SetSize(glm::mix(originalScale, upScaled, t));
-    blankRecipeRendererEntity->transform()->SetSize(glm::mix(originalScale, upScaled, t));
+    blankRecipeRendererEntity->transform()->SetSize(glm::mix(blankOriginalScale, blankUpScaled, t));
 }
 
 void RecipeManager::Interact(InteractPayload* payload)
