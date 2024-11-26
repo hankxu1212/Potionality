@@ -68,7 +68,7 @@ Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* 
     }
     catch (std::exception& e)
     {
-        LOG_ERROR("ERROR::SHADER: Failed to read shader files");
+        LOG_ERROR_F("ERROR::SHADER: Failed to read shader files {}", e.what());
     }
 
     const char* vShaderCode = vertexCode.c_str();
