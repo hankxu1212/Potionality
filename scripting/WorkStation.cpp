@@ -76,12 +76,16 @@ void WorkStation::Interact(InteractPayload* payload)
                     // Current version is hard coded for testing purposes
                     if (ingredientCounts.count("PurpleQuartzSmashedIngredient") && ingredientCounts.count("WhiteQuartzSmashedIngredient") && ingredientCounts.count("RoseCutIngredient")) {
                         ingredientCounts.clear();
+                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->AddComponent<SpriteRenderer>(true, "cauldron");
                         isEmpty = true;
                         glm::vec2 newPos(GetTransform()->position().x, GetTransform()->position().y - 64);
                         Entity* newPotion = SceneManager::Get()->getScene()->Instantiate("LovePotion", newPos, glm::vec2{64, 64}, 0, 1);
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "love_potion");
                         newPotion->AddComponent<Potion>(true, "love_potion");
+                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     } else if (ingredientCounts.count("MushroomCutIngredient") && ingredientCounts.count("FlowerIngredient")) {
                         ingredientCounts.clear();
                         isEmpty = true;
@@ -90,6 +94,8 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "red_potion");
                         newPotion->AddComponent<Potion>(true, "red_potion");
+                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     } else if (ingredientCounts.count("MushroomCutIngredient") && ingredientCounts.count("LeafIngredient")) {
                         ingredientCounts.clear();
                         isEmpty = true;
@@ -98,6 +104,8 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "green_potion");
                         newPotion->AddComponent<Potion>(true, "green_potion");
+                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     } else if (ingredientCounts.count("MushroomIngredient") && ingredientCounts.count("LeafIngredient") && ingredientCounts.count("PurpleQuartzSmashedIngredient")) {
                         ingredientCounts.clear();
                         isEmpty = true;
@@ -106,6 +114,8 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "poison_potion");
                         newPotion->AddComponent<Potion>(true, "poison_potion");
+                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     }else if (ingredientCounts.count("FlowerIngredient")) {
                         ingredientCounts.clear();
                         isEmpty = true;
@@ -114,6 +124,8 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "blue_potion");
                         newPotion->AddComponent<Potion>(true, "blue_potion");
+                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     } else {
                         LOG_INFO("Failed to brew potion!");
                     }

@@ -140,17 +140,17 @@ void Ingredient::Interact(InteractPayload* payload)
 
         // If ingredient is still in starting position, duplicate
         bool flowerOnShelf = ingredient->name.compare("FlowerIngredient") == 0 && 
-            GetTransform()->position().x == 160 && GetTransform()->position().y == 236;
-        bool mushroomOnShelf = ingredient->name.compare("MushroomIngredient") == 0 && 
-            GetTransform()->position().x == 280 && GetTransform()->position().y == 236;
-        bool roseOnShelf = ingredient->name.compare("RoseIngredient") == 0 && 
-            GetTransform()->position().x == 160 && GetTransform()->position().y == 186;
-        bool leafOnShelf = ingredient->name.compare("LeafIngredient") == 0 && 
-            GetTransform()->position().x == 280 && GetTransform()->position().y == 186;
-        bool purpleQuartzOnShelf = ingredient->name.compare("PurpleQuartzIngredient") == 0 && 
-            GetTransform()->position().x == 160 && GetTransform()->position().y == 136;
-        bool whiteQuartzOnShelf = ingredient->name.compare("WhiteQuartzIngredient") == 0 && 
-            GetTransform()->position().x == 280 && GetTransform()->position().y == 136;
+            GetTransform()->position().x == 160 && GetTransform()->position().y == 310;
+        bool mushroomOnShelf = ingredient->name.compare("MushroomIngredient") == 0 &&
+            GetTransform()->position().x == 280 && GetTransform()->position().y == 310;
+        bool roseOnShelf = ingredient->name.compare("RoseIngredient") == 0 &&
+            GetTransform()->position().x == 160 && GetTransform()->position().y == 216;
+        bool leafOnShelf = ingredient->name.compare("LeafIngredient") == 0 &&
+            GetTransform()->position().x == 280 && GetTransform()->position().y == 216;
+        bool purpleQuartzOnShelf = ingredient->name.compare("PurpleQuartzIngredient") == 0 &&
+            GetTransform()->position().x == 160 && GetTransform()->position().y == 120;
+        bool whiteQuartzOnShelf = ingredient->name.compare("WhiteQuartzIngredient") == 0 &&
+            GetTransform()->position().x == 280 && GetTransform()->position().y == 120;
         if (flowerOnShelf || mushroomOnShelf || purpleQuartzOnShelf || whiteQuartzOnShelf || roseOnShelf || leafOnShelf) {
             duplicateIngredient();
         }

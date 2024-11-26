@@ -153,7 +153,7 @@
       "name": "poison_potion"
     },
     {
-      "src": "resources/background/VerybadIngredientClosetPlzReplace.png",
+      "src": "resources/background/IngredientCloset.png",
       "name": "closet"
     },
     {
@@ -300,7 +300,7 @@
     },
     {
       "name": "Plant",
-      "translation": [ 350, 150 ],
+      "translation": [ 370, 130 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
       "depth": 0,
@@ -340,7 +340,7 @@
     },
     {
       "name": "FlowerIngredient",
-      "translation": [ 160, 236 ],
+      "translation": [ 160, 310 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -365,7 +365,7 @@
     },
     {
       "name": "MushroomIngredient",
-      "translation": [ 280, 236 ],
+      "translation": [ 280, 310 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -390,7 +390,7 @@
     },
     {
       "name": "RoseIngredient",
-      "translation": [ 160, 186 ],
+      "translation": [ 160, 216 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -415,7 +415,7 @@
     },
     {
       "name": "LeafIngredient",
-      "translation": [ 280, 186 ],
+      "translation": [ 280, 216 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -440,7 +440,7 @@
     },
     {
       "name": "PurpleQuartzIngredient",
-      "translation": [ 160, 136 ],
+      "translation": [ 160, 120 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -465,7 +465,7 @@
     },
     {
       "name": "WhiteQuartzIngredient",
-      "translation": [ 280, 136 ],
+      "translation": [ 280, 120 ],
       "rotation": 0,
       "scale": [ 64, 64 ],
       "depth": 1,
@@ -628,9 +628,9 @@
     },
     {
       "name": "Closet",
-      "translation": [ 10, -128 ],
+      "translation": [ 50, 50 ],
       "rotation": 0,
-      "scale": [ 512, 512 ],
+      "scale": [ 384, 384 ],
       "depth": 0,
       "active": "true",
       "components": [
