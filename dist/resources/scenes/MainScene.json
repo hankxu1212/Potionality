@@ -101,6 +101,30 @@
       "name": "cauldron"
     },
     {
+      "src": "resources/background/Cauldron_Red.png",
+      "name": "cauldron_red"
+    },
+    {
+      "src": "resources/background/Cauldron_Green.png",
+      "name": "cauldron_green"
+    },
+    {
+      "src": "resources/background/Cauldron_Blue.png",
+      "name": "cauldron_blue"
+    },
+    {
+      "src": "resources/background/Cauldron_Purple.png",
+      "name": "cauldron_purple"
+    },
+    {
+      "src": "resources/background/Cauldron_Pink.png",
+      "name": "cauldron_pink"
+    },
+    {
+      "src": "resources/background/Cauldron_White.png",
+      "name": "cauldron_white"
+    },
+    {
       "src": "resources/icons/Coin.png",
       "name": "coin"
     },

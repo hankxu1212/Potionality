@@ -135,6 +135,34 @@ void WorkStation::Interact(InteractPayload* payload)
                 ingredient->SetStored(true);
                 Player::Instance->removeHeldObject();
                 isEmpty = false;
+                
+                LOG_INFO(ingredient->ingredient->name);
+                
+                //change colors
+                if (ingredient->ingredient->name == "MushroomCutIngredient") {
+                    entity->RemoveComponent<SpriteRenderer>();
+                    entity->AddComponent<SpriteRenderer>(true, "cauldron_red");
+                }
+                else if (ingredient->ingredient->name == "LeafIngredient") {
+                    entity->RemoveComponent<SpriteRenderer>();
+                    entity->AddComponent<SpriteRenderer>(true, "cauldron_green");
+                }
+                else if (ingredient->ingredient->name == "PurpleQuartzSmashedIngredient") {
+                    entity->RemoveComponent<SpriteRenderer>();
+                    entity->AddComponent<SpriteRenderer>(true, "cauldron_purple");
+                }
+                else if (ingredient->ingredient->name == "WhieQuartzSmashedIngredient") {
+                    entity->RemoveComponent<SpriteRenderer>();
+                    entity->AddComponent<SpriteRenderer>(true, "cauldron_blue");
+                }
+                else if (ingredient->ingredient->name == "FlowerIngredient") {
+                    entity->RemoveComponent<SpriteRenderer>();
+                    entity->AddComponent<SpriteRenderer>(true, "cauldron_white");
+                }
+                else if (ingredient->ingredient->name == "RoseCutIngredient") {
+                    entity->RemoveComponent<SpriteRenderer>();
+                    entity->AddComponent<SpriteRenderer>(true, "cauldron_pink");
+                }
 
                 // Increment ingredient counts
                 if (ingredientCounts.count(ingredient->ingredient->name) == 0) {
@@ -146,6 +174,7 @@ void WorkStation::Interact(InteractPayload* payload)
                 // Ingredient is dissolved, destroy it
                 SceneManager::Get()->getScene()->Destroy(size_t(ingredient->GetEntityID()));
                 payload->isDestroyed = true;
+                
             }
         } else if (isEmpty && heldObject != nullptr) { // Place ingredient on table for non-brewing stations
             const char* objectName = heldObject->getClassName();
