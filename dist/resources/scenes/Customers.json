@@ -16,7 +16,8 @@
                 "Do you have something that can replenish my mana?"
             ],
             "recieve_success" : [
-                "This is exacly what I needed! Thanks!"
+                "This is exacly what I needed! Thanks!",
+                "Thanks! See you again when I need more of these!"
             ],
             "recieve_failure" : [
                 "Hmm. Not sure if I need this.",
@@ -34,7 +35,7 @@
                 ],
                 "reward" : 1
             },
-            "patience" : 4,
+            "patience" : 3,
             "ask" : [
                 "Hey potcat, Can I get some health potion?",
                 "Do you have something that can boost regeneration?"
@@ -45,9 +46,74 @@
             "recieve_failure" : [
                 "Hmm. Not sure if I need this.",
                 "Are you sure about this? Doesn't seem like the thing I need.",
-                "Dude are you kidding me?",
-                "Wow. Here we go again. Bye!"
+                "Dude are you kidding me?"
+            ]
+        },
+        {
+            "type": "herbalist",
+            "request": {
+                "potions": [
+                    "green_potion"
+                ],
+                "reward": 1
+            },
+            "patience": 3,
+            "ask": [
+                "Hello potcat! Got anything herbal for me?",
+                "Do you have a potion that promotes growth or vitality?"
+            ],
+            "recieve_success": [
+                "Ah, just what I was hoping for! Thanks!"
+            ],
+            "recieve_failure": [
+                "This doesn't seem right. Are you sure?",
+                "Nope, not what I need. Try again?",
+                "Oh, potcat. What a mix-up. Farewell!"
+            ]
+        },
+        {
+            "type": "assassin",
+            "request": {
+                "potions": [
+                    "poison_potion"
+                ],
+                "reward": 2
+            },
+            "patience": 1,
+            "ask": [
+                "Hey potcat, I need something... sinister. Got poison?",
+                "Do you have a potion that can, let's say, handle some 'delicate' situations?"
+            ],
+            "recieve_success": [
+                "Perfect. Just what I needed.",
+                "You're quite the ally, potcat!"
+            ],
+            "recieve_failure": [
+                "You're wasting my time, potcat."
+            ]
+        },
+        {
+            "type": "hopeless romantic",
+            "request": {
+                "potions": [
+                    "love_potion"
+                ],
+                "reward": 3
+            },
+            "patience": 2,
+            "ask": [
+                "Hey potcat, do you have a love potion? Asking for a friend... of course.",
+                "I'm in dire need of something to spark a romance. Can you help?"
+            ],
+            "recieve_success": [
+                "Oh, this will be *perfect*! Thanks a ton!",
+                "This is exactly what I was looking for. You're amazing!"
+            ],
+            "recieve_failure": [
+                "Um, no. This is NOT what I asked for.",
+                "Potcat, you're killing me here. This isn't it."
             ]
         }
+        
     ]
   }

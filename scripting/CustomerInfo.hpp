@@ -62,6 +62,7 @@ struct CustomerInfo
         for (const auto& p : m_MonologueOnRecieveFailure){
             std::cout << p << " ";
         }
+        std::cout << "\n with patience: " << m_Patience;
         std::cout << std::endl;
     }
 };

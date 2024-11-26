@@ -68,35 +68,16 @@ void Customer::Interact(InteractPayload* payload)
 			auto it = std::find(m_CustomerInfo.m_Request.potionsToMake.begin(), m_CustomerInfo.m_Request.potionsToMake.end(), potion->name);
 			if (it != m_CustomerInfo.m_Request.potionsToMake.end())
 			{
-				LOG_DEBUG(potion->name, Logger::CYAN, Logger::BOLD);
-				
 				// Drop off item. Destroys it.
 				potion->entity->Destroy();
 				payload->isDestroyed = true;
 
-				assert(m_CustomerInfo.m_MonologueOnRecieveSuccess.size() > 0);
-				currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveSuccess[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveSuccess.size())];
-
 				// walk back!
-				m_MovementTimer = 6;
-				walkDir = 1;
-				destroyAfterMove = true;
-				m_CustomerState = State::WalkBackward;
-
-				PotionShop::Get()->reputation++;
+				HandleCorrectInteract();
 			}
 			else
 			{
-				assert(m_CustomerInfo.m_MonologueOnRecieveFailure.size() > 0);
-				currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveFailure[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveFailure.size())];
-				patience --;
-				if (patience==0){
-					// walk back!
-					PotionShop::Get()->reputation--;
-					m_MovementTimer = 6;
-					walkDir = 1;
-					m_CustomerState = State::WalkBackward;
-				}
+				HandleIncorrectInteract();
 			}
 		}
 	}
@@ -106,10 +87,39 @@ void Customer::Interact(InteractPayload* payload)
 	DialogueUI::Instance->StartConversation(currentInteractionString);
 }
 
-void Customer::Initialize(CustomerInfo info)
+void Customer::HandleCorrectInteract()
+{
+	assert(m_CustomerInfo.m_MonologueOnRecieveSuccess.size() > 0);
+	currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveSuccess[Math::Random(0, m_CustomerInfo.m_MonologueOnRecieveSuccess.size())];
+
+	m_MovementTimer = 6;
+	walkDir = 1;
+	destroyAfterMove = true;
+	m_CustomerState = State::WalkBackward;
+
+	PotionShop::Get()->reputation++;
+}
+
+void Customer::HandleIncorrectInteract()
+{
+	currentInteractionString = m_CustomerInfo.m_MonologueOnRecieveFailure[m_CustomerInfo.m_MonologueOnRecieveFailure.size() - patience];
+	patience--;
+	LOG_INFO(patience);
+	if (patience==0)
+	{
+		// walk back!
+		PotionShop::Get()->reputation--;
+		m_MovementTimer = 6;
+		walkDir = 1;
+		destroyAfterMove = true;
+		m_CustomerState = State::WalkBackward;
+	}
+}
+
+void Customer::Initialize(CustomerInfo& info)
 {
 	m_MovementTimer = 5;
-	patience = this->m_CustomerInfo.m_Patience;
+	patience = info.m_Patience;
 	this->m_CustomerInfo = info;
 	currentInteractionString = m_CustomerInfo.m_MonologueOnAsk[0];
 }

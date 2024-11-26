@@ -15,9 +15,12 @@ public:
 	void Update() override;
 	void Interact(InteractPayload* payload = nullptr) override;
 
+	void HandleCorrectInteract();
+	void HandleIncorrectInteract();
+
 	const char* getClassName() const override { return "Customer"; }
 
-	void Initialize(CustomerInfo info);
+	void Initialize(CustomerInfo& info);
 
 	uint32_t slot;
 
