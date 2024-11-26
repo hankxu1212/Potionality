@@ -60,7 +60,7 @@
             "patience": 3,
             "ask": [
                 "Hello potcat! Got anything herbal for me?",
-                "Do you have a potion that promotes growth or vitality?"
+                "I wish to disappear in the woods, got any potion that can do that?"
             ],
             "recieve_success": [
                 "Ah, just what I was hoping for! Thanks!"
