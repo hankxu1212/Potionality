@@ -513,7 +513,7 @@
         },
         {
           "type": "BoxCollider",
-          "translation": [ 50, 100 ],
+          "translation": [ 50, 80 ],
           "scale": [ 300, 200 ],
           "active": "true"
         }
@@ -544,7 +544,7 @@
         },
         {
           "type": "BoxCollider",
-          "translation": [ 50, 100 ],
+          "translation": [ 50, 80 ],
           "scale": [ 300, 200 ],
           "active": "true"
         }
@@ -552,7 +552,7 @@
     },
     {
       "name": "BrewingStation",
-      "translation": [ 900, 750 ],
+      "translation": [ 900, 800 ],
       "rotation": 0,
       "scale": [ 256, 256 ],
       "depth": 3,
@@ -697,7 +697,7 @@
         },
         {
           "type": "BoxCollider",
-          "translation": [ 78, 78 ],
+          "translation": [ 78, 80 ],
           "scale": [ 100, 100 ],
           "active": "true"
         }
