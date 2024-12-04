@@ -42,6 +42,16 @@ void MenuMode::update(float elapsed)
 	TextRenderer::Get()->RenderText("Start Game/Continue", 500, 300, 0.002f);
 	TextRenderer::Get()->RenderText("Quit", 500, 200, 0.002f);
 
+	constexpr float right = 1300;
+	constexpr float top = 300;
+
+	TextRenderer::Get()->RenderText("Controls", right, top, 0.002f);
+	TextRenderer::Get()->RenderText("[WASD] Movement", right, top - 50, 0.002f);
+	TextRenderer::Get()->RenderText("[Space] Interact", right, top - 100, 0.002f);
+	TextRenderer::Get()->RenderText("[Z/X] Flip Recipe Book", right, top - 150, 0.002f);
+	TextRenderer::Get()->RenderText("[E] Eat", right, top - 200, 0.002f);
+
+
 	sprtRenderer->DrawSprite("UI_Circle", glm::vec2{ 400, positions[m_CurrentOption] }, glm::vec2{32, 32});
 }
  

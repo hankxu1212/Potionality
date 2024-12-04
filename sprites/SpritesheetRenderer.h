@@ -29,7 +29,7 @@ private:
 	float loop_x = 0;
 
 	// animation
-    float invFPS = 1.0 / 3;
+    float invFPS = 1.0 / 5;
     float prevTime;
 
 	float prev_row;
