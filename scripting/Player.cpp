@@ -209,10 +209,10 @@ void Player::OnEatPressed() {
 				x_max = 1480.0f;
 				y_min = -100.0f;
 				y_max = 570.0f;
-				playerCollider->setOffset(playerCollider->getOffset() + glm::vec2{28.4, 62.4});
+				playerCollider->setOffset(playerCollider->getOffset() + glm::vec2{19.2, 51.2});
 				playerCollider->Update(); // NOTE: Need to manually call to ensure position is updated before checking translations
 				if (ColliderManager::Get()->CheckCollision(playerCollider))
-					GetTransform()->Translate(glm::vec2{-28.4, -62.4});
+					GetTransform()->Translate(glm::vec2{-19.2, -51.2});
 				m_Growth = 1;
 				entity->transform()->SetSize(glm::vec2{240, 320});
 				glm::vec2 offset = glm::vec2{-24, -64};
@@ -327,10 +327,10 @@ void Player::HandleAbilityCooldowns()
 		m_PotionEffectTime -= Time::DeltaTime;
 		if (m_Growth > 0 && m_Growth < 5) {
 			m_Growth++;
-			playerCollider->setOffset(playerCollider->getOffset() + glm::vec2{28.4, 62.4});
+			playerCollider->setOffset(playerCollider->getOffset() + glm::vec2{19.2, 51.2});
 			playerCollider->Update();
 			if (ColliderManager::Get()->CheckCollision(playerCollider)) {
-				GetTransform()->Translate(glm::vec2{-28.4, -62.4});
+				GetTransform()->Translate(glm::vec2{-19.2, -51.2});
 			}
 			entity->transform()->SetSize(entity->transform()->size() + glm::vec2{48, 64});
 			glm::vec2 offset = glm::vec2{-24, -64};
@@ -361,10 +361,10 @@ void Player::HandleAbilityCooldowns()
 		}
 	} else if (m_Growth < 0) {
 		m_Growth++;
-		playerCollider->setOffset(playerCollider->getOffset() - glm::vec2{28.4, 62.4});
+		playerCollider->setOffset(playerCollider->getOffset() - glm::vec2{19.2, 51.2});
 		playerCollider->Update();
 		if (ColliderManager::Get()->CheckCollision(playerCollider))
-			GetTransform()->Translate(glm::vec2{28.4, 62.4});
+			GetTransform()->Translate(glm::vec2{19.2, 51.2});
 		entity->transform()->SetSize(entity->transform()->size() - glm::vec2{48, 64});
 		glm::vec2 offset = glm::vec2{24, 64};
 		playerCollider->Update();
