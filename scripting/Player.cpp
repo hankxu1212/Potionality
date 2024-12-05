@@ -386,7 +386,7 @@ void Player::HandleAnimations()
 		break;
 
 	case State::Pickup:
-		playerSprite->SetLoopRegion(1, 4);
+		playerSprite->SetLoopRegion(15, 4);
 		break;
 	
 	case State::Eat:
