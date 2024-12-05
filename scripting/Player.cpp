@@ -209,11 +209,14 @@ void Player::OnEatPressed() {
 				x_max = 1480.0f;
 				y_min = -100.0f;
 				y_max = 570.0f;
-				BoxCollider* boxCollider = entity->GetComponent<BoxCollider>();
-				boxCollider->setOffset(glm::vec2{142, 312});
+				playerCollider->setOffset(playerCollider->getOffset() + glm::vec2{28.4, 62.4});
+				playerCollider->Update(); // NOTE: Need to manually call to ensure position is updated before checking translations
+				if (ColliderManager::Get()->CheckCollision(playerCollider))
+					GetTransform()->Translate(glm::vec2{-28.4, -62.4});
 				m_Growth = 1;
 				entity->transform()->SetSize(glm::vec2{240, 320});
 				glm::vec2 offset = glm::vec2{-24, -64};
+				playerCollider->Update();
 				if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
 					GetTransform()->Translate(offset);
 				m_AdditionalInteractionDistance = 100.0f;
@@ -324,8 +327,14 @@ void Player::HandleAbilityCooldowns()
 		m_PotionEffectTime -= Time::DeltaTime;
 		if (m_Growth > 0 && m_Growth < 5) {
 			m_Growth++;
+			playerCollider->setOffset(playerCollider->getOffset() + glm::vec2{28.4, 62.4});
+			playerCollider->Update();
+			if (ColliderManager::Get()->CheckCollision(playerCollider)) {
+				GetTransform()->Translate(glm::vec2{-28.4, -62.4});
+			}
 			entity->transform()->SetSize(entity->transform()->size() + glm::vec2{48, 64});
 			glm::vec2 offset = glm::vec2{-24, -64};
+			playerCollider->Update();
 			if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
 				GetTransform()->Translate(offset);
 		}
@@ -335,13 +344,11 @@ void Player::HandleAbilityCooldowns()
 		if (m_PotionEffectTime <= 0) {
 			PlayerSpeed = 300.0f;
 			
-			if (m_Growth!=0) {m_Growth = -5;}
 			x_min = 80.0f;
 			x_max = 1660.0f;
 			y_min = 150.0f;
 			y_max = 820.0f;
-			BoxCollider* boxCollider = entity->GetComponent<BoxCollider>();
-			boxCollider->setOffset(glm::vec2{46, 56});
+			if (m_Growth != 0) m_Growth = -5;
 			m_AdditionalInteractionDistance = 0.0f;
 
 			SpritesheetRenderer* spritesheetRenderer = entity->GetComponent<SpritesheetRenderer>();
@@ -354,8 +361,13 @@ void Player::HandleAbilityCooldowns()
 		}
 	} else if (m_Growth < 0) {
 		m_Growth++;
+		playerCollider->setOffset(playerCollider->getOffset() - glm::vec2{28.4, 62.4});
+		playerCollider->Update();
+		if (ColliderManager::Get()->CheckCollision(playerCollider))
+			GetTransform()->Translate(glm::vec2{28.4, 62.4});
 		entity->transform()->SetSize(entity->transform()->size() - glm::vec2{48, 64});
 		glm::vec2 offset = glm::vec2{24, 64};
+		playerCollider->Update();
 		if (!ColliderManager::Get()->CheckCollisionFuture(playerCollider, offset))
 			GetTransform()->Translate(offset);
 	}
