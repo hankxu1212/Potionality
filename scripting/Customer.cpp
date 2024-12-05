@@ -47,14 +47,14 @@ void Customer::HandleAnimations()
 {
 	 if (m_CustomerState == State::Idle)
 	 {
-	 	customerSprite->SetLoopRegion(2, 3);
+	 	customerSprite->SetLoopRegion(2, 4);
 	 }
 	 else if (m_CustomerState == State::WalkForward)
 	 {
-	 	customerSprite->SetLoopRegion(0, 3);
+	 	customerSprite->SetLoopRegion(0, 4);
 	 }
 	 else{
-		customerSprite->SetLoopRegion(1, 3);
+		customerSprite->SetLoopRegion(1, 4);
 	 }
 }
 

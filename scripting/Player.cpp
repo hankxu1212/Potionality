@@ -378,11 +378,11 @@ void Player::HandleAnimations()
 	switch (m_PlayerState)
 	{
 	case State::Idle:
-		playerSprite->SetLoopRegion(0, 3);
+		playerSprite->SetLoopRegion(0, 4);
 		break;
 
 	case State::Walk:
-		playerSprite->SetLoopRegion(m_MoveDir + 2, 3);
+		playerSprite->SetLoopRegion(m_MoveDir + 2, 4);
 		break;
 
 	case State::Pickup:
@@ -394,11 +394,11 @@ void Player::HandleAnimations()
 		break;
 
 	case State::Cut:
-		playerSprite->SetLoopRegion(12, 6);
+		playerSprite->SetLoopRegion(12, 7);
 		break;
 
 	case State::Smash:
-		playerSprite->SetLoopRegion(11, 6);
+		playerSprite->SetLoopRegion(11, 7);
 		break;
 
 	case State::Brew:
