@@ -228,7 +228,7 @@ void WorkStation::Interact(InteractPayload* payload)
                 ingredient->SetHeld(false);
                 ingredient->SetStored(true);
                 Player::Instance->removeHeldObject();
-                storedIngredient->GetTransform()->SetPosition(GetTransform()->position().x + 60, GetTransform()->position().y + 70);
+                storedIngredient->GetTransform()->SetPosition(GetTransform()->position().x + 95, GetTransform()->position().y + 35);
                 isEmpty = false;
             }
         } else if (!isEmpty) { // Non-brewing station already has an ingredient
