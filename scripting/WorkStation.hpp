@@ -5,6 +5,7 @@
 #include "interactables/InteractableObject.h"
 
 class Ingredient;
+class SpriteLoader;
 
 class WorkStation : public InteractableObject
 {

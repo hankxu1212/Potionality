@@ -101,28 +101,32 @@
       "name": "cauldron"
     },
     {
-      "src": "resources/background/Cauldron_Red.png",
-      "name": "cauldron_red"
+      "src": "resources/background/Cauldron_Spritesheet.png",
+      "name": "cauldron_spritesheet"
     },
     {
-      "src": "resources/background/Cauldron_Green.png",
-      "name": "cauldron_green"
+      "src": "resources/background/Cauldron_Spritesheet_Green.png",
+      "name": "cauldron_spritesheet_green"
     },
     {
-      "src": "resources/background/Cauldron_Blue.png",
-      "name": "cauldron_blue"
+      "src": "resources/background/Cauldron_Spritesheet_Red.png",
+      "name": "cauldron_spritesheet_red"
     },
     {
-      "src": "resources/background/Cauldron_Purple.png",
-      "name": "cauldron_purple"
+      "src": "resources/background/Cauldron_Spritesheet_Blue.png",
+      "name": "cauldron_spritesheet_blue"
     },
     {
-      "src": "resources/background/Cauldron_Pink.png",
-      "name": "cauldron_pink"
+      "src": "resources/background/Cauldron_Spritesheet_Purple.png",
+      "name": "cauldron_spritesheet_purple"
     },
     {
-      "src": "resources/background/Cauldron_White.png",
-      "name": "cauldron_white"
+      "src": "resources/background/Cauldron_Spritesheet_Pink.png",
+      "name": "cauldron_spritesheet_pink"
+    },
+    {
+      "src": "resources/background/Cauldron_Spritesheet_White.png",
+      "name": "cauldron_spritesheet_white"
     },
     {
       "src": "resources/icons/Coin.png",
@@ -559,14 +563,14 @@
       "active": "true",
       "components": [
         {
-          "type": "SpriteLoader",
-          "shader": "sprtShader",
-          "active": "true"
+            "type": "SpriteLoader",
+            "shader": "sprtShader",
+            "active": "true"
         },
         {
-          "type": "SpriteRenderer",
-          "texture": "cauldron",
-          "active": "true"
+            "type": "SpriteRenderer",
+            "texture": "cauldron",
+            "active": "true"
         },
         {
           "type": "BoxCollider",

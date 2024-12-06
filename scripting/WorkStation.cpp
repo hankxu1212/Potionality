@@ -5,8 +5,11 @@
 #include "Player.hpp"
 #include "Ingredient.hpp"
 #include "PotionCore.hpp"
+#include "../PlayMode.hpp"
 
 #include <cstring>
+
+SpritesheetRenderer* cauldronSprite;
 
 void WorkStation::Awake()
 {
@@ -76,7 +79,9 @@ void WorkStation::Interact(InteractPayload* payload)
                     // Current version is hard coded for testing purposes
                     if (ingredientCounts.count("PurpleQuartzSmashedIngredient") && ingredientCounts.count("WhiteQuartzSmashedIngredient") && ingredientCounts.count("RoseCutIngredient")) {
                         ingredientCounts.clear();
-                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->RemoveComponent<SpritesheetRenderer>();
+                        entity->RemoveComponent<SpritesheetLoader>();
+                        entity->AddComponent<SpriteLoader>(true, "sprtShader");
                         entity->AddComponent<SpriteRenderer>(true, "cauldron");
                         isEmpty = true;
                         glm::vec2 newPos(GetTransform()->position().x, GetTransform()->position().y - 64);
@@ -84,7 +89,9 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "love_potion");
                         newPotion->AddComponent<Potion>(true, "love_potion");
-                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->RemoveComponent<SpritesheetRenderer>();
+                        entity->RemoveComponent<SpritesheetLoader>();
+                        entity->AddComponent<SpriteLoader>(true, "sprtShader");
                         entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     } else if (ingredientCounts.count("MushroomCutIngredient") && ingredientCounts.count("FlowerIngredient")) {
                         ingredientCounts.clear();
@@ -94,7 +101,9 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "red_potion");
                         newPotion->AddComponent<Potion>(true, "red_potion");
-                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->RemoveComponent<SpritesheetRenderer>();
+                        entity->RemoveComponent<SpritesheetLoader>();
+                        entity->AddComponent<SpriteLoader>(true, "sprtShader");
                         entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     } else if (ingredientCounts.count("MushroomCutIngredient") && ingredientCounts.count("LeafIngredient")) {
                         ingredientCounts.clear();
@@ -104,7 +113,9 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "green_potion");
                         newPotion->AddComponent<Potion>(true, "green_potion");
-                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->RemoveComponent<SpritesheetRenderer>();
+                        entity->RemoveComponent<SpritesheetLoader>();
+                        entity->AddComponent<SpriteLoader>(true, "sprtShader");
                         entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     } else if (ingredientCounts.count("MushroomIngredient") && ingredientCounts.count("LeafIngredient") && ingredientCounts.count("PurpleQuartzSmashedIngredient")) {
                         ingredientCounts.clear();
@@ -114,7 +125,9 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "poison_potion");
                         newPotion->AddComponent<Potion>(true, "poison_potion");
-                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->RemoveComponent<SpritesheetRenderer>();
+                        entity->RemoveComponent<SpritesheetLoader>();
+                        entity->AddComponent<SpriteLoader>(true, "sprtShader");
                         entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     }else if (ingredientCounts.count("FlowerIngredient")) {
                         ingredientCounts.clear();
@@ -124,7 +137,9 @@ void WorkStation::Interact(InteractPayload* payload)
                         newPotion->AddComponent<SpriteLoader>(true, "sprtShader");
                         newPotion->AddComponent<SpriteRenderer>(true, "blue_potion");
                         newPotion->AddComponent<Potion>(true, "blue_potion");
-                        entity->RemoveComponent<SpriteRenderer>();
+                        entity->RemoveComponent<SpritesheetRenderer>();
+                        entity->RemoveComponent<SpritesheetLoader>();
+                        entity->AddComponent<SpriteLoader>(true, "sprtShader");
                         entity->AddComponent<SpriteRenderer>(true, "cauldron");
                     } else {
                         LOG_INFO("Failed to brew potion!");
@@ -146,36 +161,47 @@ void WorkStation::Interact(InteractPayload* payload)
                 ingredient->SetHeld(false);
                 ingredient->SetStored(true);
                 Player::Instance->removeHeldObject();
+                
+                if(isEmpty){
+                    entity->RemoveComponent<SpriteRenderer>();
+                    entity->RemoveComponent<SpriteLoader>();
+                }else{
+                    entity->RemoveComponent<SpritesheetRenderer>();
+                    entity->RemoveComponent<SpritesheetLoader>();
+                }
+                entity->AddComponent<SpritesheetLoader>(true, SPRITESHEET_SHADER, 4,1);
+                
                 isEmpty = false;
                 
                 LOG_INFO(ingredient->ingredient->name);
                 
-                //change colors
                 if (ingredient->ingredient->name == "MushroomCutIngredient") {
-                    entity->RemoveComponent<SpriteRenderer>();
-                    entity->AddComponent<SpriteRenderer>(true, "cauldron_red");
+                    entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_red");
+                    cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
                 else if (ingredient->ingredient->name == "LeafIngredient") {
-                    entity->RemoveComponent<SpriteRenderer>();
-                    entity->AddComponent<SpriteRenderer>(true, "cauldron_green");
+                    entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_green");
+                    cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
                 else if (ingredient->ingredient->name == "PurpleQuartzSmashedIngredient") {
-                    entity->RemoveComponent<SpriteRenderer>();
-                    entity->AddComponent<SpriteRenderer>(true, "cauldron_purple");
+                    entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_purple");
+                    cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
-                else if (ingredient->ingredient->name == "WhieQuartzSmashedIngredient") {
-                    entity->RemoveComponent<SpriteRenderer>();
-                    entity->AddComponent<SpriteRenderer>(true, "cauldron_blue");
+                else if (ingredient->ingredient->name == "WhiteQuartzSmashedIngredient") {
+                    entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_blue");
+                    cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
                 else if (ingredient->ingredient->name == "FlowerIngredient") {
-                    entity->RemoveComponent<SpriteRenderer>();
-                    entity->AddComponent<SpriteRenderer>(true, "cauldron_white");
+                    entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_white");
+                    cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
                 else if (ingredient->ingredient->name == "RoseCutIngredient") {
-                    entity->RemoveComponent<SpriteRenderer>();
-                    entity->AddComponent<SpriteRenderer>(true, "cauldron_pink");
+                    entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_pink");
+                    cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
-
+                
+                cauldronSprite->SetLoopRegion(0, 4);
+                    
                 // Increment ingredient counts
                 if (ingredientCounts.count(ingredient->ingredient->name) == 0) {
                     ingredientCounts[ingredient->ingredient->name] = 1;
@@ -183,6 +209,7 @@ void WorkStation::Interact(InteractPayload* payload)
                     ingredientCounts[ingredient->ingredient->name]++;
                 }
 
+                 
                 // Ingredient is dissolved, destroy it
                 SceneManager::Get()->getScene()->Destroy(size_t(ingredient->GetEntityID()));
                 payload->isDestroyed = true;
