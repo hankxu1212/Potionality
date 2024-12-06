@@ -175,7 +175,7 @@ void WorkStation::Interact(InteractPayload* payload)
                 
                 LOG_INFO(ingredient->ingredient->name);
                 
-                if (ingredient->ingredient->name == "MushroomCutIngredient") {
+                if (ingredient->ingredient->name == "MushroomCutIngredient" || ingredient->ingredient->name == "MushroomIngredient") {
                     entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_red");
                     cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
@@ -183,11 +183,11 @@ void WorkStation::Interact(InteractPayload* payload)
                     entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_green");
                     cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
-                else if (ingredient->ingredient->name == "PurpleQuartzSmashedIngredient") {
+                else if (ingredient->ingredient->name == "PurpleQuartzSmashedIngredient" || ingredient->ingredient->name == "PurpleQuartzIngredient") {
                     entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_purple");
                     cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
-                else if (ingredient->ingredient->name == "WhiteQuartzSmashedIngredient") {
+                else if (ingredient->ingredient->name == "WhiteQuartzSmashedIngredient" || ingredient->ingredient->name == "WhiteQuartzIngredient") {
                     entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_blue");
                     cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
@@ -195,7 +195,7 @@ void WorkStation::Interact(InteractPayload* payload)
                     entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_white");
                     cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }
-                else if (ingredient->ingredient->name == "RoseCutIngredient") {
+                else if (ingredient->ingredient->name == "RoseCutIngredient" || ingredient->ingredient->name == "RoseIngredient") {
                     entity->AddComponent<SpritesheetRenderer>(true, "cauldron_spritesheet_pink");
                     cauldronSprite = entity->GetComponent<SpritesheetRenderer>();
                 }

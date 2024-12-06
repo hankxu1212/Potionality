@@ -51,7 +51,7 @@ void Ingredient::Update()
     // If ingredient action states have progressed sufficiently, update ingredient name and action states
     if (ingredient->name.compare("FlowerIngredient") == 0) {
         if (ingredient->actionStates[Action::Cut].progress > 0) {
-            ingredient->name = "FlowerCutIngredient";
+            // ingredient->name = "FlowerCutIngredient";
             ingredient->actionStates[Action::Smash].progress = 0;
             ingredient->actionStates[Action::Eat].progress = 0;
             ingredient->actionStates[Action::Brew].progress = 0;
