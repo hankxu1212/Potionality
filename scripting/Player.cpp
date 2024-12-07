@@ -235,12 +235,13 @@ void Player::OnEatPressed() {
 				m_PoisonEffectTime = m_PoisonEffectTimeMax;
 			}
 			potion->SetHeld(false);
-			potion->SetStored(true);
+			// potion->SetStored(false);
 			SceneManager::Get()->getScene()->Destroy(size_t(m_Held->GetEntityID()));
 			m_Held = nullptr;
 			m_PlayerState = State::Eat;
 			m_InteractCooldown = m_InteractCooldownMax;
 			m_PotionEffectTime = m_PotionEffectTimeMax;
+			LOG_INFO("consumed!");
 		} else {
 			LOG_INFO("Held item is not consumable!");
 		}
